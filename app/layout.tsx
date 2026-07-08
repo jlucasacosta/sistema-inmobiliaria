@@ -4,7 +4,7 @@ import { theme } from "@/shell/theme"
 import { Sidebar } from "@/shell/sidebar"
 
 // Traduce el theme (declarativo) a variables CSS que Tailwind consume.
-const radiusMap = { sharp: "2px", soft: "8px", round: "16px" }
+const radiusMap = { sharp: "6px", soft: "10px", round: "14px" }
 const densityMap = { compact: "12px", comfortable: "20px" }
 
 export const metadata = { title: "Sistema", description: "Demo" }
@@ -19,6 +19,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     "--fg": c.fg,
     "--muted": c.muted,
     "--border": c.border,
+    "--subtle": c.subtle,
     "--radius": radiusMap[theme.radius],
     "--pad": densityMap[theme.density],
     "--font-heading": theme.font.heading + ", system-ui, sans-serif",

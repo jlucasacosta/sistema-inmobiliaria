@@ -4,9 +4,9 @@ import { Building2, BedDouble, Bath, Maximize } from "lucide-react"
 import { getPropiedades, type Propiedad } from "./api"
 
 const estadoBadge: Record<Propiedad["estado"], string> = {
-  disponible: "bg-accent text-bg",
-  reservada: "bg-primary text-bg",
-  vendida: "bg-border text-muted",
+  disponible: "bg-primary text-bg",
+  reservada: "bg-subtle text-accent",
+  vendida: "bg-subtle text-muted",
 }
 
 export function PropiedadesPage() {
@@ -20,15 +20,18 @@ export function PropiedadesPage() {
   const visibles = items.filter((p) => filtro === "todas" || p.operacion === filtro)
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div className="flex items-center justify-between">
         <h1 className="font-heading text-2xl font-semibold">Propiedades</h1>
-        <div className="flex gap-1 rounded border border-border p-1">
+        <div className="flex gap-1 rounded-xl bg-subtle p-1">
           {(["todas", "venta", "alquiler"] as const).map((f) => (
             <button
               key={f}
               onClick={() => setFiltro(f)}
-              className={"rounded px-3 py-1 text-sm capitalize " + (filtro === f ? "bg-primary text-bg" : "text-muted")}
+              className={
+                "rounded-lg px-3 py-1.5 text-sm capitalize transition-colors " +
+                (filtro === f ? "bg-surface font-medium text-primary shadow-sm" : "text-muted hover:text-fg")
+              }
             >
               {f}
             </button>
@@ -36,21 +39,24 @@ export function PropiedadesPage() {
         </div>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {visibles.map((p) => (
-          <div key={p.id} className="overflow-hidden rounded border border-border bg-surface">
-            <div className="flex h-36 items-center justify-center bg-bg">
+          <div
+            key={p.id}
+            className="overflow-hidden rounded-xl bg-surface shadow-card transition-shadow hover:shadow-pop"
+          >
+            <div className="flex h-36 items-center justify-center bg-subtle">
               <Building2 size={40} className="text-muted" />
             </div>
-            <div className="space-y-2 p-4">
+            <div className="space-y-2 p-5">
               <div className="flex items-center justify-between">
-                <span className="rounded bg-primary px-2 py-0.5 text-xs uppercase text-bg">{p.operacion}</span>
-                <span className={"rounded px-2 py-0.5 text-xs " + estadoBadge[p.estado]}>{p.estado}</span>
+                <span className="rounded-full bg-primary px-2.5 py-0.5 text-xs uppercase tracking-wide text-bg">{p.operacion}</span>
+                <span className={"rounded-full px-2.5 py-0.5 text-xs " + estadoBadge[p.estado]}>{p.estado}</span>
               </div>
               <h3 className="font-medium">{p.titulo}</h3>
               <p className="text-sm text-muted">{p.direccion}</p>
               <p className="text-lg font-semibold">{p.precio}</p>
-              <div className="flex gap-4 border-t border-border pt-2 text-xs text-muted">
+              <div className="flex gap-4 border-t border-border pt-3 text-xs text-muted">
                 <span className="flex items-center gap-1"><BedDouble size={14} />{p.ambientes} amb</span>
                 <span className="flex items-center gap-1"><Bath size={14} />{p.banos}</span>
                 <span className="flex items-center gap-1"><Maximize size={14} />{p.m2} m2</span>

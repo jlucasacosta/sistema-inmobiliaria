@@ -3,18 +3,29 @@
 @tailwind utilities;
 
 :root {
-  /* Fallbacks. El layout inyecta los valores reales del theme activo. */
-  --primary: #f97316;
-  --accent: #fb923c;
-  --bg: #0a0a0a;
-  --surface: #171717;
-  --fg: #fafafa;
-  --muted: #a3a3a3;
-  --border: #262626;
-  --radius: 2px;
-  --pad: 12px;
+  /* Fallbacks. El layout inyecta los valores reales del theme activo (Nexo). */
+  --primary: #16324f;
+  --accent: #c98a3a;
+  --bg: #f7f9fc;
+  --surface: #ffffff;
+  --fg: #12212f;
+  --muted: #64748b;
+  --border: #e6eaf0;
+  --subtle: #eef2f7;
+  --radius: 10px;
+  --pad: 16px;
   --font-heading: Inter, system-ui, sans-serif;
   --font-body: Inter, system-ui, sans-serif;
+
+  /* Sistema de elevacion tech (sombras suaves en capas, tono slate) */
+  --shadow-sm: 0 1px 2px rgb(15 23 42 / 0.04), 0 1px 3px rgb(15 23 42 / 0.06);
+  --shadow-card: 0 1px 3px rgb(15 23 42 / 0.06), 0 6px 16px rgb(15 23 42 / 0.05);
+  --shadow-pop: 0 6px 16px rgb(15 23 42 / 0.08), 0 16px 32px rgb(15 23 42 / 0.10);
 }
 
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
 body { font-family: var(--font-body); }
+h1, h2, h3 { letter-spacing: -0.012em; }

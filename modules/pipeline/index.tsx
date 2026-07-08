@@ -12,20 +12,23 @@ export function PipelinePage() {
   }, [])
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <h1 className="font-heading text-2xl font-semibold">Pipeline</h1>
-      <div className="flex gap-4 overflow-x-auto pb-2">
+      <div className="flex gap-5 overflow-x-auto pb-2">
         {etapas.map((e) => {
           const cards = opps.filter((o) => o.etapaId === e.id)
           return (
-            <div key={e.id} className="flex w-64 shrink-0 flex-col rounded border border-border bg-surface">
-              <div className="flex items-center justify-between border-b border-border p-3">
-                <span className="font-medium">{e.nombre}</span>
-                <span className="rounded bg-bg px-2 text-xs text-muted">{cards.length}</span>
+            <div key={e.id} className="flex w-64 shrink-0 flex-col rounded-xl bg-subtle p-3">
+              <div className="flex items-center justify-between px-1 pb-3">
+                <span className="text-sm font-medium">{e.nombre}</span>
+                <span className="rounded-full bg-surface px-2 py-0.5 text-xs text-muted shadow-sm">{cards.length}</span>
               </div>
-              <div className="space-y-2 p-3">
+              <div className="space-y-3">
                 {cards.map((o) => (
-                  <div key={o.id} className="rounded border border-border bg-bg p-3">
+                  <div
+                    key={o.id}
+                    className="rounded-lg bg-surface p-3 shadow-card transition-shadow hover:shadow-pop"
+                  >
                     <p className="text-sm font-medium">{o.cliente}</p>
                     <p className="text-xs text-muted">{o.propiedad}</p>
                     <p className="mt-1 text-sm font-semibold text-accent">{o.valor}</p>

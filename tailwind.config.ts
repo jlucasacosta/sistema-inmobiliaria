@@ -1,7 +1,5 @@
 import type { Config } from "tailwindcss"
 
-// Los colores NO son valores fijos: apuntan a variables CSS que inyecta el theme.
-// Por eso cambiar shell/theme.ts re-tematiza todo sin tocar un solo componente.
 export default {
   content: [
     "./app/**/*.{ts,tsx}",
@@ -18,8 +16,17 @@ export default {
         fg: "var(--fg)",
         muted: "var(--muted)",
         border: "var(--border)",
+        subtle: "var(--subtle)",
       },
-      borderRadius: { DEFAULT: "var(--radius)" },
+      borderRadius: {
+        DEFAULT: "var(--radius)",
+        xl: "calc(var(--radius) + 4px)",
+      },
+      boxShadow: {
+        sm: "var(--shadow-sm)",
+        card: "var(--shadow-card)",
+        pop: "var(--shadow-pop)",
+      },
       fontFamily: {
         heading: "var(--font-heading)",
         body: "var(--font-body)",
