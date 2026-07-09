@@ -1,39 +1,48 @@
 // PATRON MOCK. Misma firma que la query real. Ver BACKEND.md.
+// Arquetipo: TIMELINE. El dato sigue al arquetipo: cada llamada trae HORA y duracion
+// para ubicarse en el eje vertical del dia. La mas reciente arriba.
+import type { Resultado } from "@/shell/cartera"
+
 export type Llamada = {
   id: string
+  hora: string // HH:MM del dia de hoy
   contacto: string
-  fecha: string
-  duracion: string
-  resultado: "agendada" | "seguimiento" | "sin respuesta" | "cancelada"
-  resumen: string
+  telefono: string
+  propiedad: string
+  duracionSeg: number
+  resultado: Resultado
+  nextStep: string
 }
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
+// Ordenadas de mas reciente (arriba) a mas antigua. Todas de HOY.
+const data: Llamada[] = [
+  { id: "l01", hora: "17:42", contacto: "Valentina Cabrera", telefono: "+598 94 217 663", propiedad: "Apto 2 dorm · Pocitos", duracionSeg: 272, resultado: "agendada", nextStep: "Firma de sena el jueves 10:00" },
+  { id: "l02", hora: "17:15", contacto: "Bruno Machado", telefono: "+598 98 210 476", propiedad: "Local · Ciudad Vieja", duracionSeg: 96, resultado: "descartado", nextStep: "Eligio otra ubicacion, cerrar" },
+  { id: "l03", hora: "16:50", contacto: "Sofia Nunez", telefono: "+598 91 302 774", propiedad: "Penthouse · Punta Carretas", duracionSeg: 365, resultado: "interesado", nextStep: "Enviar ficha y coordinar 2da visita" },
+  { id: "l04", hora: "16:20", contacto: "Gonzalo Barrios", telefono: "+598 99 512 038", propiedad: "Apto 3 dorm · Buceo", duracionSeg: 0, resultado: "sin respuesta", nextStep: "Reintentar manana temprano" },
+  { id: "l05", hora: "15:58", contacto: "Camila Rossi", telefono: "+598 95 401 882", propiedad: "Apto 3 dorm · Punta Carretas", duracionSeg: 418, resultado: "agendada", nextStep: "Revisar boleto de reserva" },
+  { id: "l06", hora: "15:30", contacto: "Federico Bala", telefono: "+598 93 220 596", propiedad: "PH 2 dorm · Malvin", duracionSeg: 187, resultado: "interesado", nextStep: "Mandar planos por mail" },
+  { id: "l07", hora: "15:05", contacto: "Martina Sena", telefono: "+598 94 852 703", propiedad: "Apto 1 dorm · Parque Rodo", duracionSeg: 243, resultado: "interesado", nextStep: "Derivar a asesor de credito" },
+  { id: "l08", hora: "14:40", contacto: "Ramiro Techera", telefono: "+598 92 660 471", propiedad: "Terreno · Escobar", duracionSeg: 54, resultado: "descartado", nextStep: "Fuera de presupuesto" },
+  { id: "l09", hora: "14:12", contacto: "Lucia Ferrari", telefono: "+598 92 618 447", propiedad: "Duplex 3 dorm · Malvin", duracionSeg: 201, resultado: "agendada", nextStep: "Visita el sabado 11:00" },
+  { id: "l10", hora: "13:48", contacto: "Diego Pereyra", telefono: "+598 97 733 158", propiedad: "Chalet 5 dorm · Punta del Este", duracionSeg: 512, resultado: "interesado", nextStep: "Espera contraoferta del vendedor" },
+  { id: "l11", hora: "13:20", contacto: "Renata Delgado", telefono: "+598 96 704 285", propiedad: "Apto 3 dorm · Punta Carretas", duracionSeg: 298, resultado: "interesado", nextStep: "Decide en la semana" },
+  { id: "l12", hora: "12:55", contacto: "Ignacio Bentancor", telefono: "+598 95 137 648", propiedad: "Apto 3 dorm · Punta Carretas", duracionSeg: 176, resultado: "interesado", nextStep: "Presentar oferta al propietario" },
+  { id: "l13", hora: "12:30", contacto: "Paula Iglesias", telefono: "+598 91 776 508", propiedad: "Casa 4 dorm · Punta del Este", duracionSeg: 331, resultado: "agendada", nextStep: "Confirmar reserva de temporada" },
+  { id: "l14", hora: "12:02", contacto: "Emilia Sosa", telefono: "+598 98 903 217", propiedad: "Apto 2 dorm · Cordon", duracionSeg: 0, resultado: "sin respuesta", nextStep: "Dejo mensaje de voz" },
+  { id: "l15", hora: "11:38", contacto: "Joaquin Silveira", telefono: "+598 98 449 127", propiedad: "Casa 3 dorm · Carrasco", duracionSeg: 254, resultado: "interesado", nextStep: "Negociando 470k" },
+  { id: "l16", hora: "11:10", contacto: "Carolina Techera", telefono: "+598 99 331 720", propiedad: "Apto 2 dorm · Malvin", duracionSeg: 143, resultado: "agendada", nextStep: "Visita el viernes 16:00" },
+  { id: "l17", hora: "10:44", contacto: "Sebastian Lorenzo", telefono: "+598 99 482 150", propiedad: "Apto 2 dorm · Pocitos", duracionSeg: 88, resultado: "descartado", nextStep: "Ya compro por otra via" },
+  { id: "l18", hora: "10:18", contacto: "Agustina Vidal", telefono: "+598 96 118 340", propiedad: "Apto 2 dorm · Pocitos", duracionSeg: 377, resultado: "agendada", nextStep: "Sena aceptada, coordinar escribania" },
+  { id: "l19", hora: "09:52", contacto: "Nicolas Ackermann", telefono: "+598 99 067 215", propiedad: "Terreno · Punta Carretas", duracionSeg: 226, resultado: "interesado", nextStep: "Evalua permuta, pedir tasacion" },
+  { id: "l20", hora: "09:30", contacto: "Florencia Piriz", telefono: "+598 91 855 209", propiedad: "Monoambiente · Buceo", duracionSeg: 164, resultado: "interesado", nextStep: "Busca renta, enviar numeros" },
+  { id: "l21", hora: "09:08", contacto: "Marcos Duarte", telefono: "+598 94 730 915", propiedad: "Apto 2 dorm · Centro", duracionSeg: 0, resultado: "sin respuesta", nextStep: "Reintentar al mediodia" },
+  { id: "l22", hora: "08:45", contacto: "Gaston Prieto", telefono: "+598 92 558 913", propiedad: "PH · Parque Rodo", duracionSeg: 209, resultado: "interesado", nextStep: "Oferta sujeta a venta de su depto" },
+]
+
 export async function getLlamadas(): Promise<Llamada[]> {
   await sleep(300)
-  return [
-    { id: "1", contacto: "Martina Rios", fecha: "Hoy 14:10", duracion: "4:32", resultado: "agendada", resumen: "Interesada en el 2 ambientes de Villa Crespo. Coordina visita para el sabado a las 11." },
-    { id: "2", contacto: "Jorge Perez", fecha: "Hoy 11:05", duracion: "2:18", resultado: "seguimiento", resumen: "Consulta si la casa de Caballito acepta financiacion. Presupuesto hasta USD 260.000." },
-    { id: "3", contacto: "Camila Sosa", fecha: "Hoy 10:22", duracion: "6:05", resultado: "agendada", resumen: "Busca 3 ambientes en Palermo. Agenda visita para el jueves y pide ficha tecnica." },
-    { id: "4", contacto: "Diego Torres", fecha: "Ayer 17:40", duracion: "3:47", resultado: "seguimiento", resumen: "Oferto por el PH de Belgrano. Espera respuesta del propietario esta semana." },
-    { id: "5", contacto: "Pablo Vega", fecha: "Ayer 16:15", duracion: "0:38", resultado: "cancelada", resumen: "Cancela la visita al depto de San Isidro. Frena la busqueda por unos meses." },
-    { id: "6", contacto: "Lucia Mendez", fecha: "Ayer 15:03", duracion: "5:12", resultado: "agendada", resumen: "Confirma visita a la casa de Nordelta el domingo al mediodia con su pareja." },
-    { id: "7", contacto: "Sofia Luna", fecha: "Ayer 12:47", duracion: "7:24", resultado: "seguimiento", resumen: "Avanza con la sena del monoambiente de Caballito. Coordina firma con la escribania." },
-    { id: "8", contacto: "Matias Aguirre", fecha: "Ayer 11:31", duracion: "0:00", resultado: "sin respuesta", resumen: "No atiende. Se deja mensaje por el local de Almagro y se reprograma el llamado." },
-    { id: "9", contacto: "Valentina Cruz", fecha: "Ayer 10:08", duracion: "3:19", resultado: "seguimiento", resumen: "Pide fotos del 2 amb en Rosario centro y disponibilidad para visita de tarde." },
-    { id: "10", contacto: "Nicolas Ferreyra", fecha: "Lun 18:22", duracion: "4:56", resultado: "agendada", resumen: "Agenda visita al duplex de Nueva Cordoba para el martes a las 17." },
-    { id: "11", contacto: "Agustina Molina", fecha: "Lun 16:40", duracion: "1:12", resultado: "cancelada", resumen: "Da de baja la busqueda del PH de Boedo. Consiguio propiedad por otra via." },
-    { id: "12", contacto: "Federico Ramos", fecha: "Lun 15:05", duracion: "5:48", resultado: "seguimiento", resumen: "Analiza la casa de Chacras de Coria. Pide tasacion de su depto para permuta." },
-    { id: "13", contacto: "Carla Benitez", fecha: "Lun 12:33", duracion: "2:41", resultado: "agendada", resumen: "Coordina visita al 3 amb de Nunez para el miercoles a las 10." },
-    { id: "14", contacto: "Gonzalo Herrera", fecha: "Lun 11:19", duracion: "0:00", resultado: "sin respuesta", resumen: "Buzon de voz. Se envia info de la oficina en Nueva Cordoba por WhatsApp." },
-    { id: "15", contacto: "Julieta Castro", fecha: "Vie 17:52", duracion: "6:33", resultado: "agendada", resumen: "Confirma visita al 2 amb de Pichincha. Muy interesada, quiere reservar." },
-    { id: "16", contacto: "Ramiro Silva", fecha: "Vie 16:10", duracion: "0:45", resultado: "cancelada", resumen: "Cancela interes por el terreno de Escobar. El precio quedo fuera de presupuesto." },
-    { id: "17", contacto: "Florencia Diaz", fecha: "Vie 14:27", duracion: "3:58", resultado: "seguimiento", resumen: "Consulta expensas del depto de Godoy Cruz. Pide comparativa con otra unidad." },
-    { id: "18", contacto: "Sebastian Ortiz", fecha: "Vie 12:14", duracion: "4:11", resultado: "agendada", resumen: "Agenda segunda visita a la casa de San Fernando con un arquitecto." },
-    { id: "19", contacto: "Belen Acosta", fecha: "Vie 10:39", duracion: "5:27", resultado: "seguimiento", resumen: "Negocia el alquiler del 2 amb de Colegiales. Solicita revisar la garantia." },
-    { id: "20", contacto: "Tomas Gimenez", fecha: "Jue 18:05", duracion: "0:00", resultado: "sin respuesta", resumen: "No contesta. Se reintenta manana por el PH de Alta Cordoba." },
-    { id: "21", contacto: "Rocio Medina", fecha: "Jue 16:48", duracion: "7:02", resultado: "agendada", resumen: "Cierra fecha de escritura del 4 amb de Recoleta. Coordina con la escribania." },
-    { id: "22", contacto: "Franco Dominguez", fecha: "Jue 15:20", duracion: "4:44", resultado: "seguimiento", resumen: "Revisa la oferta por la casa de Pilar. Espera contraoferta del vendedor." },
-  ]
+  return data
 }

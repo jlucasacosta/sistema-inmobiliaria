@@ -1,94 +1,94 @@
 "use client"
 import { useEffect, useState } from "react"
-import { getThreads, getMessages, type Thread, type Message } from "./api"
+import { getTickets, type Ticket } from "./api"
+import { barraDeLead, chipDeLead, chipDeProp, precioLargo, type EstadoLead } from "@/shell/cartera"
 
-// Mapas literales: Tailwind necesita ver la clase completa en el fuente.
-const avatar: Record<Thread["estado"], string> = {
-  activa: "bg-success/15 text-success",
-  nueva: "bg-info/15 text-info",
-  "en espera": "bg-warning/15 text-warning",
-  cerrada: "bg-danger/15 text-danger",
+// Arquetipo: LISTA-TICKET. La pantalla que MANDA. Bandeja densa, no burbujas grandes.
+// Cada ticket: barra de color del lead a la izquierda, nombre, ultimo mensaje (1 linea),
+// propiedad consultada con precio en Fraunces y badge cuadrado de estado de la propiedad.
+
+const filtros: Array<EstadoLead | "todos"> = ["todos", "caliente", "nuevo", "frio"]
+
+function Metrica({ label, valor, sub }: { label: string; valor: string; sub: string }) {
+  return (
+    <div className="flex flex-col">
+      <span className="text-[10px] uppercase tracking-widest text-muted">{label}</span>
+      <span className="precio text-2xl font-bold text-fg">{valor}</span>
+      <span className="text-[11px] text-muted">{sub}</span>
+    </div>
+  )
 }
 
-const iniciales = (n: string) =>
-  n
-    .split(" ")
-    .slice(0, 2)
-    .map((p) => p[0])
-    .join("")
-
 export function ConversacionesPage() {
-  const [threads, setThreads] = useState<Thread[]>([])
-  const [active, setActive] = useState<string | null>(null)
-  const [msgs, setMsgs] = useState<Message[]>([])
+  const [rows, setRows] = useState<Ticket[]>([])
+  const [filtro, setFiltro] = useState<EstadoLead | "todos">("todos")
 
   useEffect(() => {
-    getThreads().then((t) => {
-      setThreads(t)
-      setActive(t[0]?.id ?? null)
-    })
+    getTickets().then(setRows)
   }, [])
 
-  useEffect(() => {
-    if (active) getMessages(active).then(setMsgs)
-  }, [active])
+  const visibles = filtro === "todos" ? rows : rows.filter((t) => t.estadoLead === filtro)
+  const sinLeer = rows.reduce((a, t) => a + t.sinLeer, 0)
+  const calientes = rows.filter((t) => t.estadoLead === "caliente").length
 
   return (
-    <div className="flex h-[calc(100vh-2*var(--pad))] gap-5">
-      <div className="w-72 shrink-0 overflow-y-auto rounded-xl bg-surface p-2 shadow-card">
-        {threads.map((t) => (
+    <div className="space-y-5">
+      <header className="surface-card flex flex-wrap items-center justify-between gap-6 p-5">
+        <div>
+          <h1 className="font-heading text-2xl font-bold tracking-tight">Consultas</h1>
+          <p className="text-xs text-muted">Bandeja de entrada · cada consulta es plata caminando</p>
+        </div>
+        <div className="flex flex-wrap gap-8">
+          <Metrica label="Abiertas" valor={String(rows.length)} sub="consultas" />
+          <Metrica label="Sin leer" valor={String(sinLeer)} sub="mensajes" />
+          <Metrica label="Calientes" valor={String(calientes)} sub="responder ya" />
+        </div>
+      </header>
+
+      <div className="flex flex-wrap gap-2">
+        {filtros.map((f) => (
           <button
-            key={t.id}
-            onClick={() => setActive(t.id)}
-            className={
-              "flex w-full items-start gap-3 rounded-lg p-3 text-left transition-colors " +
-              (active === t.id ? "bg-subtle" : "hover:bg-subtle")
-            }
+            key={f}
+            onClick={() => setFiltro(f)}
+            className={"chip capitalize transition-colors " + (filtro === f ? "bg-primary text-bg" : "bg-subtle text-muted hover:text-fg")}
           >
-            <span
-              className={
-                "flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-semibold " +
-                avatar[t.estado]
-              }
-            >
-              {iniciales(t.name)}
-            </span>
-            <div className="min-w-0 flex-1">
-              <p className="truncate font-medium">{t.name}</p>
-              <p className="truncate text-sm text-muted">{t.last}</p>
-            </div>
-            <div className="flex flex-col items-end gap-1">
-              <span className="text-xs text-muted">{t.time}</span>
-              {t.unread > 0 && (
-                <span className="rounded-full bg-primary px-2 py-0.5 text-xs font-medium text-surface">{t.unread}</span>
-              )}
-            </div>
+            {f}
           </button>
         ))}
       </div>
 
-      <div className="flex flex-1 flex-col overflow-hidden rounded-xl bg-surface shadow-card">
-        <div className="flex-1 space-y-3 overflow-y-auto p-6">
-          {msgs.map((m) => (
-            <div
-              key={m.id}
-              className={
-                "max-w-[70%] rounded-xl px-3 py-2 text-sm " +
-                (m.from === "vos" ? "ml-auto bg-primary text-surface" : "bg-subtle")
-              }
-            >
-              {m.text}
-              <span className="mt-1 block text-xs opacity-60">{m.time}</span>
-            </div>
-          ))}
-        </div>
-        <div className="border-t border-border p-4">
-          <input
-            placeholder="Escribi un mensaje..."
-            className="w-full rounded-lg bg-subtle px-3 py-2 text-sm outline-none transition-shadow focus:shadow-sm"
-          />
-        </div>
-      </div>
+      <ul className="surface-card divide-y divide-border p-0">
+        {visibles.map((t) => (
+          <li key={t.id}>
+            <button className="flex w-full items-stretch gap-3 px-3 py-3 text-left transition-colors hover:bg-subtle">
+              {/* color del lead, lo que se mira de reojo */}
+              <span className={"w-1 shrink-0 rounded-full " + barraDeLead[t.estadoLead]} />
+              <div className="min-w-0 flex-1">
+                <div className="flex items-baseline justify-between gap-2">
+                  <span className="flex items-center gap-2 truncate">
+                    <span className="truncate text-sm font-semibold">{t.contacto}</span>
+                    <span className={"chip " + chipDeLead[t.estadoLead]}>{t.estadoLead}</span>
+                  </span>
+                  <span className="shrink-0 text-[11px] text-muted">{t.cuando}</span>
+                </div>
+                <p className="mt-0.5 truncate text-[13px] text-muted">{t.ultimo}</p>
+                <div className="mt-1 flex items-center gap-2">
+                  <span className="truncate text-[11px] text-muted">{t.propiedad}</span>
+                  <span className={"chip shrink-0 " + chipDeProp[t.estadoProp]}>{t.estadoProp}</span>
+                </div>
+              </div>
+              <div className="flex flex-col items-end justify-between">
+                <span className="precio text-base font-bold text-fg">{precioLargo(t.precio)}</span>
+                {t.sinLeer > 0 && (
+                  <span className="mt-1 flex h-5 min-w-5 items-center justify-center rounded-[var(--radius)] bg-accent px-1.5 text-[11px] font-bold text-bg">
+                    {t.sinLeer}
+                  </span>
+                )}
+              </div>
+            </button>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }

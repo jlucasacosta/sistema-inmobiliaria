@@ -1,47 +1,56 @@
-// PATRON MOCK. Misma firma que la query real. Reetiquetado para inmobiliaria.
-export type Contact = {
+// PATRON MOCK. Misma firma que la query real. Ver BACKEND.md.
+// Arquetipo: TABLA-DENSA (ledger). El dato sigue al arquetipo: columnas planas y
+// comparables. Emails de patron VARIADO y dominios ficticios (nunca de terceros
+// reales). Marca ficticia Nexo Propiedades, mercado Montevideo.
+import type { EstadoLead } from "@/shell/cartera"
+
+export type Contacto = {
   id: string
-  name: string
-  phone: string
+  nombre: string
+  estado: EstadoLead
+  telefono: string
   email: string
+  ultima: string
   interes: string
-  status: "activo" | "nuevo" | "en seguimiento" | "perdido"
+  presupuesto: number // U$S
 }
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
-export async function getContacts(): Promise<Contact[]> {
+const data: Contacto[] = [
+  { id: "c01", nombre: "Valentina Cabrera", estado: "caliente", telefono: "+598 94 217 663", email: "vcabrera@mail.com", ultima: "hace 2 h", interes: "Apto 2 dorm · Pocitos", presupuesto: 280000 },
+  { id: "c02", nombre: "Rodrigo Methol", estado: "caliente", telefono: "+598 99 845 012", email: "rodrigo.methol@ejemplo.com", ultima: "hace 5 h", interes: "Casa 3 dorm · Carrasco", presupuesto: 540000 },
+  { id: "c03", nombre: "Sofia Nunez", estado: "nuevo", telefono: "+598 91 302 774", email: "sofinunez@correo.com", ultima: "ayer", interes: "Penthouse · Punta Carretas", presupuesto: 650000 },
+  { id: "c04", nombre: "Matias Olivera", estado: "frio", telefono: "+598 98 551 209", email: "m.olivera@mailbox.com", ultima: "hace 9 d", interes: "Apto 3 dorm · Buceo", presupuesto: 320000 },
+  { id: "c05", nombre: "Lucia Ferrari", estado: "nuevo", telefono: "+598 92 618 447", email: "lucia_ferrari@mail.com", ultima: "hace 20 min", interes: "Duplex · Malvin", presupuesto: 250000 },
+  { id: "c06", nombre: "Diego Pereyra", estado: "caliente", telefono: "+598 97 733 158", email: "dpereyra@ejemplo.com", ultima: "hace 3 h", interes: "Chalet · Punta del Este", presupuesto: 1200000 },
+  { id: "c07", nombre: "Camila Rossi", estado: "caliente", telefono: "+598 95 401 882", email: "camila.rossi@correo.com", ultima: "hace 6 h", interes: "Apto 3 dorm · Punta Carretas", presupuesto: 470000 },
+  { id: "c08", nombre: "Federico Bala", estado: "nuevo", telefono: "+598 93 220 596", email: "fbala@mailbox.com", ultima: "ayer", interes: "PH 2 dorm · Malvin", presupuesto: 230000 },
+  { id: "c09", nombre: "Agustina Vidal", estado: "caliente", telefono: "+598 96 118 340", email: "agus.vidal@mail.com", ultima: "hace 8 h", interes: "Apto 2 dorm · Pocitos", presupuesto: 300000 },
+  { id: "c10", nombre: "Nicolas Ackermann", estado: "frio", telefono: "+598 99 067 215", email: "n.ackermann@ejemplo.com", ultima: "hace 12 d", interes: "Terreno · Punta Carretas", presupuesto: 450000 },
+  { id: "c11", nombre: "Martina Sena", estado: "nuevo", telefono: "+598 94 852 703", email: "martina.sena@correo.com", ultima: "hace 12 h", interes: "Apto 1 dorm · Parque Rodo", presupuesto: 145000 },
+  { id: "c12", nombre: "Joaquin Silveira", estado: "caliente", telefono: "+598 98 449 127", email: "jsilveira@nexopropiedades.com", ultima: "hace 4 h", interes: "Casa · Carrasco", presupuesto: 500000 },
+  { id: "c13", nombre: "Paula Iglesias", estado: "caliente", telefono: "+598 91 776 508", email: "paula_iglesias@mail.com", ultima: "ayer", interes: "Casa 4 dorm · Punta del Este", presupuesto: 730000 },
+  { id: "c14", nombre: "Emiliano Vazquez", estado: "frio", telefono: "+598 95 903 664", email: "evazquez@mailbox.com", ultima: "hace 18 d", interes: "Apto 2 dorm · Cordon", presupuesto: 200000 },
+  { id: "c15", nombre: "Carolina Techera", estado: "nuevo", telefono: "+598 99 331 720", email: "carolina.techera@ejemplo.com", ultima: "hace 40 min", interes: "Apto 2 dorm · Malvin", presupuesto: 210000 },
+  { id: "c16", nombre: "Gaston Prieto", estado: "caliente", telefono: "+598 92 558 913", email: "gprieto@correo.com", ultima: "hace 7 h", interes: "PH · Parque Rodo", presupuesto: 195000 },
+  { id: "c17", nombre: "Renata Delgado", estado: "caliente", telefono: "+598 96 704 285", email: "renata.delgado@mail.com", ultima: "ayer", interes: "Apto 3 dorm · Punta Carretas", presupuesto: 380000 },
+  { id: "c18", nombre: "Bruno Machado", estado: "frio", telefono: "+598 98 210 476", email: "bmachado@mailbox.com", ultima: "hace 15 d", interes: "Local · Ciudad Vieja", presupuesto: 160000 },
+  { id: "c19", nombre: "Antonella Ramos", estado: "frio", telefono: "+598 94 619 037", email: "antonella.ramos@ejemplo.com", ultima: "hace 22 d", interes: "Casa · La Blanqueada", presupuesto: 175000 },
+  { id: "c20", nombre: "Sebastian Lorenzo", estado: "frio", telefono: "+598 99 482 150", email: "s.lorenzo@correo.com", ultima: "hace 30 d", interes: "Apto 2 dorm · Pocitos", presupuesto: 260000 },
+  { id: "c21", nombre: "Florencia Piriz", estado: "nuevo", telefono: "+598 91 855 209", email: "flor.piriz@mail.com", ultima: "hace 5 h", interes: "Monoambiente · Buceo", presupuesto: 150000 },
+  { id: "c22", nombre: "Ignacio Bentancor", estado: "caliente", telefono: "+598 95 137 648", email: "ibentancor@nexopropiedades.com", ultima: "hace 9 h", interes: "Apto 3 dorm · Punta Carretas", presupuesto: 460000 },
+  { id: "c23", nombre: "Daniela Fonseca", estado: "nuevo", telefono: "+598 93 940 176", email: "daniela_fonseca@ejemplo.com", ultima: "hace 1 h", interes: "Apto 2 dorm · Cordon", presupuesto: 205000 },
+  { id: "c24", nombre: "Marcos Duarte", estado: "frio", telefono: "+598 94 730 915", email: "mduarte@mailbox.com", ultima: "hace 11 d", interes: "Apto 2 dorm · Centro", presupuesto: 130000 },
+  { id: "c25", nombre: "Carla Bentos", estado: "nuevo", telefono: "+598 92 461 803", email: "carla.bentos@correo.com", ultima: "hace 3 h", interes: "PH 2 dorm · Malvin", presupuesto: 225000 },
+  { id: "c26", nombre: "Gonzalo Barrios", estado: "caliente", telefono: "+598 99 512 038", email: "gbarrios@mail.com", ultima: "hace 6 h", interes: "Apto 3 dorm · Buceo", presupuesto: 315000 },
+  { id: "c27", nombre: "Emilia Sosa", estado: "nuevo", telefono: "+598 98 903 217", email: "emilia.sosa@ejemplo.com", ultima: "hace 2 h", interes: "Apto 2 dorm · Cordon", presupuesto: 198000 },
+  { id: "c28", nombre: "Ramiro Techera", estado: "frio", telefono: "+598 92 660 471", email: "rtechera@mailbox.com", ultima: "hace 26 d", interes: "Terreno · Escobar", presupuesto: 95000 },
+  { id: "c29", nombre: "Julieta Cardozo", estado: "caliente", telefono: "+598 96 384 902", email: "julieta.cardozo@correo.com", ultima: "hace 4 h", interes: "Apto 3 dorm · Pocitos", presupuesto: 340000 },
+  { id: "c30", nombre: "Hernan Fagundez", estado: "nuevo", telefono: "+598 94 108 557", email: "hfagundez@mail.com", ultima: "hace 7 h", interes: "Casa 3 dorm · Carrasco", presupuesto: 490000 },
+]
+
+export async function getContactos(): Promise<Contacto[]> {
   await sleep(300)
-  return [
-    { id: "1", name: "Martina Rios", phone: "+54 9 11 4783-2610", email: "martina.rios@gmail.com", interes: "2 amb Villa Crespo", status: "activo" },
-    { id: "2", name: "Jorge Perez", phone: "+54 9 11 5390-7124", email: "jperez@outlook.com", interes: "Casa Caballito", status: "nuevo" },
-    { id: "3", name: "Camila Sosa", phone: "+54 9 341 618-4472", email: "sosa.camila@hotmail.com", interes: "3 amb Palermo", status: "en seguimiento" },
-    { id: "4", name: "Diego Torres", phone: "+54 9 11 6027-3391", email: "diego.torres@gmail.com", interes: "PH Belgrano", status: "activo" },
-    { id: "5", name: "Lucia Mendez", phone: "+54 9 351 274-8830", email: "lu.mendez90@gmail.com", interes: "Casa Nordelta", status: "nuevo" },
-    { id: "6", name: "Pablo Vega", phone: "+54 9 261 439-5502", email: "pablo_vega@yahoo.com", interes: "Depto San Isidro", status: "perdido" },
-    { id: "7", name: "Sofia Luna", phone: "+54 9 11 4915-6273", email: "sluna77@hotmail.com", interes: "Monoamb Caballito", status: "activo" },
-    { id: "8", name: "Matias Aguirre", phone: "+54 9 11 3628-9014", email: "matias.aguirre@nexopropiedades.com", interes: "Local Almagro", status: "en seguimiento" },
-    { id: "9", name: "Valentina Cruz", phone: "+54 9 341 507-2298", email: "cruz.valentina@hotmail.com", interes: "2 amb Rosario centro", status: "nuevo" },
-    { id: "10", name: "Nicolas Ferreyra", phone: "+54 9 351 690-1145", email: "nferreyra@outlook.com", interes: "Duplex Cordoba", status: "activo" },
-    { id: "11", name: "Agustina Molina", phone: "+54 9 11 5183-4076", email: "agustina_molina@yahoo.com", interes: "PH Boedo", status: "perdido" },
-    { id: "12", name: "Federico Ramos", phone: "+54 9 261 812-3367", email: "fede.ramos90@gmail.com", interes: "Casa Chacras", status: "activo" },
-    { id: "13", name: "Carla Benitez", phone: "+54 9 11 4471-8829", email: "carla.benitez@gmail.com", interes: "3 amb Nunez", status: "nuevo" },
-    { id: "14", name: "Gonzalo Herrera", phone: "+54 9 351 356-7710", email: "gherrera77@hotmail.com", interes: "Oficina Nueva Cordoba", status: "en seguimiento" },
-    { id: "15", name: "Julieta Castro", phone: "+54 9 341 229-6653", email: "castro.julieta@hotmail.com", interes: "2 amb Pichincha", status: "activo" },
-    { id: "16", name: "Ramiro Silva", phone: "+54 9 11 6704-2218", email: "rsilva@outlook.com", interes: "Terreno Escobar", status: "perdido" },
-    { id: "17", name: "Florencia Diaz", phone: "+54 9 261 548-9074", email: "flor_diaz@yahoo.com", interes: "Depto Godoy Cruz", status: "nuevo" },
-    { id: "18", name: "Sebastian Ortiz", phone: "+54 9 11 3915-6640", email: "sebastian.ortiz@gmail.com", interes: "Casa San Fernando", status: "activo" },
-    { id: "19", name: "Micaela Romero", phone: "+54 9 341 703-1182", email: "mica.romero90@gmail.com", interes: "Loft Rosario norte", status: "en seguimiento" },
-    { id: "20", name: "Tomas Gimenez", phone: "+54 9 351 462-8895", email: "tgimenez@outlook.com", interes: "PH Alta Cordoba", status: "nuevo" },
-    { id: "21", name: "Belen Acosta", phone: "+54 9 11 5240-7318", email: "acosta.belen@hotmail.com", interes: "2 amb Colegiales", status: "activo" },
-    { id: "22", name: "Ezequiel Paz", phone: "+54 9 261 371-4429", email: "ezequiel_paz@yahoo.com", interes: "Casa Lujan de Cuyo", status: "perdido" },
-    { id: "23", name: "Rocio Medina", phone: "+54 9 11 4082-5567", email: "rocio.medina@nexopropiedades.com", interes: "4 amb Recoleta", status: "activo" },
-    { id: "24", name: "Ignacio Suarez", phone: "+54 9 341 815-2203", email: "isuarez77@hotmail.com", interes: "Deposito Rosario sur", status: "en seguimiento" },
-    { id: "25", name: "Antonella Ruiz", phone: "+54 9 351 528-6691", email: "antonella.ruiz@nexopropiedades.com", interes: "Depto Cerro", status: "nuevo" },
-    { id: "26", name: "Franco Dominguez", phone: "+54 9 11 6359-4470", email: "fdominguez@outlook.com", interes: "Casa Pilar", status: "activo" },
-    { id: "27", name: "Paula Navarro", phone: "+54 9 261 604-7783", email: "paula_navarro@yahoo.com", interes: "Monoamb Ciudad", status: "perdido" },
-    { id: "28", name: "Leandro Vera", phone: "+54 9 11 3746-9925", email: "leandro.vera@nexopropiedades.com", interes: "3 amb Saavedra", status: "activo" },
-    { id: "29", name: "Daniela Campos", phone: "+54 9 341 490-3316", email: "dani.campos90@gmail.com", interes: "PH Echesortu", status: "nuevo" },
-    { id: "30", name: "Hernan Gil", phone: "+54 9 351 217-8804", email: "hernan.gil@hotmail.com", interes: "Casa Villa Allende", status: "en seguimiento" },
-  ]
+  return data
 }

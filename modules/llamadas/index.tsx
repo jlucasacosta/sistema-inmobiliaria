@@ -1,23 +1,28 @@
 "use client"
 import { useEffect, useState } from "react"
-import { Phone, Clock, Sparkles } from "lucide-react"
+import { PhoneCall, PhoneOff, ArrowRight } from "lucide-react"
 import { getLlamadas, type Llamada } from "./api"
+import { chipDeResultado, puntoDeResultado } from "@/shell/cartera"
 
-// Mapas literales: Tailwind necesita ver la clase completa en el fuente.
-const badge: Record<Llamada["resultado"], string> = {
-  agendada: "bg-success/15 text-success",
-  seguimiento: "bg-info/15 text-info",
-  "sin respuesta": "bg-warning/15 text-warning",
-  cancelada: "bg-danger/15 text-danger",
+// Arquetipo: TIMELINE. Eje vertical con las llamadas del dia; la mas reciente arriba.
+// Hora + duracion + resultado (chip de color) + next-step.
+
+function mmss(seg: number): string {
+  if (seg <= 0) return "—"
+  const m = Math.floor(seg / 60)
+  const s = seg % 60
+  return `${m}:${String(s).padStart(2, "0")}`
 }
-const avatar: Record<Llamada["resultado"], string> = badge
 
-const iniciales = (n: string) =>
-  n
-    .split(" ")
-    .slice(0, 2)
-    .map((p) => p[0])
-    .join("")
+function Metrica({ label, valor, sub }: { label: string; valor: string; sub: string }) {
+  return (
+    <div className="flex flex-col">
+      <span className="text-[10px] uppercase tracking-widest text-muted">{label}</span>
+      <span className="precio text-2xl font-bold text-fg">{valor}</span>
+      <span className="text-[11px] text-muted">{sub}</span>
+    </div>
+  )
+}
 
 export function LlamadasPage() {
   const [rows, setRows] = useState<Llamada[]>([])
@@ -25,38 +30,57 @@ export function LlamadasPage() {
     getLlamadas().then(setRows)
   }, [])
 
+  const totalSeg = rows.reduce((a, l) => a + l.duracionSeg, 0)
+  const agendadas = rows.filter((l) => l.resultado === "agendada").length
+  const horas = Math.floor(totalSeg / 3600)
+  const mins = Math.round((totalSeg % 3600) / 60)
+
   return (
-    <div className="space-y-8">
-      <h1 className="font-heading text-2xl font-semibold">Llamadas</h1>
-      <div className="space-y-4">
-        {rows.map((l) => (
-          <div key={l.id} className="rounded-xl bg-surface p-5 shadow-card transition-shadow hover:shadow-pop">
-            <div className="flex items-center justify-between">
-              <span className="flex items-center gap-3 font-medium">
-                <span
-                  className={
-                    "flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-semibold " +
-                    avatar[l.resultado]
-                  }
-                >
-                  {iniciales(l.contacto)}
-                </span>
-                {l.contacto}
-              </span>
-              <span className="flex items-center gap-3 text-xs text-muted">
-                <span className={"whitespace-nowrap rounded-full px-2.5 py-0.5 " + badge[l.resultado]}>{l.resultado}</span>
-                <span>{l.fecha}</span>
-                <span className="flex items-center gap-1"><Clock size={14} />{l.duracion}</span>
-                <Phone size={14} />
-              </span>
-            </div>
-            <div className="mt-3 flex items-start gap-2 rounded-lg bg-subtle p-3">
-              <Sparkles size={14} className="mt-0.5 shrink-0 text-accent" />
-              <p className="text-sm text-muted">{l.resumen}</p>
-            </div>
-          </div>
-        ))}
-      </div>
+    <div className="space-y-5">
+      <header className="surface-card flex flex-wrap items-center justify-between gap-6 p-5">
+        <div>
+          <h1 className="font-heading text-2xl font-bold tracking-tight">Llamadas de hoy</h1>
+          <p className="text-xs text-muted">Registro cronologico del dia</p>
+        </div>
+        <div className="flex flex-wrap gap-8">
+          <Metrica label="Llamadas" valor={String(rows.length)} sub="hoy" />
+          <Metrica label="En linea" valor={`${horas}h ${mins}m`} sub="tiempo total" />
+          <Metrica label="Agendadas" valor={String(agendadas)} sub="visitas nuevas" />
+        </div>
+      </header>
+
+      <section className="surface-card p-6">
+        <ol className="relative ml-24 space-y-5 border-l border-border">
+          {rows.map((l) => {
+            const perdida = l.duracionSeg === 0
+            return (
+              <li key={l.id} className="relative pl-6">
+                {/* hora a la izquierda del eje */}
+                <span className="absolute -left-24 top-0 w-16 text-right precio text-lg font-bold text-fg">{l.hora}</span>
+                {/* nodo en el eje */}
+                <span className={"absolute -left-[7px] top-1.5 h-3.5 w-3.5 rounded-full border-2 border-surface " + puntoDeResultado[l.resultado]} />
+                <div className="flex flex-wrap items-start justify-between gap-2">
+                  <div className="min-w-0">
+                    <p className="flex items-center gap-2 text-sm font-semibold">
+                      {perdida ? <PhoneOff size={13} className="text-warning" /> : <PhoneCall size={13} className="text-primary" />}
+                      {l.contacto}
+                    </p>
+                    <p className="text-xs text-muted">{l.propiedad}</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="precio text-xs text-muted">{mmss(l.duracionSeg)}</span>
+                    <span className={"chip " + chipDeResultado[l.resultado]}>{l.resultado}</span>
+                  </div>
+                </div>
+                <p className="mt-1 flex items-center gap-1 text-[11px] text-muted">
+                  <ArrowRight size={11} className="text-accent" />
+                  {l.nextStep}
+                </p>
+              </li>
+            )
+          })}
+        </ol>
+      </section>
     </div>
   )
 }
