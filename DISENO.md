@@ -66,7 +66,7 @@ Como PRIMER sistema, se dejan libres los arquetipos obvios del rubro (**kanban**
 
 | Módulo | Arquetipo | Componentes, tamaños y qué se ve primero |
 |---|---|---|
-| **dashboard** | board `barra-metas` + `heatmap` + Mapa de Cartera | Header con 3 métricas. Bloque de **barras de meta** (cierres del mes vs objetivo, captaciones vs meta) con la barra llena de color de estado; **heatmap** de visitas agendadas por día/hora; y el **Mapa de Cartera** a pantalla ancha abajo. Se ve primero: la barra de meta y el mapa con price-pins. |
+| **dashboard** | board `barra-metas` + `heatmap` + Mapa de propiedades | Header con 3 métricas. Bloque de **barras de meta** (cierres del mes vs objetivo, captaciones vs meta) con la barra llena de color de estado; **heatmap** de visitas agendadas por día/hora; y el **Mapa de propiedades** a pantalla ancha abajo. Se ve primero: la barra de meta y el mapa con price-pins. |
 | **conversaciones** *(pantalla que manda)* | `lista-ticket` (bandeja) | Lista vertical densa de consultas entrantes. Cada ticket: **color de estado del lead** a la izquierda (nuevo/caliente/frío), nombre del contacto, **último mensaje** (1 línea), propiedad consultada con **precio en Fraunces** y badge cuadrado de estado de la propiedad. Filtro por estado arriba. Se ve primero: el ticket más nuevo, su color y su precio. Se ELIMINA el panel de chat completo de escritorio: en celular manda la bandeja. |
 | **contactos** | `tabla-densa` | Directorio denso tipo ledger. Columnas: nombre, **estado-lead (color)**, teléfono, última interacción, propiedad de interés, presupuesto (Fraunces). Filas finas con divisorias de 1px. Se ve primero: la columna de estado y el presupuesto. |
 | **config** | `acordeon` (secciones) | Ajustes agrupados en secciones colapsables: marca, notificaciones, integraciones (mock), equipo. Formularios simples, títulos en Fraunces. Se ve primero: la sección abierta. |
@@ -85,7 +85,7 @@ Como PRIMER sistema, se dejan libres los arquetipos obvios del rubro (**kanban**
 
 ---
 
-## 7. COMPONENTE ESTRELLA — "Mapa de Cartera"
+## 7. COMPONENTE ESTRELLA — "Mapa de propiedades"
 
 Panel a pantalla completa en dashboard y propiedades. **Ningún otro sistema tiene un mapa: es la firma visual inmobiliaria.**
 
@@ -108,7 +108,7 @@ Especificación para codearlo:
 
 El Productor firmaba el reel con un **kanban saltando**, pero el Arquitecto CEDIÓ el kanban: no se graba lo que no se construye. El frame se **reancla en el activo que SÍ existe y es único**:
 
-> **El Mapa de Cartera con price-pins cambiando de color por estado** (un pin "U$S 340k" pasando de terracota-reserva) **mientras un hero-number de comisión proyectada se llena de golpe** (U$S 0 → U$S 10.200). El "U$S" dominante + el mapa son lo que ancla "inmobiliaria" y lo separan de un CRM genérico.
+> **El Mapa de propiedades con price-pins cambiando de color por estado** (un pin "U$S 340k" pasando de terracota-reserva) **mientras un hero-number de comisión proyectada se llena de golpe** (U$S 0 → U$S 10.200). El "U$S" dominante + el mapa son lo que ancla "inmobiliaria" y lo separan de un CRM genérico.
 
 Exagerar para pantalla chica: el número de comisión ocupando un tercio de alto, el "U$S" enorme, el pin cambiando a color de estado con transición visible.
 
@@ -120,4 +120,4 @@ Exagerar para pantalla chica: el número de comisión ocupando un tercio de alto
 
 **Piel (baseline fijado — es el primer sistema):** `light · sidebar · outlined · sharp · compact · square · Fraunces + Inter · verde-pino/terracota`. Queda registrado para vetar a los que vengan (deberán diferenciarse en ≥3 palancas).
 
-**Esqueleto:** arquetipos que nadie más usa aún — **master-detail (pipeline)** + **timeline (llamadas)** (dos, cumple). `galeria` en propiedades es lo obvio del rubro; se tolera porque el Arquitecto la posee y cede `kanban` / `tabla-densa` a los que siguen. Combo **barra-metas + heatmap** único. Iconos `icon-chip`. Estrella real: **Mapa de Cartera**. Eliminado real: **sparklines/micro-trend**. Si dos dashboards lado a lado no se distinguen sin leer el texto: el mapa con price-pins lo evita.
+**Esqueleto:** arquetipos que nadie más usa aún — **master-detail (pipeline)** + **timeline (llamadas)** (dos, cumple). `galeria` en propiedades es lo obvio del rubro; se tolera porque el Arquitecto la posee y cede `kanban` / `tabla-densa` a los que siguen. Combo **barra-metas + heatmap** único. Iconos `icon-chip`. Estrella real: **Mapa de propiedades**. Eliminado real: **sparklines/micro-trend**. Si dos dashboards lado a lado no se distinguen sin leer el texto: el mapa con price-pins lo evita.

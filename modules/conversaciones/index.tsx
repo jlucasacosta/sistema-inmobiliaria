@@ -36,7 +36,7 @@ export function ConversacionesPage() {
       <header className="surface-card flex flex-wrap items-center justify-between gap-6 p-5">
         <div>
           <h1 className="font-heading text-2xl font-bold tracking-tight">Consultas</h1>
-          <p className="text-xs text-muted">Bandeja de entrada · cada consulta es plata caminando</p>
+          <p className="text-xs text-muted">Bandeja de entrada · todas las consultas entrantes</p>
         </div>
         <div className="flex flex-wrap gap-8">
           <Metrica label="Abiertas" valor={String(rows.length)} sub="consultas" />

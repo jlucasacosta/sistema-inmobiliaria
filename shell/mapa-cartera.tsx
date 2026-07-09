@@ -150,7 +150,7 @@ export function MapaCartera({ pins, alto = "h-[26rem]" }: { pins: MapaPin[]; alt
   return (
     <section className="surface-card overflow-hidden p-0">
       <header className="flex flex-wrap items-center justify-between gap-2 border-b border-border px-5 py-3">
-        <h2 className="font-heading text-sm font-bold uppercase tracking-widest">Mapa de cartera</h2>
+        <h2 className="font-heading text-sm font-bold uppercase tracking-widest">Mapa de propiedades</h2>
         <div className="flex flex-wrap gap-2">
           <span className="chip bg-primary/15 text-primary"><span className="h-2 w-2 rounded-full bg-primary" />{disp} disponibles</span>
           <span className="chip bg-accent/15 text-accent"><span className="h-2 w-2 rounded-full bg-accent" />{res} reservadas</span>

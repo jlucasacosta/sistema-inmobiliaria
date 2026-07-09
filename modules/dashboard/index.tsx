@@ -134,7 +134,7 @@ export function DashboardPage() {
     <div className="space-y-5">
       <header className="surface-card flex flex-wrap items-center justify-between gap-6 p-5">
         <div>
-          <h1 className="font-heading text-2xl font-bold tracking-tight">Mesa de operaciones</h1>
+          <h1 className="font-heading text-2xl font-bold tracking-tight">Panel general</h1>
           <p className="text-xs text-muted">Nexo Propiedades · cierre del mes en curso</p>
         </div>
         <div className="flex flex-wrap gap-8">
@@ -163,7 +163,7 @@ export function DashboardPage() {
         <section className="surface-card p-6 lg:col-span-2">
           <header className="mb-5 flex items-baseline justify-between">
             <h2 className="font-heading text-sm font-bold uppercase tracking-widest">Visitas por franja</h2>
-            <span className="text-xs text-muted">ventanas calientes de la semana</span>
+            <span className="text-xs text-muted">franjas de mayor demanda de la semana</span>
           </header>
           {heat && (
             <div className="overflow-x-auto">
