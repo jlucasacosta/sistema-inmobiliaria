@@ -3,10 +3,16 @@ import { useEffect, useState } from "react"
 import { Building2, BedDouble, Bath, Maximize } from "lucide-react"
 import { getPropiedades, type Propiedad } from "./api"
 
+// Mapas literales: Tailwind necesita ver la clase completa en el fuente.
 const estadoBadge: Record<Propiedad["estado"], string> = {
-  disponible: "bg-primary text-bg",
-  reservada: "bg-subtle text-accent",
-  vendida: "bg-subtle text-muted",
+  disponible: "bg-success/15 text-success",
+  reservada: "bg-warning/15 text-warning",
+  vendida: "bg-info/15 text-info",
+  alquilada: "bg-info/15 text-info",
+}
+const operacionBadge: Record<Propiedad["operacion"], string> = {
+  venta: "bg-primary/15 text-primary",
+  alquiler: "bg-accent/15 text-accent",
 }
 
 export function PropiedadesPage() {
@@ -50,7 +56,7 @@ export function PropiedadesPage() {
             </div>
             <div className="space-y-2 p-5">
               <div className="flex items-center justify-between">
-                <span className="rounded-full bg-primary px-2.5 py-0.5 text-xs uppercase tracking-wide text-bg">{p.operacion}</span>
+                <span className={"rounded-full px-2.5 py-0.5 text-xs uppercase tracking-wide " + operacionBadge[p.operacion]}>{p.operacion}</span>
                 <span className={"rounded-full px-2.5 py-0.5 text-xs " + estadoBadge[p.estado]}>{p.estado}</span>
               </div>
               <h3 className="font-medium">{p.titulo}</h3>

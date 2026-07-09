@@ -3,21 +3,25 @@
 @tailwind utilities;
 
 :root {
-  /* Fallbacks. El layout inyecta los valores reales del theme activo (Nexo). */
-  --primary: #16324f;
-  --accent: #c98a3a;
-  --bg: #f7f9fc;
-  --surface: #ffffff;
-  --fg: #12212f;
-  --muted: #64748b;
-  --border: #e6eaf0;
-  --subtle: #eef2f7;
+  /* Fallbacks en triplete "R G B". El layout inyecta los valores reales del theme (Nexo). */
+  --primary: 29 78 216;
+  --accent: 6 182 212;
+  --bg: 247 249 252;
+  --surface: 255 255 255;
+  --fg: 15 30 53;
+  --muted: 100 116 139;
+  --border: 227 232 239;
+  --subtle: 238 242 247;
+  --success: 22 163 74;
+  --warning: 217 119 6;
+  --danger: 220 38 38;
+  --info: 2 132 199;
   --radius: 10px;
-  --pad: 16px;
+  --pad: 20px;
   --font-heading: Inter, system-ui, sans-serif;
   --font-body: Inter, system-ui, sans-serif;
 
-  /* Sistema de elevacion tech (sombras suaves en capas, tono slate) */
+  /* Sistema de elevacion en claro: la sombra levanta (tinte slate), el borde separa. */
   --shadow-sm: 0 1px 2px rgb(15 23 42 / 0.04), 0 1px 3px rgb(15 23 42 / 0.06);
   --shadow-card: 0 1px 3px rgb(15 23 42 / 0.06), 0 6px 16px rgb(15 23 42 / 0.05);
   --shadow-pop: 0 6px 16px rgb(15 23 42 / 0.08), 0 16px 32px rgb(15 23 42 / 0.10);

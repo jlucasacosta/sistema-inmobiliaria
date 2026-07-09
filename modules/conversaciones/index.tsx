@@ -2,6 +2,21 @@
 import { useEffect, useState } from "react"
 import { getThreads, getMessages, type Thread, type Message } from "./api"
 
+// Mapas literales: Tailwind necesita ver la clase completa en el fuente.
+const avatar: Record<Thread["estado"], string> = {
+  activa: "bg-success/15 text-success",
+  nueva: "bg-info/15 text-info",
+  "en espera": "bg-warning/15 text-warning",
+  cerrada: "bg-danger/15 text-danger",
+}
+
+const iniciales = (n: string) =>
+  n
+    .split(" ")
+    .slice(0, 2)
+    .map((p) => p[0])
+    .join("")
+
 export function ConversacionesPage() {
   const [threads, setThreads] = useState<Thread[]>([])
   const [active, setActive] = useState<string | null>(null)
@@ -26,18 +41,26 @@ export function ConversacionesPage() {
             key={t.id}
             onClick={() => setActive(t.id)}
             className={
-              "flex w-full items-start justify-between gap-2 rounded-lg p-3 text-left transition-colors " +
+              "flex w-full items-start gap-3 rounded-lg p-3 text-left transition-colors " +
               (active === t.id ? "bg-subtle" : "hover:bg-subtle")
             }
           >
-            <div className="min-w-0">
+            <span
+              className={
+                "flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-semibold " +
+                avatar[t.estado]
+              }
+            >
+              {iniciales(t.name)}
+            </span>
+            <div className="min-w-0 flex-1">
               <p className="truncate font-medium">{t.name}</p>
               <p className="truncate text-sm text-muted">{t.last}</p>
             </div>
             <div className="flex flex-col items-end gap-1">
               <span className="text-xs text-muted">{t.time}</span>
               {t.unread > 0 && (
-                <span className="rounded-full bg-primary px-2 py-0.5 text-xs text-bg">{t.unread}</span>
+                <span className="rounded-full bg-primary px-2 py-0.5 text-xs font-medium text-surface">{t.unread}</span>
               )}
             </div>
           </button>
@@ -51,7 +74,7 @@ export function ConversacionesPage() {
               key={m.id}
               className={
                 "max-w-[70%] rounded-xl px-3 py-2 text-sm " +
-                (m.from === "vos" ? "ml-auto bg-primary text-bg" : "bg-subtle")
+                (m.from === "vos" ? "ml-auto bg-primary text-surface" : "bg-subtle")
               }
             >
               {m.text}
