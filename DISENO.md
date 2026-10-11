@@ -66,7 +66,7 @@ Como PRIMER sistema, se dejan libres los arquetipos obvios del rubro (**kanban**
 
 | Módulo | Arquetipo | Componentes, tamaños y qué se ve primero |
 |---|---|---|
-| **dashboard** | board `barra-metas` + `heatmap` | Header con 3 métricas. Bloque de **barras de meta** (cierres del mes vs objetivo, captaciones vs meta) con la barra llena de color de estado; **heatmap** de visitas agendadas por día/hora; y la actividad reciente al costado. Se ve primero: la barra de meta y el hero de comisión. |
+| **dashboard** | board `barra-metas` + `heatmap` | Header con 3 métricas. Bloque de **metas del mes** (cierres, captaciones y comisión contra el objetivo) con barras de un solo tono; resumen de **comisión proyectada** como cifra sobria con su avance; **heatmap** de visitas agendadas por día/hora en escalones del color primario; y la actividad reciente al costado, con íconos neutros (solo el rechazo lleva color). Sin animaciones (decisión de Lucas, 2026-10-11). Se ve primero: las metas del mes. |
 | **conversaciones** *(pantalla que manda)* | `lista-ticket` (bandeja) | Lista vertical densa de consultas entrantes. Cada ticket: **color de estado del lead** a la izquierda (nuevo/caliente/frío), nombre del contacto, **último mensaje** (1 línea), propiedad consultada con **precio en Fraunces** y badge cuadrado de estado de la propiedad. Filtro por estado arriba. Se ve primero: el ticket más nuevo, su color y su precio. Se ELIMINA el panel de chat completo de escritorio: en celular manda la bandeja. |
 | **contactos** | `tabla-densa` | Directorio denso tipo ledger. Columnas: nombre, **estado-lead (color)**, teléfono, última interacción, propiedad de interés, presupuesto (Fraunces). Filas finas con divisorias de 1px. Se ve primero: la columna de estado y el presupuesto. |
 | **config** | `acordeon` (secciones) | Ajustes agrupados en secciones colapsables: marca, notificaciones, integraciones (mock), equipo. Formularios simples, títulos en Fraunces. Se ve primero: la sección abierta. |
@@ -101,9 +101,9 @@ Se sacó el **Mapa de propiedades** (el plano esquemático con price-pins, en el
 
 El Productor firmaba el reel con un **kanban saltando**, pero el Arquitecto CEDIÓ el kanban: no se graba lo que no se construye. El frame se **reancla en el activo que SÍ existe y es único**:
 
-> **Un hero-number de comisión proyectada que se llena de golpe** (U$S 0 → U$S 10.200) junto a las **barras de meta** que se llenan contra el objetivo. El "U$S" dominante en Fraunces es lo que ancla "inmobiliaria" y lo separa de un CRM genérico. (Hasta 2026-10-11 el frame incluía el Mapa de propiedades; ver §7.)
+> **Las metas del mes: barras contra el objetivo y la comisión proyectada en Fraunces**, sobre un panel sobrio de CRM. Las cifras en Fraunces (tabulares) son lo que ancla "inmobiliaria" sin recurrir a efectos. (Hasta 2026-10-11 el frame incluía el Mapa de propiedades y un hero de comisión que se llenaba de golpe; ambos se quitaron por decisión de Lucas, ver §7. Hoy el dashboard no tiene ninguna animación.)
 
-Exagerar para pantalla chica: el número de comisión ocupando un tercio de alto y el "U$S" enorme.
+Para grabar en pantalla chica: las tres barras de metas y la cifra de comisión arriba, ocupando el ancho.
 
 ---
 

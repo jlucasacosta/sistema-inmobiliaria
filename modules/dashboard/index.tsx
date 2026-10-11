@@ -1,16 +1,17 @@
 "use client"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { MessageSquare, CalendarCheck, Handshake, CheckCircle2, KeyRound, XCircle, type LucideIcon } from "lucide-react"
 import { getRealizado, getHeatmap, getActividad, type Realizado, type Heatmap, type Actividad, type TipoActividad } from "./api"
 import { getPropiedades, type Propiedad } from "@/modules/propiedades/api"
 import { theme } from "@/shell/theme"
 import { precioLargo } from "@/shell/cartera"
 
-// Dashboard = board editorial-financiero. Header con 3 metricas, barra-metas contra
-// objetivo absoluto (SIN sparklines), heatmap de visitas, hero de comision que se
-// llena de golpe (frame-firma) y la actividad reciente.
+// Dashboard = panel de gestion sobrio. Header con 3 metricas, metas del mes contra
+// objetivo absoluto, resumen de comision, heatmap de visitas y actividad reciente.
+// Sin animaciones: los valores se muestran tal cual, sin conteo ni entradas.
 
-// icon-chip: icono lucide dentro de un cuadrado tintado de estado.
+// Iconos de la actividad en un cuadrado neutro: el icono distingue el tipo y solo el
+// rechazo lleva color, porque es lo unico que pide atencion.
 const actIcon: Record<TipoActividad, LucideIcon> = {
   consulta: MessageSquare,
   visita: CalendarCheck,
@@ -20,87 +21,79 @@ const actIcon: Record<TipoActividad, LucideIcon> = {
   rechazo: XCircle,
 }
 const actChip: Record<TipoActividad, string> = {
-  consulta: "bg-info/15 text-info",
-  visita: "bg-primary/15 text-primary",
-  reserva: "bg-accent/15 text-accent",
-  cierre: "bg-success/15 text-success",
-  captacion: "bg-warning/15 text-warning",
-  rechazo: "bg-danger/15 text-danger",
+  consulta: "bg-subtle text-muted",
+  visita: "bg-subtle text-muted",
+  reserva: "bg-subtle text-muted",
+  cierre: "bg-subtle text-muted",
+  captacion: "bg-subtle text-muted",
+  rechazo: "bg-subtle text-danger",
 }
 
-// Heatmap: la intensidad sube en escalones del token primary. Sin hex.
-// El texto de cada escalon se elige para llegar a 4.5:1: fg sobre los tres claros, bg solo sobre primary pleno.
+// Heatmap: la intensidad sube en escalones del token primary, sin llegar al color pleno.
+// fg sobre todos los escalones llega a 4.5:1. Sin hex.
 function baldeHeat(v: number): string {
   if (v <= 0) return "bg-subtle text-muted"
-  if (v <= 2) return "bg-primary/25 text-fg"
-  if (v <= 4) return "bg-primary/50 text-fg"
-  if (v <= 6) return "bg-primary/65 text-fg"
-  return "bg-primary text-bg"
+  if (v <= 2) return "bg-primary/15 text-fg"
+  if (v <= 4) return "bg-primary/30 text-fg"
+  if (v <= 6) return "bg-primary/45 text-fg"
+  return "bg-primary/60 text-fg"
 }
 
-function Barra({ label, actual, objetivo, unidad, relleno }: { label: string; actual: string; objetivo: string; unidad: number; relleno: string }) {
-  const pct = Math.min(unidad, 1) * 100
+function Barra({ label, actual, objetivo, unidad }: { label: string; actual: string; objetivo: string; unidad: number }) {
+  const pct = Math.round(Math.min(unidad, 1) * 100)
   return (
     <div>
-      <div className="mb-1 flex items-baseline justify-between">
-        <span className="text-xs uppercase tracking-widest text-muted">{label}</span>
+      <div className="mb-1.5 flex items-baseline justify-between gap-3">
+        <span className="text-sm text-muted">{label}</span>
         <span className="text-xs text-muted">
-          <span className="precio text-sm font-bold text-fg">{actual}</span> / {objetivo}
+          <span className="precio text-sm font-semibold text-fg">{actual}</span> / {objetivo}
         </span>
       </div>
-      <div className="h-3 overflow-hidden rounded-[var(--radius)] bg-subtle">
-        <div className={"barra-anim h-full rounded-[var(--radius)] " + relleno} style={{ width: pct + "%" }} />
+      <div
+        role="progressbar"
+        aria-label={label}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-valuenow={pct}
+        aria-valuetext={`${actual} de ${objetivo}`}
+        className="h-2 overflow-hidden rounded-[var(--radius)] bg-subtle"
+      >
+        <div className="h-full bg-primary" style={{ width: pct + "%" }} />
       </div>
     </div>
   )
 }
 
-// Hero de comision: cuenta de 0 al objetivo realizado. El frame que se graba.
-function ComisionHero({ target }: { target: number }) {
-  const [n, setN] = useState(0)
-  const raf = useRef<number | undefined>(undefined)
-  useEffect(() => {
-    const reduce = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    if (reduce || target === 0) {
-      setN(target)
-      return
-    }
-    const start = performance.now()
-    const dur = 900
-    const tick = (t: number) => {
-      const p = Math.min((t - start) / dur, 1)
-      const eased = 1 - Math.pow(1 - p, 3)
-      setN(Math.round(target * eased))
-      if (p < 1) raf.current = requestAnimationFrame(tick)
-    }
-    raf.current = requestAnimationFrame(tick)
-    return () => { if (raf.current) cancelAnimationFrame(raf.current) }
-  }, [target])
-
-  const pct = Math.round((target / theme.meta.comision) * 100)
+// Resumen de comision: cifra, objetivo y avance. Sin conteo animado.
+function ComisionResumen({ valor }: { valor: number }) {
+  const pct = Math.round((valor / theme.meta.comision) * 100)
   return (
-    <div className="surface-card comision-hero flex flex-col justify-center p-6">
-      <span className="text-[10px] uppercase tracking-widest text-muted">Comisión proyectada del mes</span>
-      <p className="precio mt-2 text-5xl font-bold leading-none text-primary">
-        <span className="text-accent">U$S</span> {n.toLocaleString("es-UY")}
+    <section className="surface-card flex flex-col justify-center p-6">
+      <h2 className="font-heading text-sm font-semibold text-muted">Comisión proyectada del mes</h2>
+      <p className="precio mt-2 text-3xl font-semibold leading-none text-fg">{precioLargo(valor)}</p>
+      <p className="mt-2 text-xs text-muted">
+        Objetivo <span className="precio font-semibold text-fg">{precioLargo(theme.meta.comision)}</span> · {pct}% cumplido
       </p>
-      <p className="mt-3 text-xs text-muted">
-        objetivo <span className="precio font-bold text-fg">{precioLargo(theme.meta.comision)}</span>
-      </p>
-      <div className="mt-2 h-2 overflow-hidden rounded-[var(--radius)] bg-subtle">
-        <div className="barra-anim h-full rounded-[var(--radius)] bg-accent" style={{ width: Math.min(pct, 100) + "%" }} />
+      <div
+        role="progressbar"
+        aria-label="Avance de la comisión contra el objetivo"
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-valuenow={Math.min(pct, 100)}
+        className="mt-3 h-2 overflow-hidden rounded-[var(--radius)] bg-subtle"
+      >
+        <div className="h-full bg-primary" style={{ width: Math.min(pct, 100) + "%" }} />
       </div>
-      <span className="chip mt-3 self-start bg-accent/15 text-accent">{pct}% del objetivo</span>
-    </div>
+    </section>
   )
 }
 
 function Metrica({ label, valor, sub }: { label: string; valor: string; sub: string }) {
   return (
     <div className="flex flex-col">
-      <span className="text-[10px] uppercase tracking-widest text-muted">{label}</span>
-      <span className="precio text-2xl font-bold text-fg">{valor}</span>
-      <span className="text-[11px] text-muted">{sub}</span>
+      <span className="text-xs text-muted">{label}</span>
+      <span className="precio text-xl font-semibold text-fg">{valor}</span>
+      <span className="text-xs text-muted">{sub}</span>
     </div>
   )
 }
@@ -125,7 +118,7 @@ export function DashboardPage() {
     <div className="space-y-5">
       <header className="surface-card flex flex-wrap items-center justify-between gap-6 p-5">
         <div>
-          <h1 className="font-heading text-2xl font-bold tracking-tight">Panel general</h1>
+          <h1 className="font-heading text-xl font-semibold tracking-tight">Panel general</h1>
           <p className="text-xs text-muted">Nexo Propiedades · cierre del mes en curso</p>
         </div>
         <div className="flex flex-wrap gap-8">
@@ -137,23 +130,23 @@ export function DashboardPage() {
 
       <div className="grid gap-5 lg:grid-cols-3">
         <section className="surface-card space-y-5 p-6 lg:col-span-2">
-          <h2 className="font-heading text-sm font-bold uppercase tracking-widest">Metas del mes</h2>
+          <h2 className="font-heading text-base font-semibold">Metas del mes</h2>
           {real && (
             <>
-              <Barra label="Cierres" actual={String(real.cierres)} objetivo={String(m.cierres)} unidad={real.cierres / m.cierres} relleno="bg-primary" />
-              <Barra label="Captaciones" actual={String(real.captaciones)} objetivo={String(m.captaciones)} unidad={real.captaciones / m.captaciones} relleno="bg-accent" />
-              <Barra label="Comisión" actual={precioLargo(real.comision)} objetivo={precioLargo(m.comision)} unidad={real.comision / m.comision} relleno="bg-success" />
+              <Barra label="Cierres" actual={String(real.cierres)} objetivo={String(m.cierres)} unidad={real.cierres / m.cierres} />
+              <Barra label="Captaciones" actual={String(real.captaciones)} objetivo={String(m.captaciones)} unidad={real.captaciones / m.captaciones} />
+              <Barra label="Comisión" actual={precioLargo(real.comision)} objetivo={precioLargo(m.comision)} unidad={real.comision / m.comision} />
             </>
           )}
         </section>
 
-        {real && <ComisionHero target={real.comision} />}
+        {real && <ComisionResumen valor={real.comision} />}
       </div>
 
       <div className="grid gap-5 lg:grid-cols-3">
         <section className="surface-card p-6 lg:col-span-2">
           <header className="mb-5 flex items-baseline justify-between">
-            <h2 className="font-heading text-sm font-bold uppercase tracking-widest">Visitas por franja</h2>
+            <h2 className="font-heading text-base font-semibold">Visitas por franja</h2>
             <span className="text-xs text-muted">franjas de mayor demanda de la semana</span>
           </header>
           {heat && (
@@ -194,7 +187,7 @@ export function DashboardPage() {
                       <div
                         key={i}
                         title={`${d.dia} ${heat.franjas[i]}: ${v} visitas`}
-                        className={"flex aspect-square items-center justify-center rounded-[var(--radius)] text-[10px] font-semibold " + baldeHeat(v)}
+                        className={"flex aspect-square items-center justify-center rounded-[var(--radius)] text-[10px] font-medium " + baldeHeat(v)}
                       >
                         {v > 0 ? v : ""}
                       </div>
@@ -207,7 +200,7 @@ export function DashboardPage() {
         </section>
 
         <section className="surface-card p-6">
-          <h2 className="mb-4 font-heading text-sm font-bold uppercase tracking-widest">Actividad</h2>
+          <h2 className="mb-4 font-heading text-base font-semibold">Actividad</h2>
           <div role="region" aria-label="Actividad reciente" tabIndex={0} className="max-h-[19rem] overflow-y-auto pr-1">
           <ul className="space-y-3">
             {act.map((a) => {

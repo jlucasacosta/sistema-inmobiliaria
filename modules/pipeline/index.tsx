@@ -66,7 +66,7 @@ function Detalle({ o }: { o: Oportunidad }) {
             Probabilidad de cierre <span className="precio text-lg font-bold text-fg">{Math.round(prob * 100)}%</span>
           </p>
           <div className="h-3 overflow-hidden rounded-[var(--radius)] bg-surface">
-            <div className={"barra-anim h-full rounded-[var(--radius)] " + rellenoDeEtapa[o.etapa]} style={{ width: prob * 100 + "%" }} />
+            <div className={"h-full rounded-[var(--radius)] " + rellenoDeEtapa[o.etapa]} style={{ width: prob * 100 + "%" }} />
           </div>
           <p className="mt-2 text-[11px] text-muted">
             ponderado: <span className="precio font-bold text-fg">{precioLargo(Math.round(com * prob))}</span>
