@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react"
+import { useMemo, useState, type KeyboardEvent } from "react"
 import {
   pinDeProp,
   chipDeProp,
@@ -52,20 +52,31 @@ function agrupar(pins: MapaPin[], radio = 8): Cluster[] {
 function FotoMock({ estado }: { estado: EstadoProp }) {
   return (
     <div className="relative aspect-video w-full overflow-hidden rounded-[var(--radius)] bg-gradient-to-br from-primary/85 via-primary/60 to-accent/70">
-      <div className="absolute inset-0 opacity-30 [background:repeating-linear-gradient(135deg,transparent_0,transparent_10px,rgb(255_255_255/0.25)_10px,rgb(255_255_255/0.25)_11px)]" />
+      <div className="absolute inset-0 opacity-30 [background:repeating-linear-gradient(135deg,transparent_0,transparent_10px,rgb(var(--surface)/0.25)_10px,rgb(var(--surface)/0.25)_11px)]" />
       {/* silueta de techo a dos aguas */}
-      <svg viewBox="0 0 100 56" preserveAspectRatio="none" className="absolute bottom-0 h-2/3 w-full text-bg/85">
+      <svg viewBox="0 0 100 56" preserveAspectRatio="none" aria-hidden="true" className="absolute bottom-0 h-2/3 w-full text-bg/85">
         <path d="M20 56 L20 30 L50 12 L80 30 L80 56 Z" fill="currentColor" opacity="0.9" />
         <rect x="44" y="40" width="12" height="16" fill="rgb(var(--fg))" opacity="0.35" />
       </svg>
-      <span className={"chip absolute right-2 top-2 " + chipDeProp[estado]}>{estado}</span>
+      {/* base surface: el tinte 15% del chip se mezcla contra blanco y no contra el degrade (contraste) */}
+      <span className="absolute right-2 top-2 rounded-[var(--badge-radius)] bg-surface">
+        <span className={"chip " + chipDeProp[estado]}>{estado}</span>
+      </span>
     </div>
   )
 }
 
+// El lienzo recorta (overflow-hidden): la tarjeta se abre hacia arriba en la mitad de abajo y se
+// alinea al borde en los costados, para que nunca quede cortada.
+function ubicacion(x: number, y: number): string {
+  const vertical = y > 55 ? "bottom-full -translate-y-2" : "top-full translate-y-2"
+  const horizontal = x < 30 ? "left-0" : x > 70 ? "right-0" : "left-1/2 -translate-x-1/2"
+  return vertical + " " + horizontal
+}
+
 function MiniCard({ p }: { p: MapaPin }) {
   return (
-    <div className="surface-card pointer-events-none absolute left-1/2 top-full z-30 w-52 -translate-x-1/2 translate-y-2 p-3 shadow-pop">
+    <div className={"surface-card pointer-events-none absolute z-30 w-52 p-3 shadow-pop " + ubicacion(p.x, p.y)}>
       <FotoMock estado={p.estado} />
       <p className="precio mt-2 text-2xl font-bold text-fg">{precioLargo(p.precio)}</p>
       <p className="truncate text-xs text-muted">{p.titulo}</p>
@@ -87,8 +98,9 @@ function PinUnico({ p }: { p: MapaPin }) {
       onMouseLeave={() => setHover(false)}
       onFocus={() => setHover(true)}
       onBlur={() => setHover(false)}
+      onKeyDown={(e: KeyboardEvent) => e.key === "Escape" && setHover(false)}
       style={{ left: p.x + "%", top: p.y + "%" }}
-      className="absolute z-10 -translate-x-1/2 -translate-y-1/2 focus:outline-none"
+      className="tap absolute z-10 -translate-x-1/2 -translate-y-1/2"
       aria-label={`${p.titulo} · ${precioLargo(p.precio)} · ${p.estado}`}
     >
       <span
@@ -111,18 +123,25 @@ function PinCluster({ c }: { c: Cluster }) {
     <div
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
+      onKeyDown={(e: KeyboardEvent) => e.key === "Escape" && setOpen(false)}
       style={{ left: c.x + "%", top: c.y + "%" }}
       className="absolute z-10 -translate-x-1/2 -translate-y-1/2"
     >
       <button
         type="button"
-        className="precio flex h-8 w-8 items-center justify-center rounded-full border-2 border-surface bg-fg text-xs font-bold text-bg shadow-pop transition-transform hover:scale-110"
+        // Mouse: abre el hover. Teclado (Enter/Espacio) y dedo: alterna con el click. Al salir el foco, cierra.
+        onClick={(e) => {
+          if ((e.nativeEvent as PointerEvent).pointerType !== "mouse") setOpen((o) => !o)
+        }}
+        onBlur={() => setOpen(false)}
+        aria-expanded={open}
+        className="tap precio relative flex h-8 w-8 items-center justify-center rounded-full border-2 border-surface bg-fg text-xs font-bold text-bg shadow-pop transition-transform hover:scale-110"
         aria-label={`${c.pins.length} propiedades en esta zona`}
       >
         +{c.pins.length}
       </button>
       {open && (
-        <div className="surface-card absolute left-1/2 top-full z-30 w-56 -translate-x-1/2 translate-y-2 p-2 shadow-pop">
+        <div className={"surface-card absolute z-30 w-56 p-2 shadow-pop " + ubicacion(c.x, c.y)}>
           <p className="mb-1 px-1 text-[10px] uppercase tracking-widest text-muted">
             {c.pins.length} propiedades
           </p>
@@ -142,7 +161,7 @@ function PinCluster({ c }: { c: Cluster }) {
 }
 
 export function MapaCartera({ pins, alto = "h-[26rem]" }: { pins: MapaPin[]; alto?: string }) {
-  const clusters = agrupar(pins)
+  const clusters = useMemo(() => agrupar(pins), [pins])
   const disp = pins.filter((p) => p.estado === "disponible").length
   const res = pins.filter((p) => p.estado === "reservada").length
   const ven = pins.filter((p) => p.estado === "vendida").length
@@ -154,13 +173,13 @@ export function MapaCartera({ pins, alto = "h-[26rem]" }: { pins: MapaPin[]; alt
         <div className="flex flex-wrap gap-2">
           <span className="chip bg-primary/15 text-primary"><span className="h-2 w-2 rounded-full bg-primary" />{disp} disponibles</span>
           <span className="chip bg-accent/15 text-accent"><span className="h-2 w-2 rounded-full bg-accent" />{res} reservadas</span>
-          <span className="chip bg-muted/20 text-muted"><span className="h-2 w-2 rounded-full bg-muted" />{ven} vendidas</span>
+          <span className="chip bg-muted/[0.12] text-muted"><span className="h-2 w-2 rounded-full bg-muted" />{ven} vendidas</span>
         </div>
       </header>
 
       <div className={"relative w-full overflow-hidden bg-subtle/40 " + alto}>
         {/* Silueta de zona en trazo fino: cuaderno de tasaciones, sin tiles reales. */}
-        <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 h-full w-full text-border">
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" className="absolute inset-0 h-full w-full text-border">
           {/* rio */}
           <path d="M-2 22 C 20 30, 30 12, 52 20 S 88 34, 104 26" fill="none" stroke="rgb(var(--info))" strokeOpacity="0.35" strokeWidth="2.4" />
           {/* avenidas */}

@@ -26,19 +26,21 @@ function Marca({ compact = false }: { compact?: boolean }) {
 // --- sidebar: herramienta de escritorio. Etiquetas siempre visibles. ---
 function Sidebar({ path }: { path: string }) {
   return (
-    <aside className="flex w-56 shrink-0 flex-col border-r border-border bg-surface p-[var(--pad)]">
-      <div className="mb-8 px-3 pt-2">
+    <aside className="flex w-full shrink-0 flex-col border-b border-border bg-surface p-[var(--pad)] md:w-56 md:border-b-0 md:border-r">
+      <div className="mb-2 px-3 pt-1 md:mb-8 md:pt-2">
         <Marca />
       </div>
-      <nav className="space-y-1">
+      {/* En celular los items van en una fila con scroll horizontal; desde md, la columna de siempre. */}
+      <nav aria-label="Principal" className="flex gap-1 overflow-x-auto px-1 py-1 md:block md:space-y-1 md:overflow-visible md:p-0">
         {nav.map(({ label, href, icon: Icon }) => {
           const active = path === href
           return (
             <Link
               key={href}
               href={href}
+              aria-current={active ? "page" : undefined}
               className={
-                "flex items-center gap-3 rounded-[var(--radius)] px-3 py-2 text-sm transition-colors " +
+                "flex shrink-0 items-center gap-3 whitespace-nowrap rounded-[var(--radius)] px-3 py-2 text-sm transition-colors " +
                 (active ? "bg-subtle font-medium text-primary" : "text-muted hover:bg-subtle hover:text-fg")
               }
             >
@@ -48,7 +50,7 @@ function Sidebar({ path }: { path: string }) {
                   (active ? "bg-primary/15 text-primary" : "bg-subtle text-muted")
                 }
               >
-                <Icon size={16} />
+                <Icon size={16} aria-hidden="true" />
               </span>
               {label}
             </Link>
@@ -65,13 +67,14 @@ function Topbar({ path }: { path: string }) {
     <header className="sticky top-0 z-10 border-b border-border bg-surface">
       <div className="flex items-center gap-8 px-[var(--pad)] py-3">
         <Marca />
-        <nav className="flex flex-1 items-center gap-1 overflow-x-auto">
+        <nav aria-label="Principal" className="flex flex-1 items-center gap-1 overflow-x-auto">
           {nav.map(({ label, href, icon: Icon }) => {
             const active = path === href
             return (
               <Link
                 key={href}
                 href={href}
+                aria-current={active ? "page" : undefined}
                 className={
                   "flex shrink-0 items-center gap-2 border-b-2 px-3 py-2 text-sm transition-colors " +
                   (active
@@ -79,7 +82,7 @@ function Topbar({ path }: { path: string }) {
                     : "border-transparent text-muted hover:border-border hover:text-fg")
                 }
               >
-                <Icon size={16} />
+                <Icon size={16} aria-hidden="true" />
                 {label}
               </Link>
             )
@@ -97,6 +100,7 @@ function Rail({ path }: { path: string }) {
       <div className="mb-6">
         <Marca compact />
       </div>
+      <nav aria-label="Principal" className="flex flex-col items-center gap-2">
       {nav.map(({ label, href, icon: Icon }) => {
         const active = path === href
         return (
@@ -105,18 +109,20 @@ function Rail({ path }: { path: string }) {
             href={href}
             title={label}
             aria-label={label}
+            aria-current={active ? "page" : undefined}
             className={
               "group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors " +
               (active ? "bg-primary text-bg" : "text-muted hover:bg-subtle hover:text-fg")
             }
           >
-            <Icon size={20} strokeWidth={2.5} />
+            <Icon size={20} strokeWidth={2.5} aria-hidden="true" />
             <span className="pointer-events-none absolute left-12 z-20 hidden whitespace-nowrap rounded-md bg-fg px-2 py-1 text-xs text-bg group-hover:block">
               {label}
             </span>
           </Link>
         )
       })}
+      </nav>
     </aside>
   )
 }

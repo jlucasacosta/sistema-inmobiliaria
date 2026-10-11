@@ -39,7 +39,11 @@ function rgb(hex: string) {
   return `${(n >> 16) & 255} ${(n >> 8) & 255} ${n & 255}`
 }
 
-export const metadata = { title: "Sistema", description: "Demo" }
+// Titulo por ruta: cada pagina exporta su propio `metadata.title` y el template le suma la marca.
+export const metadata = {
+  title: { default: theme.brand.name, template: `%s · ${theme.brand.name}` },
+  description: `Demo frontend de ${theme.brand.name}: sistema inmobiliario con datos de ejemplo.`,
+}
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   const c = theme.colors
@@ -65,14 +69,24 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     ...elevationVars(),
   } as CSSProperties
 
-  const stacked = theme.nav === "topbar"
+  // topbar apila siempre; el sidebar apila en celular (pasa a barra superior) y va en fila desde md; el rail no cambia.
+  const layoutClass =
+    theme.nav === "topbar" ? "flex flex-col" : theme.nav === "sidebar" ? "flex flex-col md:flex-row" : "flex"
 
   return (
     <html lang="es">
       <body className={fontClass} style={vars}>
-        <div className={"min-h-screen bg-bg text-fg " + (stacked ? "flex flex-col" : "flex")}>
+        <a
+          href="#contenido"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-50 focus:rounded-[var(--radius)] focus:bg-primary focus:px-3 focus:py-2 focus:text-sm focus:font-medium focus:text-bg"
+        >
+          Saltar al contenido
+        </a>
+        <div className={"min-h-screen bg-bg text-fg " + layoutClass}>
           <Nav />
-          <main className="flex-1 overflow-x-hidden p-[var(--pad)]">{children}</main>
+          <main id="contenido" tabIndex={-1} className="min-w-0 flex-1 overflow-x-hidden p-[var(--pad)] focus:outline-none">
+            {children}
+          </main>
         </div>
       </body>
     </html>

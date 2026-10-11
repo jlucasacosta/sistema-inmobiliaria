@@ -1,8 +1,9 @@
 # Backend — Conversaciones
-> Asume BACKEND_RULES.md.
+> Guia completa: [`docs/IMPLEMENTAR.md`](../../docs/IMPLEMENTAR.md).
 
-- Tablas: conversaciones, mensajes
-- Ingreso: webhook de WhatsApp (Meta) -> Route Handler -> insert en mensajes
-- Realtime: suscribir a mensajes para inbox en vivo
-- Job (pg-boss): reintento de envio fallido
-- Reemplazar: modules/conversaciones/api.ts. Misma firma.
+- Funcion a reemplazar: `getTickets()` en `modules/conversaciones/api.ts` (misma firma, otro cuerpo).
+- Datos de ejemplo: `data.json` -> clave `tickets`.
+- Tablas: `conversaciones` (la bandeja) y `mensajes` (el detalle, cuando conectes WhatsApp). RLS activado.
+- Ingreso: webhook de WhatsApp -> Route Handler -> insert en `mensajes` y update de `conversaciones`.
+- Tarea en segundo plano (pg-boss, Railway): avisar de leads sin responder hace mas de 1 hora.
+- IA: borrador de respuesta a partir de la ficha de la propiedad (seccion 6 de la guia).

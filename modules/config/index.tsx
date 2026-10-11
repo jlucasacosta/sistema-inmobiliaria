@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react"
+import { useId, useState } from "react"
 import { ChevronDown } from "lucide-react"
 import { theme } from "@/shell/theme"
 import { precioLargo } from "@/shell/cartera"
@@ -21,31 +21,48 @@ function Fila({ label, value, swatch }: { label: string; value: string; swatch?:
 
 function Toggle({ label, on }: { label: string; on: boolean }) {
   const [v, setV] = useState(on)
+  // La fila entera es el switch: el nombre sale del texto y el area de toque llega a 44 px.
   return (
-    <div className="flex items-center justify-between py-1.5">
+    <button
+      type="button"
+      role="switch"
+      aria-checked={v}
+      onClick={() => setV((x) => !x)}
+      className="flex min-h-11 w-full items-center justify-between py-1.5 text-left"
+    >
       <span className="text-sm text-muted">{label}</span>
-      <button
-        onClick={() => setV((x) => !x)}
-        className={"relative h-5 w-9 rounded-full transition-colors " + (v ? "bg-primary" : "bg-subtle")}
-        aria-pressed={v}
+      <span
+        aria-hidden="true"
+        className={"relative h-5 w-9 shrink-0 rounded-full transition-colors " + (v ? "bg-primary" : "bg-subtle")}
       >
         <span className={"absolute top-0.5 h-4 w-4 rounded-full bg-surface shadow-sm transition-all " + (v ? "left-[1.15rem]" : "left-0.5")} />
-      </button>
-    </div>
+      </span>
+    </button>
   )
 }
 
 function Seccion({ titulo, sub, abierta, onToggle, children }: { titulo: string; sub: string; abierta: boolean; onToggle: () => void; children: React.ReactNode }) {
+  const panelId = useId()
   return (
     <section className="surface-card overflow-hidden p-0">
-      <button onClick={onToggle} className="flex w-full items-center justify-between px-5 py-4 text-left transition-colors hover:bg-subtle">
-        <span>
-          <span className="block font-heading text-sm font-bold uppercase tracking-widest">{titulo}</span>
-          <span className="block text-xs text-muted">{sub}</span>
-        </span>
-        <ChevronDown size={18} className={"shrink-0 text-muted transition-transform " + (abierta ? "rotate-180" : "")} />
-      </button>
-      {abierta && <div className="space-y-1 border-t border-border px-5 py-4">{children}</div>}
+      <h2>
+        <button
+          type="button"
+          onClick={onToggle}
+          aria-expanded={abierta}
+          aria-controls={panelId}
+          className="flex w-full items-center justify-between px-5 py-4 text-left transition-colors hover:bg-subtle"
+        >
+          <span>
+            <span className="block font-heading text-sm font-bold uppercase tracking-widest">{titulo}</span>
+            <span className="block text-xs text-muted">{sub}</span>
+          </span>
+          <ChevronDown size={18} aria-hidden="true" className={"shrink-0 text-muted transition-transform " + (abierta ? "rotate-180" : "")} />
+        </button>
+      </h2>
+      <div id={panelId} hidden={!abierta} className="space-y-1 border-t border-border px-5 py-4">
+        {children}
+      </div>
     </section>
   )
 }

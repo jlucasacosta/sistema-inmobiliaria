@@ -17,7 +17,7 @@ export const pinDeProp: Record<EstadoProp, string> = {
 export const chipDeProp: Record<EstadoProp, string> = {
   disponible: "bg-success/15 text-success",
   reservada: "bg-accent/15 text-accent",
-  vendida: "bg-muted/20 text-muted",
+  vendida: "bg-muted/[0.12] text-muted",
 }
 // Punto de color para leyendas.
 export const puntoDeProp: Record<EstadoProp, string> = {
@@ -32,7 +32,7 @@ export type EstadoLead = "nuevo" | "caliente" | "frio"
 export const chipDeLead: Record<EstadoLead, string> = {
   nuevo: "bg-info/15 text-info",
   caliente: "bg-accent/15 text-accent",
-  frio: "bg-muted/20 text-muted",
+  frio: "bg-muted/[0.12] text-muted",
 }
 // Barra lateral del ticket: lo que el corredor mira de reojo.
 export const barraDeLead: Record<EstadoLead, string> = {

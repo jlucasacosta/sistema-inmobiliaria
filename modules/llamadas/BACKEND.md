@@ -1,7 +1,8 @@
 # Backend — Llamadas
-> Asume BACKEND_RULES.md.
+> Guia completa: [`docs/IMPLEMENTAR.md`](../../docs/IMPLEMENTAR.md).
 
-- Tablas: llamadas (contacto_id, duracion, grabacion_url, transcripcion, resumen)
-- Ingreso: webhook de telefonia -> guarda audio en Supabase Storage
-- Job (pg-boss): transcribir con Whisper -> resumen con LLM
-- Reemplazar: modules/llamadas/api.ts. Misma firma.
+- Funcion a reemplazar: `getLlamadas()` en `modules/llamadas/api.ts` (misma firma, otro cuerpo).
+- Datos de ejemplo: `data.json` -> clave `calls`.
+- Tabla: `llamadas` (`inicio_at`, `duracion_seg`, `resultado`, `next_step`, `grabacion_path`, `transcripcion`, `resumen`). RLS activado.
+- Ingreso: webhook de telefonia -> audio en Supabase Storage -> fila en `llamadas`.
+- Tarea en segundo plano (pg-boss, Railway): transcribir y resumir con IA, y completar `resumen` y `next_step`.

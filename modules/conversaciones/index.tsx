@@ -45,12 +45,13 @@ export function ConversacionesPage() {
         </div>
       </header>
 
-      <div className="flex flex-wrap gap-2">
+      <div role="group" aria-label="Filtrar por estado del lead" className="flex flex-wrap gap-2">
         {filtros.map((f) => (
           <button
             key={f}
             onClick={() => setFiltro(f)}
-            className={"chip capitalize transition-colors " + (filtro === f ? "bg-primary text-bg" : "bg-subtle text-muted hover:text-fg")}
+            aria-pressed={filtro === f}
+            className={"tap chip relative capitalize transition-colors " + (filtro === f ? "bg-primary text-bg" : "bg-subtle text-muted hover:text-fg")}
           >
             {f}
           </button>
@@ -80,7 +81,11 @@ export function ConversacionesPage() {
               <div className="flex flex-col items-end justify-between">
                 <span className="precio text-base font-bold text-fg">{precioLargo(t.precio)}</span>
                 {t.sinLeer > 0 && (
-                  <span className="mt-1 flex h-5 min-w-5 items-center justify-center rounded-[var(--radius)] bg-accent px-1.5 text-[11px] font-bold text-bg">
+                  <span
+                    role="img"
+                    aria-label={`${t.sinLeer} ${t.sinLeer === 1 ? "mensaje sin leer" : "mensajes sin leer"}`}
+                    className="mt-1 flex h-5 min-w-5 items-center justify-center rounded-[var(--radius)] bg-accent px-1.5 text-[11px] font-bold text-bg"
+                  >
                     {t.sinLeer}
                   </span>
                 )}

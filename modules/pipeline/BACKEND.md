@@ -1,7 +1,8 @@
 # Backend — Pipeline
-> Asume BACKEND_RULES.md.
+> Guia completa: [`docs/IMPLEMENTAR.md`](../../docs/IMPLEMENTAR.md).
 
-- Tablas: etapas, oportunidades (contacto_id, etapa_id, valor, posicion)
-- Drag & drop: update de etapa_id + posicion.
-- RLS por owner. Historial de cambios de etapa opcional.
-- Reemplazar: modules/pipeline/api.ts. Misma firma.
+- Funcion a reemplazar: `getOportunidades()` en `modules/pipeline/api.ts` (misma firma, otro cuerpo).
+- Datos de ejemplo: `data.json` -> clave `oportunidades` (cada una con su `historial`).
+- Tablas: `oportunidades` (etapa: contacto, visita, propuesta, reserva, cierre, perdida) y `oportunidad_eventos` (el historial). RLS activado.
+- Una sola consulta trae todo: `.select("*, oportunidad_eventos(fecha, texto)")`.
+- La probabilidad de cierre por etapa sigue en `shell/theme.ts` (`probabilidad`).

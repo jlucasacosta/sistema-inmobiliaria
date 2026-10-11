@@ -45,28 +45,30 @@ export function ContactosPage() {
         </div>
       </header>
 
-      <div className="flex flex-wrap gap-2">
+      <div role="group" aria-label="Filtrar por estado del lead" className="flex flex-wrap gap-2">
         {filtros.map((f) => (
           <button
             key={f}
             onClick={() => setFiltro(f)}
-            className={"chip capitalize transition-colors " + (filtro === f ? "bg-primary text-bg" : "bg-subtle text-muted hover:text-fg")}
+            aria-pressed={filtro === f}
+            className={"tap chip relative capitalize transition-colors " + (filtro === f ? "bg-primary text-bg" : "bg-subtle text-muted hover:text-fg")}
           >
             {f}
           </button>
         ))}
       </div>
 
-      <div className="surface-card overflow-x-auto p-0">
+      <div role="region" aria-label="Tabla de contactos" tabIndex={0} className="surface-card overflow-x-auto p-0">
         <table className="w-full min-w-[52rem] border-collapse text-sm">
+          <caption className="sr-only">Directorio de leads: estado, telefono, ultima interaccion, interes y presupuesto</caption>
           <thead>
             <tr className="border-b border-border text-left text-[10px] uppercase tracking-widest text-muted">
-              <th className="px-4 py-2 font-semibold">Nombre</th>
-              <th className="px-4 py-2 font-semibold">Estado</th>
-              <th className="px-4 py-2 font-semibold">Telefono</th>
-              <th className="px-4 py-2 font-semibold">Ultima</th>
-              <th className="px-4 py-2 font-semibold">Interes</th>
-              <th className="px-4 py-2 text-right font-semibold">Presupuesto</th>
+              <th scope="col" className="px-4 py-2 font-semibold">Nombre</th>
+              <th scope="col" className="px-4 py-2 font-semibold">Estado</th>
+              <th scope="col" className="px-4 py-2 font-semibold">Telefono</th>
+              <th scope="col" className="px-4 py-2 font-semibold">Ultima</th>
+              <th scope="col" className="px-4 py-2 font-semibold">Interes</th>
+              <th scope="col" className="px-4 py-2 text-right font-semibold">Presupuesto</th>
             </tr>
           </thead>
           <tbody>

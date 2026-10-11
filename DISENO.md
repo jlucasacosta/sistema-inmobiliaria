@@ -121,3 +121,18 @@ Exagerar para pantalla chica: el número de comisión ocupando un tercio de alto
 **Piel (baseline fijado — es el primer sistema):** `light · sidebar · outlined · sharp · compact · square · Fraunces + Inter · verde-pino/terracota`. Queda registrado para vetar a los que vengan (deberán diferenciarse en ≥3 palancas).
 
 **Esqueleto:** arquetipos que nadie más usa aún — **master-detail (pipeline)** + **timeline (llamadas)** (dos, cumple). `galeria` en propiedades es lo obvio del rubro; se tolera porque el Arquitecto la posee y cede `kanban` / `tabla-densa` a los que siguen. Combo **barra-metas + heatmap** único. Iconos `icon-chip`. Estrella real: **Mapa de propiedades**. Eliminado real: **sparklines/micro-trend**. Si dos dashboards lado a lado no se distinguen sin leer el texto: el mapa con price-pins lo evita.
+
+---
+
+## 11. Nota de contraste (2026-10-10)
+
+Auditoría Impeccable: cuatro tokens se oscurecieron lo mínimo (mismo tono y saturación, solo luminosidad) para llegar a 4.5:1 en el uso real (texto chico y chips de estado). La identidad no cambia: sigue siendo verde-pino + terracota.
+
+| Token | Antes | Ahora | Motivo |
+|---|---|---|---|
+| `accent` (terracota) | `#C6603F` (4.08:1) | `#A64E31` | texto y chips `accent/15` por debajo de 4.5:1 |
+| `muted` | `#6B7A72` (4.14:1 sobre `bg`) | `#616E67` | etiquetas de 10-11 px sobre `bg` y `subtle` |
+| `success` | `#2F7D53` | `#2C754E` | chip `success/15` en 4.12:1 |
+| `warning` | `#B7791F` (3.64:1) | `#8F5E18` | ocre sobre blanco y sobre su tinte |
+
+Los valores de este documento (§3 y §4) corresponden al diseño original; el código manda.

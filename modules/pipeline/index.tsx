@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Phone, Clock } from "lucide-react"
 import { getOportunidades, type Oportunidad } from "./api"
 import {
@@ -36,8 +36,8 @@ function Detalle({ o }: { o: Oportunidad }) {
         <div>
           <h2 className="font-heading text-xl font-bold tracking-tight">{o.comprador}</h2>
           <p className="mt-1 flex items-center gap-3 text-xs text-muted">
-            <span className="flex items-center gap-1"><Phone size={12} />{o.telefono}</span>
-            <span className="flex items-center gap-1"><Clock size={12} />{o.actualizada}</span>
+            <span className="flex items-center gap-1"><Phone size={12} aria-hidden="true" />{o.telefono}</span>
+            <span className="flex items-center gap-1"><Clock size={12} aria-hidden="true" />{o.actualizada}</span>
           </p>
         </div>
         <span className={"chip " + chipDeEtapa[o.etapa]}>{o.etapa}</span>
@@ -97,6 +97,16 @@ function Detalle({ o }: { o: Oportunidad }) {
 export function PipelinePage() {
   const [opps, setOpps] = useState<Oportunidad[]>([])
   const [selId, setSelId] = useState<string | null>(null)
+  const detalleRef = useRef<HTMLDivElement>(null)
+
+  // En celular la lista y el detalle van apilados: al elegir una oportunidad, el detalle se lleva a la vista.
+  function elegir(id: string) {
+    setSelId(id)
+    if (window.matchMedia("(max-width: 1023px)").matches) {
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      detalleRef.current?.scrollIntoView({ block: "start", behavior: reduce ? "auto" : "smooth" })
+    }
+  }
 
   useEffect(() => {
     getOportunidades().then((d) => {
@@ -126,13 +136,18 @@ export function PipelinePage() {
 
       <div className="flex flex-col gap-5 lg:flex-row">
         {/* MASTER: lista de oportunidades */}
-        <ul className="surface-card max-h-[38rem] w-full shrink-0 divide-y divide-border overflow-y-auto p-0 lg:w-80">
+        <ul
+          tabIndex={0}
+          aria-label="Lista de oportunidades"
+          className="surface-card max-h-64 w-full shrink-0 divide-y divide-border overflow-y-auto p-0 lg:max-h-[38rem] lg:w-80"
+        >
           {opps.map((o) => {
             const active = o.id === selId
             return (
               <li key={o.id}>
                 <button
-                  onClick={() => setSelId(o.id)}
+                  onClick={() => elegir(o.id)}
+                  aria-current={active ? "true" : undefined}
                   className={"flex w-full flex-col gap-1 border-l-[3px] px-4 py-3 text-left transition-colors " + (active ? "border-primary bg-subtle" : "border-transparent hover:bg-subtle")}
                 >
                   <div className="flex items-baseline justify-between gap-2">
@@ -148,7 +163,9 @@ export function PipelinePage() {
         </ul>
 
         {/* DETAIL */}
-        {sel ? <Detalle o={sel} /> : <div className="surface-card flex-1 p-6 text-sm text-muted">Selecciona una oportunidad</div>}
+        <div ref={detalleRef} className="flex min-w-0 flex-1 scroll-mt-3 flex-col">
+          {sel ? <Detalle o={sel} /> : <div className="surface-card flex-1 p-6 text-sm text-muted">Selecciona una oportunidad</div>}
+        </div>
       </div>
     </div>
   )

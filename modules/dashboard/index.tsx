@@ -30,12 +30,13 @@ const actChip: Record<TipoActividad, string> = {
 }
 
 // Heatmap: la intensidad sube en escalones del token primary. Sin hex.
+// El texto de cada escalon se elige para llegar a 4.5:1: fg sobre los tres claros, bg solo sobre primary pleno.
 function baldeHeat(v: number): string {
-  if (v <= 0) return "bg-subtle"
-  if (v <= 2) return "bg-primary/25"
-  if (v <= 4) return "bg-primary/50"
-  if (v <= 6) return "bg-primary/70"
-  return "bg-primary"
+  if (v <= 0) return "bg-subtle text-muted"
+  if (v <= 2) return "bg-primary/25 text-fg"
+  if (v <= 4) return "bg-primary/50 text-fg"
+  if (v <= 6) return "bg-primary/65 text-fg"
+  return "bg-primary text-bg"
 }
 
 function Barra({ label, actual, objetivo, unidad, relleno }: { label: string; actual: string; objetivo: string; unidad: number; relleno: string }) {
@@ -166,8 +167,30 @@ export function DashboardPage() {
             <span className="text-xs text-muted">franjas de mayor demanda de la semana</span>
           </header>
           {heat && (
-            <div className="overflow-x-auto">
-              <div className="inline-grid gap-1" style={{ gridTemplateColumns: `auto repeat(${heat.franjas.length}, minmax(2.5rem, 1fr))` }}>
+            <div role="region" aria-label="Mapa de calor de visitas por dia y franja" tabIndex={0} className="overflow-x-auto">
+              {/* Equivalente accesible: la grilla visual se oculta al lector de pantalla y esta tabla trae los mismos datos. */}
+              <table className="sr-only">
+                <caption>Visitas agendadas por dia y franja horaria</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Dia</th>
+                    {heat.franjas.map((f) => (
+                      <th key={f} scope="col">{f}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {heat.dias.map((d) => (
+                    <tr key={d.dia}>
+                      <th scope="row">{d.dia}</th>
+                      {d.valores.map((v, i) => (
+                        <td key={i}>{v}</td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <div aria-hidden="true" className="inline-grid gap-1" style={{ gridTemplateColumns: `auto repeat(${heat.franjas.length}, minmax(2.5rem, 1fr))` }}>
                 <span />
                 {heat.franjas.map((f) => (
                   <span key={f} className="pb-1 text-center text-[10px] text-muted">{f}</span>
@@ -179,7 +202,7 @@ export function DashboardPage() {
                       <div
                         key={i}
                         title={`${d.dia} ${heat.franjas[i]}: ${v} visitas`}
-                        className={"flex aspect-square items-center justify-center rounded-[var(--radius)] text-[10px] font-semibold " + baldeHeat(v) + (v > 4 ? " text-bg" : " text-muted")}
+                        className={"flex aspect-square items-center justify-center rounded-[var(--radius)] text-[10px] font-semibold " + baldeHeat(v)}
                       >
                         {v > 0 ? v : ""}
                       </div>
@@ -193,12 +216,13 @@ export function DashboardPage() {
 
         <section className="surface-card p-6">
           <h2 className="mb-4 font-heading text-sm font-bold uppercase tracking-widest">Actividad</h2>
-          <ul className="max-h-[19rem] space-y-3 overflow-y-auto pr-1">
+          <div role="region" aria-label="Actividad reciente" tabIndex={0} className="max-h-[19rem] overflow-y-auto pr-1">
+          <ul className="space-y-3">
             {act.map((a) => {
               const Icon = actIcon[a.tipo]
               return (
                 <li key={a.id} className="flex gap-3 border-b border-border pb-3 last:border-0 last:pb-0">
-                  <span className={"icon-chip " + actChip[a.tipo]}><Icon size={14} /></span>
+                  <span className={"icon-chip " + actChip[a.tipo]}><Icon size={14} aria-hidden="true" /></span>
                   <div className="min-w-0">
                     <p className="text-[13px] leading-tight">{a.texto}</p>
                     <p className="mt-0.5 text-[11px] text-muted">{a.cuando}</p>
@@ -207,6 +231,7 @@ export function DashboardPage() {
               )
             })}
           </ul>
+          </div>
         </section>
       </div>
 

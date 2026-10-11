@@ -1,7 +1,8 @@
 # Backend — Dashboard
-> Asume BACKEND_RULES.md (stack global). Aca solo lo propio.
+> Guia completa: [`docs/IMPLEMENTAR.md`](../../docs/IMPLEMENTAR.md).
 
-- Sin tablas propias: agrega datos de otros modulos (ventas, pipeline, conversaciones).
-- Fuente ideal: vistas / materialized views en Supabase.
-- Realtime opcional: refrescar KPIs suscribiendo a las tablas fuente.
-- Reemplazar: modules/dashboard/api.ts (mock -> queries agregadas). Misma firma.
+- Funciones a reemplazar en `modules/dashboard/api.ts`: `getRealizado()`, `getHeatmap()`, `getActividad()`.
+- Datos de ejemplo: `data.json` -> claves `realizado`, `heatmap`, `actividad`.
+- Sin tablas propias de metricas: `realizado_mes` y `visitas_por_franja` son vistas sobre `oportunidades`, `propiedades` y `visitas`; `actividad` es una tabla.
+- Los objetivos del mes (`meta`) siguen en `shell/theme.ts`.
+- El mapa usa `getPropiedades()` del modulo propiedades.

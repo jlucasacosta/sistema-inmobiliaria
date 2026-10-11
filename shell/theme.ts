@@ -62,15 +62,15 @@ export const nexo: Theme = {
   font: { heading: "Fraunces", body: "Inter" },
   colors: {
     primary: "#1F5A3D", // verde-pino profundo: terreno, valor, patrimonio (>7:1 sobre blanco)
-    accent: "#C6603F", // terracota: ladrillo, tierra; calienta la grilla, marca CTA
+    accent: "#A64E31", // terracota: ladrillo, tierra; calienta la grilla, marca CTA (era #C6603F: 4.08:1; ahora >=4.5:1 sobre surface, bg y chips)
     bg: "#F6F5F1", // hueso-papel: cuaderno de tasaciones, no blanco frio
     surface: "#FFFFFF",
     fg: "#1C2620", // verde-tinta casi negro
-    muted: "#6B7A72", // verde-gris apagado
+    muted: "#616E67", // verde-gris apagado (era #6B7A72: 4.14:1 sobre bg y 3.84:1 sobre subtle; ahora >=4.5:1)
     border: "#E1E2DB", // linea fina de 1px
     subtle: "#EDEDE6", // relleno de zebra / hover
-    success: "#2F7D53", // disponible / cierre bueno (verde vivo)
-    warning: "#B7791F", // ocre: por vencer / a seguir
+    success: "#2C754E", // disponible / cierre bueno (era #2F7D53: chip 4.12:1; ahora >=4.5:1)
+    warning: "#8F5E18", // ocre oscuro: por vencer / a seguir (era #B7791F: 3.64:1; ahora >=4.5:1)
     danger: "#B23A2E", // rojo-ladrillo quemado: perdida / rechazo
     info: "#2C6E8F", // azul-pizarra sobrio: nuevo lead
   },

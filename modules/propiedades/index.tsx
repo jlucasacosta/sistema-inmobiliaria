@@ -28,15 +28,18 @@ function Foto({ p }: { p: Propiedad }) {
   return (
     <div className={"relative w-full overflow-hidden " + alturaFoto[p.tipo]}>
       <div className="absolute inset-0 bg-gradient-to-br from-primary/85 via-primary/55 to-accent/70" />
-      <div className="absolute inset-0 opacity-25 [background:repeating-linear-gradient(135deg,transparent_0,transparent_12px,rgb(255_255_255/0.3)_12px,rgb(255_255_255/0.3)_13px)]" />
-      <svg viewBox="0 0 100 50" preserveAspectRatio="none" className="absolute bottom-0 h-1/2 w-full text-bg/80">
+      <div className="absolute inset-0 opacity-25 [background:repeating-linear-gradient(135deg,transparent_0,transparent_12px,rgb(var(--surface)/0.3)_12px,rgb(var(--surface)/0.3)_13px)]" />
+      <svg viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true" className="absolute bottom-0 h-1/2 w-full text-bg/80">
         <path d="M15 50 L15 26 L50 8 L85 26 L85 50 Z" fill="currentColor" opacity="0.9" />
         <rect x="45" y="34" width="10" height="16" fill="rgb(var(--fg))" opacity="0.3" />
       </svg>
+      {/* base surface: el tinte 15% del chip se mezcla contra blanco y no contra el degrade (contraste) */}
       <div className="absolute left-2 top-2 flex gap-1">
-        <span className={"chip " + chipDeProp[p.estado]}>{p.estado}</span>
+        <span className="rounded-[var(--badge-radius)] bg-surface">
+          <span className={"chip " + chipDeProp[p.estado]}>{p.estado}</span>
+        </span>
       </div>
-      <span className="absolute bottom-2 left-2 text-[10px] font-semibold uppercase tracking-widest text-bg/90">
+      <span className="absolute bottom-2 left-2 rounded-[var(--badge-radius)] bg-fg/75 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-bg">
         {p.tipo}
       </span>
     </div>
@@ -53,10 +56,10 @@ function Card({ p }: { p: Propiedad }) {
         <h3 className="font-heading text-sm font-semibold leading-tight">{p.titulo}</h3>
         <p className="text-xs text-muted">{p.zona}</p>
         <div className="flex flex-wrap gap-1 pt-1">
-          <span className="chip bg-subtle text-muted"><Maximize size={12} />{p.m2} m2</span>
-          <span className="chip bg-subtle text-muted"><BedDouble size={12} />{p.dorm} dorm</span>
-          <span className="chip bg-subtle text-muted"><Bath size={12} />{p.banos} bano</span>
-          {p.cochera && <span className="chip bg-subtle text-muted"><Car size={12} />cochera</span>}
+          <span className="chip bg-subtle text-muted"><Maximize size={12} aria-hidden="true" />{p.m2} m2</span>
+          <span className="chip bg-subtle text-muted"><BedDouble size={12} aria-hidden="true" />{p.dorm} dorm</span>
+          <span className="chip bg-subtle text-muted"><Bath size={12} aria-hidden="true" />{p.banos} bano</span>
+          {p.cochera && <span className="chip bg-subtle text-muted"><Car size={12} aria-hidden="true" />cochera</span>}
         </div>
         <div className="flex items-center justify-between border-t border-border pt-2 text-[11px] text-muted">
           <span>{p.diasEnCartera} dias en cartera</span>
@@ -127,13 +130,14 @@ export function PropiedadesPage() {
 
       {pins.length > 0 && <MapaCartera pins={pins} />}
 
-      <div className="flex flex-wrap gap-2">
+      <div role="group" aria-label="Filtrar por estado de la propiedad" className="flex flex-wrap gap-2">
         {filtros.map((f) => (
           <button
             key={f}
             onClick={() => setFiltro(f)}
+            aria-pressed={filtro === f}
             className={
-              "chip capitalize transition-colors " +
+              "tap chip relative capitalize transition-colors " +
               (filtro === f ? "bg-primary text-bg" : "bg-subtle text-muted hover:text-fg")
             }
           >
@@ -142,6 +146,7 @@ export function PropiedadesPage() {
         ))}
       </div>
 
+      <h2 className="sr-only">Listado de propiedades</h2>
       <div className="gap-4 [column-fill:_balance] sm:columns-2 xl:columns-3">
         {visibles.map((p) => (
           <Card key={p.id} p={p} />

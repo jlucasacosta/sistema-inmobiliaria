@@ -5,15 +5,15 @@
 :root {
   /* Fallbacks en triplete "R G B". El layout inyecta los valores reales del theme (Nexo). */
   --primary: 31 90 61;
-  --accent: 198 96 63;
+  --accent: 166 78 49;
   --bg: 246 245 241;
   --surface: 255 255 255;
   --fg: 28 38 32;
-  --muted: 107 122 114;
+  --muted: 97 110 103;
   --border: 225 226 219;
   --subtle: 237 237 230;
-  --success: 47 125 83;
-  --warning: 183 121 31;
+  --success: 44 117 78;
+  --warning: 143 94 24;
   --danger: 178 58 46;
   --info: 44 110 143;
   --radius: 3px;
@@ -52,6 +52,14 @@
   ::-webkit-scrollbar-corner { background: transparent; }
 }
 
+/* Foco visible del sistema (WCAG 2.4.7): un solo anillo, color primary, afuera del borde. */
+@layer base {
+  :focus-visible {
+    outline: 2px solid rgb(var(--primary));
+    outline-offset: 2px;
+  }
+}
+
 @layer components {
   .surface-card {
     background: rgb(var(--surface));
@@ -80,6 +88,17 @@
     width: 1.75rem;
     border-radius: var(--radius);
     flex-shrink: 0;
+  }
+  /* Area de toque de 44 px sin agrandar el control visible (WCAG 2.5.5/2.5.8).
+     El elemento tiene que estar posicionado (relative o absolute). */
+  .tap::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: max(100%, 2.75rem);
+    height: max(100%, 2.75rem);
+    transform: translate(-50%, -50%);
   }
   /* El precio: la voz de tasacion. Fraunces, tabular, protagonista. */
   .precio {

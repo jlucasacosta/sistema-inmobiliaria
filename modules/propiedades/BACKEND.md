@@ -1,6 +1,8 @@
 # Backend — Propiedades
-> Asume BACKEND_RULES.md.
+> Guia completa: [`docs/IMPLEMENTAR.md`](../../docs/IMPLEMENTAR.md).
 
-- Tablas: propiedades (titulo, operacion, precio, direccion, ambientes, banos, m2, estado, images[], attrs jsonb)
-- Imagenes en Supabase Storage. Busqueda full-text con tsvector.
-- Reemplazar: modules/propiedades/api.ts. Misma firma.
+- Funcion a reemplazar: `getPropiedades()` en `modules/propiedades/api.ts` (misma firma, otro cuerpo). El dashboard tambien la usa para el mapa.
+- Datos de ejemplo: `data.json` -> clave `propiedades`.
+- Tabla: `propiedades` (`tipo`, `precio`, `m2`, `dorm`, `banos`, `cochera`, `estado`, `en_cartera_desde`, `x`, `y`). RLS activado.
+- `diasEnCartera` se calcula desde `en_cartera_desde`; `x` / `y` (0-100) ubican el pin en el mapa esquematico.
+- Fotos reales: Supabase Storage. El demo usa un degrade de CSS, no imagenes.

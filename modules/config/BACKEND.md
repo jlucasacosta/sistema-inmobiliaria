@@ -1,5 +1,6 @@
 # Backend — Configuracion
-> Asume BACKEND_RULES.md.
+> Guia completa: [`docs/IMPLEMENTAR.md`](../../docs/IMPLEMENTAR.md).
 
-- El diseno (theme) es estatico en shell/theme.ts: no necesita backend.
-- Si se quieren settings por usuario: tabla settings (user_id, key, value).
+- No tiene `api.ts` ni `data.json`: el diseno vive en `shell/theme.ts` y no necesita backend.
+- El equipo (`equipo`) esta escrito dentro de `index.tsx`: si lo queres editable, pasalo a una tabla (o leelo de `auth.users`).
+- Ajustes por usuario (opcional): tabla `ajustes (user_id, clave, valor jsonb)` con RLS por `auth.uid()`. SQL en la seccion 3.2.
