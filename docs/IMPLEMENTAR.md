@@ -51,7 +51,7 @@ npm install
 npm run dev
 ```
 
-Abrí http://localhost:3000. Tiene que cargar el dashboard con el mapa de propiedades.
+Abrí http://localhost:3000. Tiene que cargar el dashboard con las metas del mes y el mapa de calor de visitas.
 
 ### Si algo falla (3 errores típicos)
 
@@ -70,7 +70,7 @@ Cada módulo tiene un `api.ts` que hoy devuelve datos de un JSON. Para conectar 
 | Módulo | Funciones de `api.ts` | Datos de ejemplo | Tabla(s) sugerida(s) |
 |--------|----------------------|------------------|----------------------|
 | dashboard | `getRealizado`, `getHeatmap`, `getActividad` | `modules/dashboard/data.json` (`realizado`, `heatmap`, `actividad`) | vista `realizado_mes`, vista `visitas_por_franja` (sobre `visitas`), tabla `actividad`. Las metas (`theme.meta`) siguen en `shell/theme.ts` |
-| propiedades | `getPropiedades` (el dashboard también la usa para el mapa) | `modules/propiedades/data.json` (`propiedades`) | `propiedades` |
+| propiedades | `getPropiedades` (el dashboard también la usa para contar las disponibles) | `modules/propiedades/data.json` (`propiedades`) | `propiedades` |
 | conversaciones | `getTickets` | `modules/conversaciones/data.json` (`tickets`) | `conversaciones` (+ `mensajes` cuando conectes WhatsApp) |
 | pipeline | `getOportunidades` | `modules/pipeline/data.json` (`oportunidades`, con `historial`) | `oportunidades` + `oportunidad_eventos` |
 | llamadas | `getLlamadas` | `modules/llamadas/data.json` (`calls`) | `llamadas` |
@@ -122,8 +122,6 @@ create table public.propiedades (
     check (estado in ('disponible', 'reservada', 'vendida')),
   en_cartera_desde date not null default current_date,    -- diasEnCartera se calcula
   destacada boolean not null default false,
-  x numeric(5, 2) not null default 50 check (x between 0 and 100),  -- posición en el mapa
-  y numeric(5, 2) not null default 50 check (y between 0 and 100),
   created_at timestamptz not null default now()
 );
 create index propiedades_estado_idx on public.propiedades (estado);
@@ -410,7 +408,7 @@ await cargar("propiedades", leer("propiedades").propiedades.map((p) => ({
   codigo: p.id, titulo: p.titulo, zona: p.zona, tipo: p.tipo, precio: p.precio, m2: p.m2,
   dorm: p.dorm, banos: p.banos, cochera: p.cochera, estado: p.estado,
   en_cartera_desde: new Date(Date.now() - p.diasEnCartera * 864e5).toISOString().slice(0, 10),
-  destacada: p.destacada, x: p.x, y: p.y,
+  destacada: p.destacada,
 })))
 
 await cargar("contactos", leer("contactos").contacts.map((c) => ({

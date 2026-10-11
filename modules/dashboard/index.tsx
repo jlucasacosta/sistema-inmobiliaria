@@ -1,15 +1,14 @@
 "use client"
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { MessageSquare, CalendarCheck, Handshake, CheckCircle2, KeyRound, XCircle, type LucideIcon } from "lucide-react"
 import { getRealizado, getHeatmap, getActividad, type Realizado, type Heatmap, type Actividad, type TipoActividad } from "./api"
 import { getPropiedades, type Propiedad } from "@/modules/propiedades/api"
 import { theme } from "@/shell/theme"
 import { precioLargo } from "@/shell/cartera"
-import { MapaCartera, type MapaPin } from "@/shell/mapa-cartera"
 
 // Dashboard = board editorial-financiero. Header con 3 metricas, barra-metas contra
 // objetivo absoluto (SIN sparklines), heatmap de visitas, hero de comision que se
-// llena de golpe (frame-firma) y el Mapa de Cartera a pantalla ancha abajo.
+// llena de golpe (frame-firma) y la actividad reciente.
 
 // icon-chip: icono lucide dentro de un cuadrado tintado de estado.
 const actIcon: Record<TipoActividad, LucideIcon> = {
@@ -119,15 +118,6 @@ export function DashboardPage() {
     getPropiedades().then(setProps)
   }, [])
 
-  const pins: MapaPin[] = useMemo(
-    () =>
-      props.map((p) => ({
-        id: p.id, x: p.x, y: p.y, precio: p.precio, estado: p.estado,
-        titulo: p.titulo, zona: p.zona, m2: p.m2, dorm: p.dorm, banos: p.banos,
-        reciente: p.estado === "reservada" && p.diasEnCartera < 30,
-      })),
-    [props]
-  )
   const disponibles = props.filter((p) => p.estado === "disponible").length
   const m = theme.meta
 
@@ -236,8 +226,6 @@ export function DashboardPage() {
           </div>
         </section>
       </div>
-
-      {pins.length > 0 && <MapaCartera pins={pins} alto="h-[30rem]" />}
     </div>
   )
 }

@@ -12,9 +12,7 @@
       "cochera": true,
       "estado": "disponible",
       "diasEnCartera": 12,
-      "destacada": true,
-      "x": 30,
-      "y": 33
+      "destacada": true
     },
     {
       "id": "p02",
@@ -28,9 +26,7 @@
       "cochera": true,
       "estado": "disponible",
       "diasEnCartera": 8,
-      "destacada": true,
-      "x": 83,
-      "y": 30
+      "destacada": true
     },
     {
       "id": "p03",
@@ -44,9 +40,7 @@
       "cochera": false,
       "estado": "disponible",
       "diasEnCartera": 4,
-      "destacada": false,
-      "x": 47,
-      "y": 40
+      "destacada": false
     },
     {
       "id": "p04",
@@ -60,9 +54,7 @@
       "cochera": false,
       "estado": "reservada",
       "diasEnCartera": 26,
-      "destacada": true,
-      "x": 41,
-      "y": 45
+      "destacada": true
     },
     {
       "id": "p05",
@@ -76,9 +68,7 @@
       "cochera": true,
       "estado": "disponible",
       "diasEnCartera": 19,
-      "destacada": true,
-      "x": 34,
-      "y": 48
+      "destacada": true
     },
     {
       "id": "p06",
@@ -92,9 +82,7 @@
       "cochera": false,
       "estado": "vendida",
       "diasEnCartera": 63,
-      "destacada": false,
-      "x": 52,
-      "y": 38
+      "destacada": false
     },
     {
       "id": "p07",
@@ -108,9 +96,7 @@
       "cochera": true,
       "estado": "reservada",
       "diasEnCartera": 34,
-      "destacada": true,
-      "x": 86,
-      "y": 33
+      "destacada": true
     },
     {
       "id": "p08",
@@ -124,9 +110,7 @@
       "cochera": true,
       "estado": "disponible",
       "diasEnCartera": 51,
-      "destacada": false,
-      "x": 69,
-      "y": 39
+      "destacada": false
     },
     {
       "id": "p09",
@@ -140,9 +124,7 @@
       "cochera": false,
       "estado": "disponible",
       "diasEnCartera": 72,
-      "destacada": false,
-      "x": 44,
-      "y": 34
+      "destacada": false
     },
     {
       "id": "p10",
@@ -156,9 +138,7 @@
       "cochera": true,
       "estado": "disponible",
       "diasEnCartera": 15,
-      "destacada": true,
-      "x": 60,
-      "y": 42
+      "destacada": true
     },
     {
       "id": "p11",
@@ -172,9 +152,7 @@
       "cochera": false,
       "estado": "disponible",
       "diasEnCartera": 58,
-      "destacada": false,
-      "x": 55,
-      "y": 52
+      "destacada": false
     },
     {
       "id": "p12",
@@ -188,9 +166,7 @@
       "cochera": true,
       "estado": "reservada",
       "diasEnCartera": 22,
-      "destacada": true,
-      "x": 32,
-      "y": 35
+      "destacada": true
     },
     {
       "id": "p13",
@@ -204,9 +180,7 @@
       "cochera": false,
       "estado": "disponible",
       "diasEnCartera": 41,
-      "destacada": false,
-      "x": 36,
-      "y": 50
+      "destacada": false
     },
     {
       "id": "p14",
@@ -220,9 +194,7 @@
       "cochera": false,
       "estado": "disponible",
       "diasEnCartera": 9,
-      "destacada": false,
-      "x": 43,
-      "y": 47
+      "destacada": false
     },
     {
       "id": "p15",
@@ -236,9 +208,7 @@
       "cochera": true,
       "estado": "disponible",
       "diasEnCartera": 28,
-      "destacada": true,
-      "x": 92,
-      "y": 72
+      "destacada": true
     },
     {
       "id": "p16",
@@ -252,9 +222,7 @@
       "cochera": false,
       "estado": "vendida",
       "diasEnCartera": 47,
-      "destacada": false,
-      "x": 50,
-      "y": 37
+      "destacada": false
     },
     {
       "id": "p17",
@@ -268,9 +236,7 @@
       "cochera": true,
       "estado": "disponible",
       "diasEnCartera": 17,
-      "destacada": true,
-      "x": 71,
-      "y": 41
+      "destacada": true
     },
     {
       "id": "p18",
@@ -284,9 +250,7 @@
       "cochera": true,
       "estado": "reservada",
       "diasEnCartera": 31,
-      "destacada": true,
-      "x": 35,
-      "y": 46
+      "destacada": true
     },
     {
       "id": "p19",
@@ -300,9 +264,7 @@
       "cochera": true,
       "estado": "disponible",
       "diasEnCartera": 6,
-      "destacada": true,
-      "x": 84,
-      "y": 28
+      "destacada": true
     },
     {
       "id": "p20",
@@ -316,9 +278,7 @@
       "cochera": false,
       "estado": "disponible",
       "diasEnCartera": 44,
-      "destacada": false,
-      "x": 62,
-      "y": 44
+      "destacada": false
     },
     {
       "id": "p21",
@@ -332,9 +292,7 @@
       "cochera": true,
       "estado": "vendida",
       "diasEnCartera": 55,
-      "destacada": false,
-      "x": 29,
-      "y": 31
+      "destacada": false
     },
     {
       "id": "p22",
@@ -348,9 +306,7 @@
       "cochera": false,
       "estado": "disponible",
       "diasEnCartera": 81,
-      "destacada": false,
-      "x": 53,
-      "y": 40
+      "destacada": false
     },
     {
       "id": "p23",
@@ -364,9 +320,7 @@
       "cochera": true,
       "estado": "disponible",
       "diasEnCartera": 11,
-      "destacada": false,
-      "x": 48,
-      "y": 42
+      "destacada": false
     },
     {
       "id": "p24",
@@ -380,9 +334,7 @@
       "cochera": true,
       "estado": "reservada",
       "diasEnCartera": 38,
-      "destacada": true,
-      "x": 90,
-      "y": 74
+      "destacada": true
     },
     {
       "id": "p25",
@@ -396,9 +348,7 @@
       "cochera": true,
       "estado": "disponible",
       "diasEnCartera": 21,
-      "destacada": true,
-      "x": 37,
-      "y": 49
+      "destacada": true
     },
     {
       "id": "p26",
@@ -412,9 +362,7 @@
       "cochera": false,
       "estado": "disponible",
       "diasEnCartera": 67,
-      "destacada": false,
-      "x": 57,
-      "y": 54
+      "destacada": false
     },
     {
       "id": "p27",
@@ -428,9 +376,7 @@
       "cochera": false,
       "estado": "disponible",
       "diasEnCartera": 14,
-      "destacada": false,
-      "x": 73,
-      "y": 43
+      "destacada": false
     }
   ]
 }

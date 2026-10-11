@@ -1,6 +1,6 @@
 # Nexo Propiedades — Sistema inmobiliario
 
-Un sistema de gestión para inmobiliarias: propiedades con mapa, bandeja de consultas, pipeline de operaciones, registro de llamadas y contactos. Un sistema demo hecho con Next.js.
+Un sistema de gestión para inmobiliarias: propiedades en una tabla de CRM, bandeja de consultas, pipeline de operaciones, registro de llamadas y contactos. Un sistema demo hecho con Next.js.
 
 > Es un demo **frontend** con datos de ejemplo (mock). **No tiene backend conectado**: sirve para ver cómo se ve y cómo funciona un sistema así, y para aprender a construirlo. Los datos son ficticios y no se guardan: si recargás la página, todo vuelve al estado original.
 
@@ -18,8 +18,8 @@ Aprendé a crear tu Agencia de IA y conseguir tu primer cliente. Eso lo trabajam
 ---
 
 ## Qué incluye
-- **Dashboard**: metas del mes (cierres, captaciones y comisión), mapa de calor de visitas por franja horaria, feed de actividad y el Mapa de propiedades.
-- **Propiedades**: galería con fotos de ejemplo, filtro por estado (disponible, reservada, vendida) y mapa con precios.
+- **Dashboard**: metas del mes (cierres, captaciones y comisión), mapa de calor de visitas por franja horaria, y feed de actividad.
+- **Propiedades**: tabla de CRM con KPIs de la cartera, buscador, filtros por estado, tipo y zona, columnas ordenables y paginación.
 - **Conversaciones**: bandeja de consultas entrantes con el estado del lead y de la propiedad.
 - **Pipeline**: lista de oportunidades con la ficha completa, comisión proyectada y probabilidad de cierre.
 - **Llamadas**: registro cronológico del día con resultado y próximo paso.
@@ -94,7 +94,7 @@ El archivo `.env.example` lista las variables de entorno que vas a necesitar; vi
       api.ts               las funciones que piden datos (hoy leen el JSON)
       data.json            los datos de ejemplo
       BACKEND.md           qué cambiar al conectar el backend
-    shell/               lo compartido: theme.ts (diseño), navegación, mapa
+    shell/               lo compartido: theme.ts (diseño), navegación, vocabulario de la cartera
     docs/IMPLEMENTAR.md  guía para llevarlo a producción
     DISENO.md            la ficha de diseño de este sistema
     .env.example         variables de entorno (vacías)

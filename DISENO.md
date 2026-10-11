@@ -66,11 +66,11 @@ Como PRIMER sistema, se dejan libres los arquetipos obvios del rubro (**kanban**
 
 | Módulo | Arquetipo | Componentes, tamaños y qué se ve primero |
 |---|---|---|
-| **dashboard** | board `barra-metas` + `heatmap` + Mapa de propiedades | Header con 3 métricas. Bloque de **barras de meta** (cierres del mes vs objetivo, captaciones vs meta) con la barra llena de color de estado; **heatmap** de visitas agendadas por día/hora; y el **Mapa de propiedades** a pantalla ancha abajo. Se ve primero: la barra de meta y el mapa con price-pins. |
+| **dashboard** | board `barra-metas` + `heatmap` | Header con 3 métricas. Bloque de **barras de meta** (cierres del mes vs objetivo, captaciones vs meta) con la barra llena de color de estado; **heatmap** de visitas agendadas por día/hora; y la actividad reciente al costado. Se ve primero: la barra de meta y el hero de comisión. |
 | **conversaciones** *(pantalla que manda)* | `lista-ticket` (bandeja) | Lista vertical densa de consultas entrantes. Cada ticket: **color de estado del lead** a la izquierda (nuevo/caliente/frío), nombre del contacto, **último mensaje** (1 línea), propiedad consultada con **precio en Fraunces** y badge cuadrado de estado de la propiedad. Filtro por estado arriba. Se ve primero: el ticket más nuevo, su color y su precio. Se ELIMINA el panel de chat completo de escritorio: en celular manda la bandeja. |
 | **contactos** | `tabla-densa` | Directorio denso tipo ledger. Columnas: nombre, **estado-lead (color)**, teléfono, última interacción, propiedad de interés, presupuesto (Fraunces). Filas finas con divisorias de 1px. Se ve primero: la columna de estado y el presupuesto. |
 | **config** | `acordeon` (secciones) | Ajustes agrupados en secciones colapsables: marca, notificaciones, integraciones (mock), equipo. Formularios simples, títulos en Fraunces. Se ve primero: la sección abierta. |
-| **propiedades** | `galeria` (masonry) | Masonry de **property cards**: foto 16:9, **precio hero en Fraunces** (U$S grande), chips m² / dorm / baño, badge cuadrado de estado (Disponible/Reservada/Vendida) con color. La foto ES el producto; una tabla mataría el rubro. Se ve primero: la foto y el precio. |
+| **propiedades** | `tabla-crm` (ordenable, filtrable) | Fila de 4 KPIs (en cartera, disponibles, valor disponible, ticket promedio), barra de herramientas (buscador, estado, tipo, zona) y **tabla de CRM** con encabezados ordenables y paginación de 10 filas. Columnas: propiedad (título + zona), tipo, **precio en Fraunces**, superficie, dorm./baños, badge cuadrado de estado y días en cartera con su temperatura. Sin fotos ni animaciones. En celular, la misma data como lista de filas compactas. Se ve primero: el precio y el estado. |
 | **pipeline** | `master-detail` | Lista izquierda de operaciones + panel derecho con la propiedad, el comprador y el historial. Cada operación con etapa, precio y comisión proyectada. Se ve primero: la operación seleccionada completa. Se cede el kanban a un sistema futuro. |
 | **llamadas** | `timeline` | Registro cronológico vertical de llamadas: hora, contacto, duración, resultado (chip de color) y next-step. La última llamada arriba. Se ve primero: la llamada más reciente. |
 
@@ -85,16 +85,9 @@ Como PRIMER sistema, se dejan libres los arquetipos obvios del rubro (**kanban**
 
 ---
 
-## 7. COMPONENTE ESTRELLA — "Mapa de propiedades"
+## 7. Decisión de Lucas (2026-10-11): se quitó el mapa y la galería
 
-Panel a pantalla completa en dashboard y propiedades. **Ningún otro sistema tiene un mapa: es la firma visual inmobiliaria.**
-
-Especificación para codearlo:
-- **Base:** SVG estilizado mock (NO tiles reales, sin dependencia externa) — una silueta de zona/barrios en trazo fino sobre fondo claro, coherente con el look de cuaderno.
-- **Price-pins:** un pin geolocalizado por propiedad. Cada pin muestra el **precio** (Fraunces, compacto: "U$S 340k") y **cambia de color por estado** (verde = disponible, terracota = reservada, gris = vendida).
-- **Hover:** el pin expande un **mini-card** con foto 16:9, precio hero y chips m²/dorm/baño.
-- **Clustering:** cuando varios pins se solapan, colapsan en un **cluster-count** ("+7") que se abre al hacer zoom/hover.
-- **Estado:** todo el color sale de `theme.ts` (tokens de estado). Cero hardcodeo.
+Se sacó el **Mapa de propiedades** (el plano esquemático con price-pins, en el dashboard y en propiedades) y la **galería** de cards con foto. Propiedades pasa a ser una **tabla de CRM**, como un sistema normal, y no queda ninguna animación en esa pantalla. La firma visual pasa a ser la **tipografía Fraunces** (precios y títulos) más las **barras de metas** y el **heatmap** del dashboard.
 
 ---
 
@@ -108,9 +101,9 @@ Especificación para codearlo:
 
 El Productor firmaba el reel con un **kanban saltando**, pero el Arquitecto CEDIÓ el kanban: no se graba lo que no se construye. El frame se **reancla en el activo que SÍ existe y es único**:
 
-> **El Mapa de propiedades con price-pins cambiando de color por estado** (un pin "U$S 340k" pasando de terracota-reserva) **mientras un hero-number de comisión proyectada se llena de golpe** (U$S 0 → U$S 10.200). El "U$S" dominante + el mapa son lo que ancla "inmobiliaria" y lo separan de un CRM genérico.
+> **Un hero-number de comisión proyectada que se llena de golpe** (U$S 0 → U$S 10.200) junto a las **barras de meta** que se llenan contra el objetivo. El "U$S" dominante en Fraunces es lo que ancla "inmobiliaria" y lo separa de un CRM genérico. (Hasta 2026-10-11 el frame incluía el Mapa de propiedades; ver §7.)
 
-Exagerar para pantalla chica: el número de comisión ocupando un tercio de alto, el "U$S" enorme, el pin cambiando a color de estado con transición visible.
+Exagerar para pantalla chica: el número de comisión ocupando un tercio de alto y el "U$S" enorme.
 
 ---
 
@@ -120,7 +113,7 @@ Exagerar para pantalla chica: el número de comisión ocupando un tercio de alto
 
 **Piel (baseline fijado — es el primer sistema):** `light · sidebar · outlined · sharp · compact · square · Fraunces + Inter · verde-pino/terracota`. Queda registrado para vetar a los que vengan (deberán diferenciarse en ≥3 palancas).
 
-**Esqueleto:** arquetipos que nadie más usa aún — **master-detail (pipeline)** + **timeline (llamadas)** (dos, cumple). `galeria` en propiedades es lo obvio del rubro; se tolera porque el Arquitecto la posee y cede `kanban` / `tabla-densa` a los que siguen. Combo **barra-metas + heatmap** único. Iconos `icon-chip`. Estrella real: **Mapa de propiedades**. Eliminado real: **sparklines/micro-trend**. Si dos dashboards lado a lado no se distinguen sin leer el texto: el mapa con price-pins lo evita.
+**Esqueleto:** arquetipos que nadie más usa aún — **master-detail (pipeline)** + **timeline (llamadas)** (dos, cumple). Propiedades es una tabla de CRM (decisión de Lucas, §7). Combo **barra-metas + heatmap** único. Iconos `icon-chip`. Firma real: **Fraunces + barras de meta + heatmap**. Eliminado real: **sparklines/micro-trend**. Si dos dashboards lado a lado no se distinguen sin leer el texto: la tipografía serif en los precios y las barras de meta lo evitan.
 
 ---
 

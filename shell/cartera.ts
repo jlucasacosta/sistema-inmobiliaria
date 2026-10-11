@@ -7,23 +7,11 @@ import { theme } from "./theme"
 // --- Estado de una propiedad -------------------------------------------------
 export type EstadoProp = "disponible" | "reservada" | "vendida"
 
-// Relleno del price-pin en el Mapa de Cartera: verde / terracota / gris.
-export const pinDeProp: Record<EstadoProp, string> = {
-  disponible: "bg-primary text-bg border-primary",
-  reservada: "bg-accent text-bg border-accent",
-  vendida: "bg-muted text-bg border-muted",
-}
 // Badge cuadrado de estado en cards y tablas.
 export const chipDeProp: Record<EstadoProp, string> = {
   disponible: "bg-success/15 text-success",
   reservada: "bg-accent/15 text-accent",
   vendida: "bg-muted/[0.12] text-muted",
-}
-// Punto de color para leyendas.
-export const puntoDeProp: Record<EstadoProp, string> = {
-  disponible: "bg-primary",
-  reservada: "bg-accent",
-  vendida: "bg-muted",
 }
 
 // --- Temperatura del lead ----------------------------------------------------
@@ -117,7 +105,7 @@ export const chipDeTemperatura: Record<Temperatura, string> = {
 }
 
 // --- Formato de precio (voz de tasacion) -------------------------------------
-// "U$S 340k" compacto para pins; "U$S 340.000" largo para el hero.
+// "U$S 340k" compacto para listas y tarjetas; "U$S 340.000" largo para el hero.
 export function precioCompacto(usd: number): string {
   if (usd >= 1_000_000) return `U$S ${(usd / 1_000_000).toFixed(usd % 1_000_000 === 0 ? 0 : 1)}M`
   return `U$S ${Math.round(usd / 1000)}k`

@@ -1,6 +1,6 @@
 // PATRON MOCK. Misma firma que la query real. Ver BACKEND.md.
-// Arquetipo: galeria (masonry). El dato sigue al arquetipo: cada propiedad trae
-// precio hero, m2/dorm/banos, estado y COORDENADAS (x,y) para el Mapa de Cartera.
+// Arquetipo: tabla de CRM (lista ordenable y filtrable). Cada propiedad trae precio,
+// m2/dorm/banos, estado y dias en cartera: lo que el corredor compara fila a fila.
 // Marca ficticia Nexo Propiedades, mercado Montevideo / Punta del Este (LATAM).
 import type { EstadoProp } from "@/shell/cartera"
 import raw from "./data.json"
@@ -20,8 +20,6 @@ export type Propiedad = {
   estado: EstadoProp
   diasEnCartera: number
   destacada: boolean
-  x: number // 0-100, posicion en el Mapa de Cartera
-  y: number // 0-100
 }
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
