@@ -9,6 +9,7 @@ export type TipoProp = "apartamento" | "casa" | "ph" | "terreno" | "local"
 
 export type Propiedad = {
   id: string
+  codigo: string // codigo visible de la propiedad ("NX-2301"), unico
   titulo: string
   zona: string
   tipo: TipoProp

@@ -6,3 +6,4 @@
 - Tabla: `llamadas` (`inicio_at`, `duracion_seg`, `resultado`, `next_step`, `grabacion_path`, `transcripcion`, `resumen`). RLS activado.
 - Ingreso: webhook de telefonía -> audio en Supabase Storage -> fila en `llamadas`.
 - Tarea en segundo plano (pg-boss, Railway): transcribir y resumir con IA, y completar `resumen` y `next_step`.
+- Carga y error: la pantalla usa `useCarga(getLlamadas)` (`shell/carga.tsx`). Mientras llegan los datos muestra `—` y esqueletos; si la función lanza un error (`throw`), muestra un aviso con "Reintentar".

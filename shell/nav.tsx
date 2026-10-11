@@ -1,4 +1,5 @@
 "use client"
+import { useCallback, useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { nav } from "./nav-config"
@@ -24,30 +25,61 @@ function Marca({ compact = false }: { compact?: boolean }) {
 }
 
 // --- sidebar: herramienta de escritorio. Etiquetas siempre visibles. ---
-function Sidebar({ path }: { path: string }) {
+// Desde md queda fija (sticky + h-dvh) y lleva al pie la marca y la cuenta demo.
+// En celular es una tira horizontal: el item activo se centra al cargar y, mientras queda
+// menu por scrollear hacia la derecha, el borde se desvanece (clase .nav-fade) como pista.
+function Sidebar({ path }: { path: string | null }) {
+  const lista = useRef<HTMLElement>(null)
+  const activo = useRef<HTMLAnchorElement>(null)
+  const [hayMas, setHayMas] = useState(false)
+
+  const medir = useCallback(() => {
+    const el = lista.current
+    if (!el) return
+    setHayMas(el.scrollWidth - el.clientWidth - el.scrollLeft > 4)
+  }, [])
+
+  useEffect(() => {
+    if (window.matchMedia("(max-width: 767px)").matches) {
+      activo.current?.scrollIntoView({ inline: "center", block: "nearest" })
+    }
+    medir()
+    window.addEventListener("resize", medir)
+    return () => window.removeEventListener("resize", medir)
+  }, [path, medir])
+
   return (
-    <aside className="flex w-full shrink-0 flex-col border-b border-border bg-surface p-[var(--pad)] md:w-56 md:border-b-0 md:border-r">
+    <aside className="flex w-full shrink-0 flex-col border-b border-border bg-surface p-[var(--pad)] md:sticky md:top-0 md:h-dvh md:w-56 md:overflow-y-auto md:border-b-0 md:border-r">
       <div className="mb-2 px-3 pt-1 md:mb-8 md:pt-2">
         <Marca />
       </div>
       {/* En celular los items van en una fila con scroll horizontal; desde md, la columna de siempre. */}
-      <nav aria-label="Principal" className="flex gap-1 overflow-x-auto px-1 py-1 md:block md:space-y-1 md:overflow-visible md:p-0">
+      <nav
+        ref={lista}
+        onScroll={medir}
+        aria-label="Principal"
+        className={
+          "flex gap-1 overflow-x-auto px-1 py-1 md:block md:space-y-1 md:overflow-visible md:p-0 " +
+          (hayMas ? "nav-fade" : "")
+        }
+      >
         {nav.map(({ label, href, icon: Icon }) => {
-          const active = path === href
+          const esActual = path === href
           return (
             <Link
               key={href}
+              ref={esActual ? activo : undefined}
               href={href}
-              aria-current={active ? "page" : undefined}
+              aria-current={esActual ? "page" : undefined}
               className={
                 "flex shrink-0 items-center gap-3 whitespace-nowrap rounded-[var(--radius)] px-3 py-2 text-sm transition-colors " +
-                (active ? "bg-subtle font-medium text-primary" : "text-muted hover:bg-subtle hover:text-fg")
+                (esActual ? "bg-subtle font-medium text-primary" : "text-muted hover:bg-subtle hover:text-fg")
               }
             >
               <span
                 className={
                   "flex h-7 w-7 items-center justify-center rounded-[var(--radius)] " +
-                  (active ? "bg-primary/15 text-primary" : "bg-subtle text-muted")
+                  (esActual ? "bg-primary/15 text-primary" : "bg-subtle text-muted")
                 }
               >
                 <Icon size={16} aria-hidden="true" />
@@ -57,6 +89,19 @@ function Sidebar({ path }: { path: string }) {
           )
         })}
       </nav>
+      {/* Pie del menu: la marca ficticia y la cuenta demo, para que se sienta producto. */}
+      <div className="mt-auto hidden items-center gap-3 border-t border-border px-3 pt-3 md:flex">
+        <span
+          aria-hidden="true"
+          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--radius)] bg-primary/15 text-xs font-semibold text-primary"
+        >
+          DM
+        </span>
+        <p className="min-w-0 text-xs leading-tight">
+          <span className="block font-medium text-fg">Cuenta demo</span>
+          <span className="block truncate text-muted">{theme.brand.name}</span>
+        </p>
+      </div>
     </aside>
   )
 }

@@ -8,9 +8,13 @@ import { theme } from "./theme"
 export type EstadoProp = "disponible" | "reservada" | "vendida"
 
 // Badge cuadrado de estado en cards y tablas.
+// Reservada va en la familia info (azul-pizarra): el terracota se parecia al rojo de
+// "fria" y de "perdida". El terracota queda para lo activo/primario.
+// Vendida es neutra POR DISENO (excepcion documentada en DISENO.md): lleva rotulo de
+// texto y su contraste es >=4.5:1 sobre el fondo del chip.
 export const chipDeProp: Record<EstadoProp, string> = {
   disponible: "bg-success/15 text-success",
-  reservada: "bg-accent/15 text-accent",
+  reservada: "bg-info/15 text-info",
   vendida: "bg-muted/[0.12] text-muted",
 }
 
@@ -46,19 +50,22 @@ export type Etapa = "contacto" | "visita" | "propuesta" | "reserva" | "cierre" |
 
 export const ordenEtapas: Etapa[] = ["contacto", "visita", "propuesta", "reserva", "cierre"]
 
+// "reserva" usa info (igual que la propiedad Reservada): el terracota se confundia con
+// el rojo de "perdida" en la misma lista. "contacto" es neutra por diseno (etapa inicial,
+// sin compromiso; lleva rotulo de texto y contraste >=4.5:1, ver DISENO.md).
 export const chipDeEtapa: Record<Etapa, string> = {
-  contacto: "bg-info/15 text-info",
+  contacto: "bg-muted/[0.12] text-muted",
   visita: "bg-primary/15 text-primary",
   propuesta: "bg-warning/15 text-warning",
-  reserva: "bg-accent/15 text-accent",
+  reserva: "bg-info/15 text-info",
   cierre: "bg-success/15 text-success",
   perdida: "bg-danger/15 text-danger",
 }
 export const rellenoDeEtapa: Record<Etapa, string> = {
-  contacto: "bg-info",
+  contacto: "bg-muted",
   visita: "bg-primary",
   propuesta: "bg-warning",
-  reserva: "bg-accent",
+  reserva: "bg-info",
   cierre: "bg-success",
   perdida: "bg-danger",
 }
@@ -104,10 +111,22 @@ export const chipDeTemperatura: Record<Temperatura, string> = {
   fria: "bg-danger/15 text-danger",
 }
 
+// La temperatura solo existe mientras la propiedad sigue a la venta: en una reservada o
+// una vendida el indicador no aplica (devuelve null y la pantalla muestra "—").
+export function temperaturaDePropiedad(estado: EstadoProp, dias: number): Temperatura | null {
+  return estado === "disponible" ? temperaturaCartera(dias) : null
+}
+
+// Texto de ayuda con los umbrales leidos del theme (nunca numeros a mano en la pantalla).
+export function ayudaTemperatura(): string {
+  const { tibia, fria } = theme.cartera
+  return `Fresca: menos de ${tibia} días · Tibia: de ${tibia} a ${fria - 1} días · Fría: ${fria} días o más. Solo se calcula en propiedades disponibles.`
+}
+
 // --- Formato de precio (voz de tasacion) -------------------------------------
 // "U$S 340k" compacto para listas y tarjetas; "U$S 340.000" largo para el hero.
 export function precioCompacto(usd: number): string {
-  if (usd >= 1_000_000) return `U$S ${(usd / 1_000_000).toFixed(usd % 1_000_000 === 0 ? 0 : 1)}M`
+  if (usd >= 1_000_000) return `U$S ${(usd / 1_000_000).toFixed(usd % 1_000_000 === 0 ? 0 : 1).replace(".", ",")}M`
   return `U$S ${Math.round(usd / 1000)}k`
 }
 export function precioLargo(usd: number): string {

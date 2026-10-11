@@ -3,6 +3,7 @@ import { useId, useState } from "react"
 import { ChevronDown } from "lucide-react"
 import { theme } from "@/shell/theme"
 import { precioLargo } from "@/shell/cartera"
+import { Encabezado } from "@/shell/encabezado"
 
 // Arquetipo: ACORDEON (secciones colapsables). Dentro del sistema no se repite un
 // arquetipo. Todo lo que se muestra sale de shell/theme.ts.
@@ -80,10 +81,7 @@ export function ConfigPage() {
 
   return (
     <div className="space-y-5">
-      <header className="surface-card p-5">
-        <h1 className="font-heading text-2xl font-bold tracking-tight">Configuración</h1>
-        <p className="text-xs text-muted">Todo se define en shell/theme.ts</p>
-      </header>
+      <Encabezado titulo="Configuración" subtitulo="Todo se define en shell/theme.ts" />
 
       <div className="space-y-3">
         <Seccion titulo="Marca e identidad" sub="Palancas de diseño del theme" abierta={open === "marca"} onToggle={() => toggle("marca")}>
@@ -137,7 +135,7 @@ export function ConfigPage() {
                 <span className="block text-sm font-medium">{m.nombre}</span>
                 <span className="block text-xs text-muted">{m.rol}</span>
               </span>
-              <span className="precio text-sm font-bold text-primary">{m.ops} <span className="text-[10px] font-normal uppercase tracking-widest text-muted">cierres</span></span>
+              <span className="precio text-sm font-bold text-primary">{m.ops} <span className="text-xs font-normal text-muted">cierres</span></span>
             </div>
           ))}
         </Seccion>

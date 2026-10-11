@@ -2,6 +2,7 @@
   "propiedades": [
     {
       "id": "p01",
+      "codigo": "NX-2301",
       "titulo": "Apto 2 dorm con terraza al mar",
       "zona": "Pocitos",
       "tipo": "apartamento",
@@ -10,12 +11,13 @@
       "dorm": 2,
       "banos": 2,
       "cochera": true,
-      "estado": "disponible",
+      "estado": "reservada",
       "diasEnCartera": 12,
       "destacada": true
     },
     {
       "id": "p02",
+      "codigo": "NX-2302",
       "titulo": "Casa 3 dorm con fondo verde",
       "zona": "Carrasco",
       "tipo": "casa",
@@ -30,6 +32,7 @@
     },
     {
       "id": "p03",
+      "codigo": "NX-2303",
       "titulo": "Monoambiente a estrenar",
       "zona": "Cordón",
       "tipo": "apartamento",
@@ -44,6 +47,7 @@
     },
     {
       "id": "p04",
+      "codigo": "NX-2304",
       "titulo": "PH reciclado con patio",
       "zona": "Parque Rodó",
       "tipo": "ph",
@@ -58,6 +62,7 @@
     },
     {
       "id": "p05",
+      "codigo": "NX-2305",
       "titulo": "Penthouse frente a la rambla",
       "zona": "Punta Carretas",
       "tipo": "apartamento",
@@ -72,6 +77,7 @@
     },
     {
       "id": "p06",
+      "codigo": "NX-2306",
       "titulo": "Apto 1 dorm para inversión",
       "zona": "Centro",
       "tipo": "apartamento",
@@ -86,6 +92,7 @@
     },
     {
       "id": "p07",
+      "codigo": "NX-2307",
       "titulo": "Casa 4 dorm con piscina",
       "zona": "Carrasco",
       "tipo": "casa",
@@ -100,6 +107,7 @@
     },
     {
       "id": "p08",
+      "codigo": "NX-2308",
       "titulo": "Apto 2 dorm luminoso",
       "zona": "Malvín",
       "tipo": "apartamento",
@@ -114,6 +122,7 @@
     },
     {
       "id": "p09",
+      "codigo": "NX-2309",
       "titulo": "Local comercial a la calle",
       "zona": "Ciudad Vieja",
       "tipo": "local",
@@ -128,6 +137,7 @@
     },
     {
       "id": "p10",
+      "codigo": "NX-2310",
       "titulo": "Apto 3 dorm con amenities",
       "zona": "Buceo",
       "tipo": "apartamento",
@@ -136,12 +146,13 @@
       "dorm": 3,
       "banos": 2,
       "cochera": true,
-      "estado": "disponible",
+      "estado": "vendida",
       "diasEnCartera": 15,
       "destacada": true
     },
     {
       "id": "p11",
+      "codigo": "NX-2311",
       "titulo": "Casa estilo colonial a refaccionar",
       "zona": "La Blanqueada",
       "tipo": "casa",
@@ -156,6 +167,7 @@
     },
     {
       "id": "p12",
+      "codigo": "NX-2312",
       "titulo": "Apto 2 dorm con garage doble",
       "zona": "Pocitos",
       "tipo": "apartamento",
@@ -170,6 +182,7 @@
     },
     {
       "id": "p13",
+      "codigo": "NX-2313",
       "titulo": "Terreno apto edificar 12 pisos",
       "zona": "Punta Carretas",
       "tipo": "terreno",
@@ -184,6 +197,7 @@
     },
     {
       "id": "p14",
+      "codigo": "NX-2314",
       "titulo": "Apto 1 dorm frente al parque",
       "zona": "Parque Rodó",
       "tipo": "apartamento",
@@ -198,6 +212,7 @@
     },
     {
       "id": "p15",
+      "codigo": "NX-2315",
       "titulo": "Chalet 5 dorm con parque",
       "zona": "Punta del Este",
       "tipo": "casa",
@@ -212,6 +227,7 @@
     },
     {
       "id": "p16",
+      "codigo": "NX-2316",
       "titulo": "Apto 2 dorm a reciclar",
       "zona": "Centro",
       "tipo": "apartamento",
@@ -226,6 +242,7 @@
     },
     {
       "id": "p17",
+      "codigo": "NX-2317",
       "titulo": "Dúplex 3 dorm con parrillero",
       "zona": "Malvín",
       "tipo": "ph",
@@ -240,6 +257,7 @@
     },
     {
       "id": "p18",
+      "codigo": "NX-2318",
       "titulo": "Apto 3 dorm con dependencia",
       "zona": "Punta Carretas",
       "tipo": "apartamento",
@@ -254,6 +272,7 @@
     },
     {
       "id": "p19",
+      "codigo": "NX-2319",
       "titulo": "Casa 3 dorm en barrio privado",
       "zona": "Carrasco",
       "tipo": "casa",
@@ -268,6 +287,7 @@
     },
     {
       "id": "p20",
+      "codigo": "NX-2320",
       "titulo": "Monoambiente sobre la rambla",
       "zona": "Buceo",
       "tipo": "apartamento",
@@ -282,6 +302,7 @@
     },
     {
       "id": "p21",
+      "codigo": "NX-2321",
       "titulo": "Apto 2 dorm con vista abierta",
       "zona": "Pocitos",
       "tipo": "apartamento",
@@ -296,6 +317,7 @@
     },
     {
       "id": "p22",
+      "codigo": "NX-2322",
       "titulo": "Local en galería comercial",
       "zona": "Centro",
       "tipo": "local",
@@ -310,6 +332,7 @@
     },
     {
       "id": "p23",
+      "codigo": "NX-2323",
       "titulo": "Apartamento a estrenar 2 dorm",
       "zona": "Cordón",
       "tipo": "apartamento",
@@ -318,12 +341,13 @@
       "dorm": 2,
       "banos": 2,
       "cochera": true,
-      "estado": "disponible",
+      "estado": "vendida",
       "diasEnCartera": 11,
       "destacada": false
     },
     {
       "id": "p24",
+      "codigo": "NX-2324",
       "titulo": "Casa 4 dorm con quincho",
       "zona": "Punta del Este",
       "tipo": "casa",
@@ -338,6 +362,7 @@
     },
     {
       "id": "p25",
+      "codigo": "NX-2325",
       "titulo": "Apto 3 dorm categoría premium",
       "zona": "Punta Carretas",
       "tipo": "apartamento",
@@ -346,12 +371,13 @@
       "dorm": 3,
       "banos": 3,
       "cochera": true,
-      "estado": "disponible",
+      "estado": "reservada",
       "diasEnCartera": 21,
       "destacada": true
     },
     {
       "id": "p26",
+      "codigo": "NX-2326",
       "titulo": "Terreno con salida a dos calles",
       "zona": "La Blanqueada",
       "tipo": "terreno",
@@ -366,6 +392,7 @@
     },
     {
       "id": "p27",
+      "codigo": "NX-2327",
       "titulo": "PH 2 dorm en planta baja",
       "zona": "Malvín",
       "tipo": "ph",

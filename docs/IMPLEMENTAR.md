@@ -79,7 +79,7 @@ Cada módulo tiene un `api.ts` que hoy devuelve datos de un JSON. Para conectar 
 
 Hay dos diferencias entre el demo y una base real que conviene saber desde ya:
 
-1. **Fechas.** El demo guarda textos como `"hace 4 min"`, `"ayer"` o `"12 jul"`. En la base guardás fechas reales (`timestamptz` o `date`) y las convertís a ese texto en `api.ts` con una función de formato (ver 3.7). La firma de la función no cambia.
+1. **Fechas.** El demo guarda textos como `"hace 4 min"`, `"ayer"` o `"12 oct"`. En la base guardás fechas reales (`timestamptz` o `date`) y las convertís a ese texto en `api.ts` con una función de formato (ver 3.7). La firma de la función no cambia.
 2. **Relaciones.** El demo repite el texto de la propiedad dentro de cada consulta, llamada u oportunidad. Las tablas de abajo mantienen esas columnas de texto (así importás los JSON sin cambios) y agregan columnas `propiedad_id` / `contacto_id` **opcionales** para cuando quieras relacionar de verdad.
 
 ---
@@ -101,14 +101,16 @@ En el panel abrí **SQL Editor → New query**, pegá el bloque completo y ejecu
 -- =====================================================================
 -- Nexo Propiedades · esquema inicial
 -- Cada tabla refleja un tipo de modules/<modulo>/api.ts.
--- 'codigo' guarda el id del demo ('p01', 'c01', ...) y sirve para
--- reimportar sin duplicar. Si no lo necesitás, borrá la columna.
+-- 'codigo' sirve para reimportar sin duplicar. En propiedades es el CÓDIGO VISIBLE
+-- de la propiedad ('NX-2301', 'NX-2302', ...): único y obligatorio, es la columna
+-- ancla de la tabla y de la ficha. En el resto de las tablas guarda el id del demo
+-- ('c01', 't01', ...); si no lo necesitás ahí, borrá la columna.
 -- =====================================================================
 
 -- ---------- propiedades (modules/propiedades) ----------
 create table public.propiedades (
   id uuid primary key default gen_random_uuid(),
-  codigo text unique,
+  codigo text unique not null,                            -- visible: 'NX-2301'. Se muestra en la tabla y en la ficha
   titulo text not null,
   zona text not null,
   tipo text not null
@@ -386,7 +388,7 @@ function desdeHace(txt) {                       // "hace 4 min" | "hace 2 h" | "
   return new Date(Date.now() - ms).toISOString()
 }
 const MESES = { ene: 0, feb: 1, mar: 2, abr: 3, may: 4, jun: 5, jul: 6, ago: 7, sep: 8, oct: 9, nov: 10, dic: 11 }
-function fechaDe(txt) {                         // "12 jul" -> "2026-07-12"
+function fechaDe(txt) {                         // "12 oct" -> "2026-10-12"
   const [dia, mes] = txt.split(" ")
   return new Date(Date.UTC(new Date().getUTCFullYear(), MESES[mes], Number(dia))).toISOString().slice(0, 10)
 }
@@ -405,7 +407,7 @@ async function cargar(tabla, filas) {
 }
 
 await cargar("propiedades", leer("propiedades").propiedades.map((p) => ({
-  codigo: p.id, titulo: p.titulo, zona: p.zona, tipo: p.tipo, precio: p.precio, m2: p.m2,
+  codigo: p.codigo, titulo: p.titulo, zona: p.zona, tipo: p.tipo, precio: p.precio, m2: p.m2,
   dorm: p.dorm, banos: p.banos, cochera: p.cochera, estado: p.estado,
   en_cartera_desde: new Date(Date.now() - p.diasEnCartera * 864e5).toISOString().slice(0, 10),
   destacada: p.destacada,
@@ -605,15 +607,15 @@ export function haceCuanto(iso: string | null): string {
 }
 ```
 
-Para `getPropiedades`, la única conversión no trivial es `diasEnCartera`:
+Para `getPropiedades`, hay que devolver también `codigo` (el código visible, por ejemplo `NX-2301`) y la única conversión no trivial es `diasEnCartera`:
 
 ```ts
 diasEnCartera: Math.max(0, Math.round((Date.now() - new Date(r.en_cartera_desde).getTime()) / 864e5)),
 ```
 
-Con esto, las demás funciones siguen el mismo patrón: `getTickets` lee `conversaciones` (`estado_lead` → `estadoLead`, `estado_prop` → `estadoProp`, `sin_leer` → `sinLeer`); `getLlamadas` lee `llamadas` (`duracion_seg` → `duracionSeg`, `next_step` → `nextStep`, y `hora` se arma con `new Date(r.inicio_at).toLocaleTimeString("es-UY", { hour: "2-digit", minute: "2-digit", hour12: false })`, filtrando `inicio_at` de hoy); `getOportunidades` pide `oportunidades` con su historial en una sola consulta (`.select("*, oportunidad_eventos(fecha, texto)")`); `getRealizado` lee la vista `realizado_mes`; `getHeatmap` lee `visitas_por_franja` y arma la matriz de días por franja.
+Con esto, las demás funciones siguen el mismo patrón: `getTickets` lee `conversaciones` (`estado_lead` → `estadoLead`, `estado_prop` → `estadoProp`, `sin_leer` → `sinLeer`); `getLlamadas` lee `llamadas` (`duracion_seg` → `duracionSeg`, `next_step` → `nextStep`, y `hora` se arma con `new Date(r.inicio_at).toLocaleTimeString("es-UY", { hour: "2-digit", minute: "2-digit", hour12: false })`, filtrando `inicio_at` de hoy); `getOportunidades` pide `oportunidades` con su historial en una sola consulta (`.select("*, oportunidad_eventos(fecha, texto)")`); `getRealizado` lee la vista `realizado_mes` y le suma `periodo` (el mes en texto, por ejemplo `new Date().toLocaleDateString("es-UY", { month: "long", year: "numeric" })`, que el panel muestra en el subtítulo); `getHeatmap` lee `visitas_por_franja` y arma la matriz de días por franja.
 
-Un detalle de interfaz: los módulos llaman a `getX().then(setRows)` sin `.catch`. Con un backend real, agregá un `.catch` que muestre un mensaje al usuario; si no, un error de red se pierde en silencio.
+Un detalle de interfaz que ya está resuelto: los módulos cargan sus datos con `useCarga(getX)` (`shell/carga.tsx`). Mientras llegan los datos muestran `—` y esqueletos; si la función hace `throw` (como en el ejemplo de arriba), la pantalla muestra un aviso con el botón "Reintentar". No tenés que agregar un `.catch` en las pantallas: alcanza con que `api.ts` lance el error.
 
 ### 3.8 Auth con Supabase Auth
 

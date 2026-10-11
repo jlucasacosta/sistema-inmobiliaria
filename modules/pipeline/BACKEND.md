@@ -6,3 +6,4 @@
 - Tablas: `oportunidades` (etapa: contacto, visita, propuesta, reserva, cierre, perdida) y `oportunidad_eventos` (el historial). RLS activado.
 - Una sola consulta trae todo: `.select("*, oportunidad_eventos(fecha, texto)")`.
 - La probabilidad de cierre por etapa sigue en `shell/theme.ts` (`probabilidad`).
+- Carga y error: la pantalla usa `useCarga(getOportunidades)` (`shell/carga.tsx`). Mientras llegan los datos muestra `—` y esqueletos; si la función lanza un error (`throw`), muestra un aviso con "Reintentar".

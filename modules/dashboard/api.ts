@@ -1,5 +1,5 @@
 // PATRON MOCK. Misma firma que la query real. Ver BACKEND.md.
-// Arquetipo: board (barra-metas + heatmap + Mapa de Cartera). El dashboard RESUME el
+// Arquetipo: board (barra-metas + heatmap). El dashboard RESUME el
 // mes, no lo opera. SIN sparklines ni flechitas (DISENO.md §8): manda la meta absoluta.
 // Los objetivos viven en theme.meta; aca vive lo REALIZADO del mes.
 
@@ -9,7 +9,8 @@ export type TipoActividad = "consulta" | "visita" | "reserva" | "cierre" | "capt
 export type Actividad = { id: string; tipo: TipoActividad; texto: string; cuando: string }
 
 // Realizado del mes (los objetivos salen de theme.meta).
-export type Realizado = { cierres: number; captaciones: number; comision: number }
+// `periodo` es el mes que resume el panel ("octubre 2026").
+export type Realizado = { periodo: string; cierres: number; captaciones: number; comision: number }
 
 // Heatmap: visitas agendadas por dia x franja horaria.
 export type Heatmap = { franjas: string[]; dias: { dia: string; valores: number[] }[] }

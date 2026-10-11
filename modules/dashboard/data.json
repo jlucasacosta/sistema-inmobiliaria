@@ -1,5 +1,6 @@
 {
   "realizado": {
+    "periodo": "octubre 2026",
     "cierres": 5,
     "captaciones": 9,
     "comision": 31400
@@ -98,7 +99,7 @@
     {
       "id": "a03",
       "tipo": "reserva",
-      "texto": "Seña recibida: U$S 372.000 en Punta Carretas",
+      "texto": "Seña recibida: U$S 37.200 en Punta Carretas",
       "cuando": "hace 1 h"
     },
     {
@@ -140,7 +141,7 @@
     {
       "id": "a10",
       "tipo": "cierre",
-      "texto": "Escritura firmada: casa en Carrasco",
+      "texto": "Escritura firmada: apto en Cordón",
       "cuando": "ayer"
     },
     {

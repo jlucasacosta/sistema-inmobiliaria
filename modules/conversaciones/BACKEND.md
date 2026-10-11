@@ -7,3 +7,4 @@
 - Ingreso: webhook de WhatsApp -> Route Handler -> insert en `mensajes` y update de `conversaciones`.
 - Tarea en segundo plano (pg-boss, Railway): avisar de leads sin responder hace más de 1 hora.
 - IA: borrador de respuesta a partir de la ficha de la propiedad (sección 6 de la guía).
+- Carga y error: la pantalla usa `useCarga(getTickets)` (`shell/carga.tsx`). Mientras llegan los datos muestra `—` y esqueletos; si la función lanza un error (`throw`), muestra un aviso con "Reintentar".
