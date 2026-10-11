@@ -615,6 +615,8 @@ diasEnCartera: Math.max(0, Math.round((Date.now() - new Date(r.en_cartera_desde)
 
 Con esto, las demás funciones siguen el mismo patrón: `getTickets` lee `conversaciones` (`estado_lead` → `estadoLead`, `estado_prop` → `estadoProp`, `sin_leer` → `sinLeer`); `getLlamadas` lee `llamadas` (`duracion_seg` → `duracionSeg`, `next_step` → `nextStep`, y `hora` se arma con `new Date(r.inicio_at).toLocaleTimeString("es-UY", { hour: "2-digit", minute: "2-digit", hour12: false })`, filtrando `inicio_at` de hoy); `getOportunidades` pide `oportunidades` con su historial en una sola consulta (`.select("*, oportunidad_eventos(fecha, texto)")`); `getRealizado` lee la vista `realizado_mes` y le suma `periodo` (el mes en texto, por ejemplo `new Date().toLocaleDateString("es-UY", { month: "long", year: "numeric" })`, que el panel muestra en el subtítulo); `getHeatmap` lee `visitas_por_franja` y arma la matriz de días por franja.
 
+Ojo con las cifras del panel: en el demo, `realizado` es un dato fijo escrito a mano en `modules/dashboard/data.json` y no se deriva de las otras tablas. Al conectar `realizado_mes`, el panel muestra lo que calcula la vista con tus datos, y esas cifras no coinciden con los 5 cierres, 9 captaciones y U$S 31.400 del JSON. Además la vista solo cuenta lo del mes en curso: a principio de mes puede dar 0 hasta que haya movimiento.
+
 Un detalle de interfaz que ya está resuelto: los módulos cargan sus datos con `useCarga(getX)` (`shell/carga.tsx`). Mientras llegan los datos muestran `—` y esqueletos; si la función hace `throw` (como en el ejemplo de arriba), la pantalla muestra un aviso con el botón "Reintentar". No tenés que agregar un `.catch` en las pantallas: alcanza con que `api.ts` lance el error.
 
 ### 3.8 Auth con Supabase Auth
