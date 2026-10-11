@@ -408,16 +408,16 @@ export function PropiedadesPage() {
                         <span className="block text-xs text-muted">{p.zona}</span>
                       </th>
                       <td className="px-4 py-3 text-fg">{etiquetaDeTipo[p.tipo]}</td>
-                      <td className="px-4 py-3 text-right">
+                      <td className="whitespace-nowrap px-4 py-3 text-right">
                         <span className="precio font-bold tabular-nums text-fg">{precioLargo(p.precio)}</span>
                       </td>
-                      <td className="px-4 py-3 text-right tabular-nums text-fg">{p.m2} m²</td>
-                      <td className="px-4 py-3 text-fg">
+                      <td className="whitespace-nowrap px-4 py-3 text-right tabular-nums text-fg">{p.m2} m²</td>
+                      <td className="whitespace-nowrap px-4 py-3 text-fg">
                         {ambientes(p)}
                         {p.cochera && <span className="block text-xs text-muted">con cochera</span>}
                       </td>
-                      <td className="px-4 py-3"><ChipEstado estado={p.estado} /></td>
-                      <td className="px-4 py-3">
+                      <td className="whitespace-nowrap px-4 py-3"><ChipEstado estado={p.estado} /></td>
+                      <td className="whitespace-nowrap px-4 py-3">
                         <span className="flex items-center gap-2">
                           <span className="tabular-nums text-fg">{p.diasEnCartera} días</span>
                           <ChipTemperatura dias={p.diasEnCartera} />
