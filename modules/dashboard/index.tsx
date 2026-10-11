@@ -169,7 +169,8 @@ export function DashboardPage() {
           {heat && (
             <div role="region" aria-label="Mapa de calor de visitas por día y franja" tabIndex={0} className="overflow-x-auto">
               {/* Equivalente accesible: la grilla visual se oculta al lector de pantalla y esta tabla trae los mismos datos. */}
-              <table className="sr-only">
+              <div className="sr-only">
+              <table>
                 <caption>Visitas agendadas por día y franja horaria</caption>
                 <thead>
                   <tr>
@@ -190,6 +191,7 @@ export function DashboardPage() {
                   ))}
                 </tbody>
               </table>
+              </div>
               <div aria-hidden="true" className="inline-grid gap-1" style={{ gridTemplateColumns: `auto repeat(${heat.franjas.length}, minmax(2.5rem, 1fr))` }}>
                 <span />
                 {heat.franjas.map((f) => (
