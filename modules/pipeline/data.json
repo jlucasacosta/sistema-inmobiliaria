@@ -10,11 +10,11 @@
       "comisionPct": 0.03,
       "etapa": "reserva",
       "actualizada": "hace 2 h",
-      "nota": "Sena firmada, escritura en 30 dias.",
+      "nota": "Seña firmada, escritura en 30 días.",
       "historial": [
         {
           "fecha": "12 jul",
-          "texto": "Sena depositada U$S 8.040"
+          "texto": "Seña depositada U$S 8.040"
         },
         {
           "fecha": "8 jul",
@@ -36,7 +36,7 @@
       "comisionPct": 0.04,
       "etapa": "propuesta",
       "actualizada": "hace 5 h",
-      "nota": "Oferto U$S 495.000, espera contraoferta.",
+      "nota": "Ofertó U$S 495.000, espera contraoferta.",
       "historial": [
         {
           "fecha": "11 jul",
@@ -50,7 +50,7 @@
     },
     {
       "id": "o03",
-      "comprador": "Sofia Nunez",
+      "comprador": "Sofía Núñez",
       "telefono": "+598 91 302 774",
       "propiedad": "Penthouse frente rambla",
       "zona": "Punta Carretas",
@@ -66,13 +66,13 @@
         },
         {
           "fecha": "7 jul",
-          "texto": "Consulta por financiacion"
+          "texto": "Consulta por financiación"
         }
       ]
     },
     {
       "id": "o04",
-      "comprador": "Matias Olivera",
+      "comprador": "Matías Olivera",
       "telefono": "+598 98 551 209",
       "propiedad": "Apto 3 dorm con amenities",
       "zona": "Buceo",
@@ -88,7 +88,7 @@
         },
         {
           "fecha": "1 jul",
-          "texto": "Sena aceptada"
+          "texto": "Seña aceptada"
         },
         {
           "fecha": "24 jun",
@@ -98,10 +98,10 @@
     },
     {
       "id": "o05",
-      "comprador": "Lucia Ferrari",
+      "comprador": "Lucía Ferrari",
       "telefono": "+598 92 618 447",
-      "propiedad": "Duplex 3 dorm parrillero",
-      "zona": "Malvin",
+      "propiedad": "Dúplex 3 dorm parrillero",
+      "zona": "Malvín",
       "precio": 246000,
       "comisionPct": 0.03,
       "etapa": "contacto",
@@ -163,12 +163,12 @@
       "comprador": "Federico Bala",
       "telefono": "+598 93 220 596",
       "propiedad": "PH 2 dorm planta baja",
-      "zona": "Malvin",
+      "zona": "Malvín",
       "precio": 219000,
       "comisionPct": 0.03,
       "etapa": "visita",
       "actualizada": "ayer",
-      "nota": "Pide ficha tecnica y planos.",
+      "nota": "Pide ficha técnica y planos.",
       "historial": [
         {
           "fecha": "9 jul",
@@ -186,11 +186,11 @@
       "comisionPct": 0.03,
       "etapa": "reserva",
       "actualizada": "hace 8 h",
-      "nota": "Sena aceptada por el propietario.",
+      "nota": "Seña aceptada por el propietario.",
       "historial": [
         {
           "fecha": "10 jul",
-          "texto": "Sena aceptada"
+          "texto": "Seña aceptada"
         },
         {
           "fecha": "4 jul",
@@ -200,7 +200,7 @@
     },
     {
       "id": "o10",
-      "comprador": "Nicolas Ackermann",
+      "comprador": "Nicolás Ackermann",
       "telefono": "+598 99 067 215",
       "propiedad": "Terreno apto edificar",
       "zona": "Punta Carretas",
@@ -208,7 +208,7 @@
       "comisionPct": 0.04,
       "etapa": "contacto",
       "actualizada": "hace 1 d",
-      "nota": "Desarrollador, evalua permuta.",
+      "nota": "Desarrollador, evalúa permuta.",
       "historial": [
         {
           "fecha": "8 jul",
@@ -221,12 +221,12 @@
       "comprador": "Martina Sena",
       "telefono": "+598 94 852 703",
       "propiedad": "Apto 1 dorm frente parque",
-      "zona": "Parque Rodo",
+      "zona": "Parque Rodó",
       "precio": 138000,
       "comisionPct": 0.03,
       "etapa": "visita",
       "actualizada": "hace 12 h",
-      "nota": "Primera compradora, busca credito.",
+      "nota": "Primera compradora, busca crédito.",
       "historial": [
         {
           "fecha": "9 jul",
@@ -240,7 +240,7 @@
     },
     {
       "id": "o12",
-      "comprador": "Joaquin Silveira",
+      "comprador": "Joaquín Silveira",
       "telefono": "+598 98 449 127",
       "propiedad": "Casa 3 dorm barrio privado",
       "zona": "Carrasco",
@@ -284,15 +284,15 @@
     },
     {
       "id": "o14",
-      "comprador": "Emiliano Vazquez",
+      "comprador": "Emiliano Vázquez",
       "telefono": "+598 95 903 664",
       "propiedad": "Apto 2 dorm a estrenar",
-      "zona": "Cordon",
+      "zona": "Cordón",
       "precio": 197000,
       "comisionPct": 0.03,
       "etapa": "cierre",
       "actualizada": "hace 2 d",
-      "nota": "Operacion escriturada.",
+      "nota": "Operación escriturada.",
       "historial": [
         {
           "fecha": "5 jul",
@@ -300,7 +300,7 @@
         },
         {
           "fecha": "20 jun",
-          "texto": "Sena"
+          "texto": "Seña"
         }
       ]
     },
@@ -309,7 +309,7 @@
       "comprador": "Carolina Techera",
       "telefono": "+598 99 331 720",
       "propiedad": "Apto 2 dorm luminoso",
-      "zona": "Malvin",
+      "zona": "Malvín",
       "precio": 205000,
       "comisionPct": 0.03,
       "etapa": "contacto",
@@ -324,10 +324,10 @@
     },
     {
       "id": "o16",
-      "comprador": "Gaston Prieto",
+      "comprador": "Gastón Prieto",
       "telefono": "+598 92 558 913",
       "propiedad": "PH reciclado con patio",
-      "zona": "Parque Rodo",
+      "zona": "Parque Rodó",
       "precio": 189000,
       "comisionPct": 0.03,
       "etapa": "propuesta",
@@ -368,7 +368,7 @@
       "comisionPct": 0.04,
       "etapa": "perdida",
       "actualizada": "hace 3 d",
-      "nota": "Descarto: eligio otra ubicacion.",
+      "nota": "Descartó: eligió otra ubicación.",
       "historial": [
         {
           "fecha": "4 jul",
@@ -390,7 +390,7 @@
       "comisionPct": 0.03,
       "etapa": "perdida",
       "actualizada": "hace 4 d",
-      "nota": "Bajo presupuesto tras tasacion.",
+      "nota": "Bajó presupuesto tras tasación.",
       "historial": [
         {
           "fecha": "3 jul",
@@ -400,7 +400,7 @@
     },
     {
       "id": "o20",
-      "comprador": "Sebastian Lorenzo",
+      "comprador": "Sebastián Lorenzo",
       "telefono": "+598 99 482 150",
       "propiedad": "Apto 2 dorm con vista",
       "zona": "Pocitos",
@@ -408,7 +408,7 @@
       "comisionPct": 0.03,
       "etapa": "cierre",
       "actualizada": "hace 3 d",
-      "nota": "Cerrada, comision cobrada.",
+      "nota": "Cerrada, comisión cobrada.",
       "historial": [
         {
           "fecha": "4 jul",
@@ -416,13 +416,13 @@
         },
         {
           "fecha": "18 jun",
-          "texto": "Sena"
+          "texto": "Seña"
         }
       ]
     },
     {
       "id": "o21",
-      "comprador": "Florencia Piriz",
+      "comprador": "Florencia Píriz",
       "telefono": "+598 91 855 209",
       "propiedad": "Monoambiente sobre rambla",
       "zona": "Buceo",
@@ -442,13 +442,13 @@
       "id": "o22",
       "comprador": "Ignacio Bentancor",
       "telefono": "+598 95 137 648",
-      "propiedad": "Apto 3 dorm categoria",
+      "propiedad": "Apto 3 dorm categoría",
       "zona": "Punta Carretas",
       "precio": 458000,
       "comisionPct": 0.03,
       "etapa": "propuesta",
       "actualizada": "hace 9 h",
-      "nota": "Oferto 440k, espera respuesta.",
+      "nota": "Ofertó 440k, espera respuesta.",
       "historial": [
         {
           "fecha": "11 jul",

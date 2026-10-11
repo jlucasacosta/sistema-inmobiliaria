@@ -5,6 +5,7 @@ import { getPropiedades, type Propiedad } from "./api"
 import {
   chipDeProp,
   chipDeTemperatura,
+  etiquetaDeTemperatura,
   temperaturaCartera,
   precioLargo,
   type EstadoProp,
@@ -56,14 +57,14 @@ function Card({ p }: { p: Propiedad }) {
         <h3 className="font-heading text-sm font-semibold leading-tight">{p.titulo}</h3>
         <p className="text-xs text-muted">{p.zona}</p>
         <div className="flex flex-wrap gap-1 pt-1">
-          <span className="chip bg-subtle text-muted"><Maximize size={12} aria-hidden="true" />{p.m2} m2</span>
+          <span className="chip bg-subtle text-muted"><Maximize size={12} aria-hidden="true" />{p.m2} m²</span>
           <span className="chip bg-subtle text-muted"><BedDouble size={12} aria-hidden="true" />{p.dorm} dorm</span>
-          <span className="chip bg-subtle text-muted"><Bath size={12} aria-hidden="true" />{p.banos} bano</span>
+          <span className="chip bg-subtle text-muted"><Bath size={12} aria-hidden="true" />{p.banos} {p.banos === 1 ? "baño" : "baños"}</span>
           {p.cochera && <span className="chip bg-subtle text-muted"><Car size={12} aria-hidden="true" />cochera</span>}
         </div>
         <div className="flex items-center justify-between border-t border-border pt-2 text-[11px] text-muted">
-          <span>{p.diasEnCartera} dias en cartera</span>
-          <span className={"chip " + chipDeTemperatura[temp]}>{temp}</span>
+          <span>{p.diasEnCartera} días en cartera</span>
+          <span className={"chip " + chipDeTemperatura[temp]}>{etiquetaDeTemperatura[temp]}</span>
         </div>
       </div>
     </article>

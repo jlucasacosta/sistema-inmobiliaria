@@ -8,7 +8,7 @@
       "propiedad": "Apto 2 dorm · Pocitos",
       "duracionSeg": 272,
       "resultado": "agendada",
-      "nextStep": "Firma de sena el jueves 10:00"
+      "nextStep": "Firma de seña el jueves 10:00"
     },
     {
       "id": "l02",
@@ -18,12 +18,12 @@
       "propiedad": "Local · Ciudad Vieja",
       "duracionSeg": 96,
       "resultado": "descartado",
-      "nextStep": "Eligio otra ubicacion, cerrar"
+      "nextStep": "Eligió otra ubicación, cerrar"
     },
     {
       "id": "l03",
       "hora": "16:50",
-      "contacto": "Sofia Nunez",
+      "contacto": "Sofía Núñez",
       "telefono": "+598 91 302 774",
       "propiedad": "Penthouse · Punta Carretas",
       "duracionSeg": 365,
@@ -38,7 +38,7 @@
       "propiedad": "Apto 3 dorm · Buceo",
       "duracionSeg": 0,
       "resultado": "sin respuesta",
-      "nextStep": "Reintentar manana temprano"
+      "nextStep": "Reintentar mañana temprano"
     },
     {
       "id": "l05",
@@ -55,7 +55,7 @@
       "hora": "15:30",
       "contacto": "Federico Bala",
       "telefono": "+598 93 220 596",
-      "propiedad": "PH 2 dorm · Malvin",
+      "propiedad": "PH 2 dorm · Malvín",
       "duracionSeg": 187,
       "resultado": "interesado",
       "nextStep": "Mandar planos por mail"
@@ -65,10 +65,10 @@
       "hora": "15:05",
       "contacto": "Martina Sena",
       "telefono": "+598 94 852 703",
-      "propiedad": "Apto 1 dorm · Parque Rodo",
+      "propiedad": "Apto 1 dorm · Parque Rodó",
       "duracionSeg": 243,
       "resultado": "interesado",
-      "nextStep": "Derivar a asesor de credito"
+      "nextStep": "Derivar a asesor de crédito"
     },
     {
       "id": "l08",
@@ -83,12 +83,12 @@
     {
       "id": "l09",
       "hora": "14:12",
-      "contacto": "Lucia Ferrari",
+      "contacto": "Lucía Ferrari",
       "telefono": "+598 92 618 447",
-      "propiedad": "Duplex 3 dorm · Malvin",
+      "propiedad": "Dúplex 3 dorm · Malvín",
       "duracionSeg": 201,
       "resultado": "agendada",
-      "nextStep": "Visita el sabado 11:00"
+      "nextStep": "Visita el sábado 11:00"
     },
     {
       "id": "l10",
@@ -135,15 +135,15 @@
       "hora": "12:02",
       "contacto": "Emilia Sosa",
       "telefono": "+598 98 903 217",
-      "propiedad": "Apto 2 dorm · Cordon",
+      "propiedad": "Apto 2 dorm · Cordón",
       "duracionSeg": 0,
       "resultado": "sin respuesta",
-      "nextStep": "Dejo mensaje de voz"
+      "nextStep": "Dejó mensaje de voz"
     },
     {
       "id": "l15",
       "hora": "11:38",
-      "contacto": "Joaquin Silveira",
+      "contacto": "Joaquín Silveira",
       "telefono": "+598 98 449 127",
       "propiedad": "Casa 3 dorm · Carrasco",
       "duracionSeg": 254,
@@ -155,7 +155,7 @@
       "hora": "11:10",
       "contacto": "Carolina Techera",
       "telefono": "+598 99 331 720",
-      "propiedad": "Apto 2 dorm · Malvin",
+      "propiedad": "Apto 2 dorm · Malvín",
       "duracionSeg": 143,
       "resultado": "agendada",
       "nextStep": "Visita el viernes 16:00"
@@ -163,12 +163,12 @@
     {
       "id": "l17",
       "hora": "10:44",
-      "contacto": "Sebastian Lorenzo",
+      "contacto": "Sebastián Lorenzo",
       "telefono": "+598 99 482 150",
       "propiedad": "Apto 2 dorm · Pocitos",
       "duracionSeg": 88,
       "resultado": "descartado",
-      "nextStep": "Ya compro por otra via"
+      "nextStep": "Ya compró por otra vía"
     },
     {
       "id": "l18",
@@ -178,27 +178,27 @@
       "propiedad": "Apto 2 dorm · Pocitos",
       "duracionSeg": 377,
       "resultado": "agendada",
-      "nextStep": "Sena aceptada, coordinar escribania"
+      "nextStep": "Seña aceptada, coordinar escribanía"
     },
     {
       "id": "l19",
       "hora": "09:52",
-      "contacto": "Nicolas Ackermann",
+      "contacto": "Nicolás Ackermann",
       "telefono": "+598 99 067 215",
       "propiedad": "Terreno · Punta Carretas",
       "duracionSeg": 226,
       "resultado": "interesado",
-      "nextStep": "Evalua permuta, pedir tasacion"
+      "nextStep": "Evalúa permuta, pedir tasación"
     },
     {
       "id": "l20",
       "hora": "09:30",
-      "contacto": "Florencia Piriz",
+      "contacto": "Florencia Píriz",
       "telefono": "+598 91 855 209",
       "propiedad": "Monoambiente · Buceo",
       "duracionSeg": 164,
       "resultado": "interesado",
-      "nextStep": "Busca renta, enviar numeros"
+      "nextStep": "Busca renta, enviar números"
     },
     {
       "id": "l21",
@@ -208,14 +208,14 @@
       "propiedad": "Apto 2 dorm · Centro",
       "duracionSeg": 0,
       "resultado": "sin respuesta",
-      "nextStep": "Reintentar al mediodia"
+      "nextStep": "Reintentar al mediodía"
     },
     {
       "id": "l22",
       "hora": "08:45",
-      "contacto": "Gaston Prieto",
+      "contacto": "Gastón Prieto",
       "telefono": "+598 92 558 913",
-      "propiedad": "PH · Parque Rodo",
+      "propiedad": "PH · Parque Rodó",
       "duracionSeg": 209,
       "resultado": "interesado",
       "nextStep": "Oferta sujeta a venta de su depto"

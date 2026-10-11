@@ -40,11 +40,11 @@ export function LlamadasPage() {
       <header className="surface-card flex flex-wrap items-center justify-between gap-6 p-5">
         <div>
           <h1 className="font-heading text-2xl font-bold tracking-tight">Llamadas de hoy</h1>
-          <p className="text-xs text-muted">Registro cronologico del dia</p>
+          <p className="text-xs text-muted">Registro cronológico del día</p>
         </div>
         <div className="flex flex-wrap gap-8">
           <Metrica label="Llamadas" valor={String(rows.length)} sub="hoy" />
-          <Metrica label="En linea" valor={`${horas}h ${mins}m`} sub="tiempo total" />
+          <Metrica label="En línea" valor={`${horas}h ${mins}m`} sub="tiempo total" />
           <Metrica label="Agendadas" valor={String(agendadas)} sub="visitas nuevas" />
         </div>
       </header>

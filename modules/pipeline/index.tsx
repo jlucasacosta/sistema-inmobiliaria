@@ -50,14 +50,14 @@ function Detalle({ o }: { o: Oportunidad }) {
           <p className="text-xs text-muted">{o.zona}</p>
         </div>
         <div>
-          <p className="text-[10px] uppercase tracking-widest text-muted">Valor de operacion</p>
+          <p className="text-[10px] uppercase tracking-widest text-muted">Valor de operación</p>
           <p className="precio text-2xl font-bold text-fg">{precioLargo(o.precio)}</p>
         </div>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="rounded-[var(--radius)] bg-subtle p-4">
-          <p className="text-[10px] uppercase tracking-widest text-muted">Comision proyectada</p>
+          <p className="text-[10px] uppercase tracking-widest text-muted">Comisión proyectada</p>
           <p className="precio text-3xl font-bold text-primary">{precioLargo(com)}</p>
           <p className="mt-1 text-[11px] text-muted">{Math.round(o.comisionPct * 100)}% de honorarios</p>
         </div>
@@ -130,7 +130,7 @@ export function PipelinePage() {
         <div className="flex flex-wrap gap-8">
           <Metrica label="Activas" valor={String(activas.length)} sub={`${opps.length} totales`} />
           <Metrica label="Valor en pipeline" valor={precioLargo(valorPipeline)} sub="operaciones activas" />
-          <Metrica label="Forecast ponderado" valor={precioLargo(Math.round(forecast))} sub="comision esperada" />
+          <Metrica label="Forecast ponderado" valor={precioLargo(Math.round(forecast))} sub="comisión esperada" />
         </div>
       </header>
 
@@ -164,7 +164,7 @@ export function PipelinePage() {
 
         {/* DETAIL */}
         <div ref={detalleRef} className="flex min-w-0 flex-1 scroll-mt-3 flex-col">
-          {sel ? <Detalle o={sel} /> : <div className="surface-card flex-1 p-6 text-sm text-muted">Selecciona una oportunidad</div>}
+          {sel ? <Detalle o={sel} /> : <div className="surface-card flex-1 p-6 text-sm text-muted">Seleccioná una oportunidad</div>}
         </div>
       </div>
     </div>

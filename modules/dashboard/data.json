@@ -37,7 +37,7 @@
         ]
       },
       {
-        "dia": "Mie",
+        "dia": "Mié",
         "valores": [
           2,
           1,
@@ -70,7 +70,7 @@
         ]
       },
       {
-        "dia": "Sab",
+        "dia": "Sáb",
         "valores": [
           4,
           6,
@@ -98,25 +98,25 @@
     {
       "id": "a03",
       "tipo": "reserva",
-      "texto": "Sena recibida: U$S 372.000 en Punta Carretas",
+      "texto": "Seña recibida: U$S 372.000 en Punta Carretas",
       "cuando": "hace 1 h"
     },
     {
       "id": "a04",
       "tipo": "rechazo",
-      "texto": "Sena rechazada: monoambiente en Centro",
+      "texto": "Seña rechazada: monoambiente en Centro",
       "cuando": "hace 2 h"
     },
     {
       "id": "a05",
       "tipo": "captacion",
-      "texto": "Captacion nueva: PH en Malvin",
+      "texto": "Captación nueva: PH en Malvín",
       "cuando": "hace 3 h"
     },
     {
       "id": "a06",
       "tipo": "cierre",
-      "texto": "Operacion cerrada: apto en Buceo",
+      "texto": "Operación cerrada: apto en Buceo",
       "cuando": "hace 4 h"
     },
     {
@@ -134,7 +134,7 @@
     {
       "id": "a09",
       "tipo": "reserva",
-      "texto": "Reserva vencida sin pago en Cordon",
+      "texto": "Reserva vencida sin pago en Cordón",
       "cuando": "hace 7 h"
     },
     {

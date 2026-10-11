@@ -68,9 +68,9 @@ function Seccion({ titulo, sub, abierta, onToggle, children }: { titulo: string;
 }
 
 const equipo = [
-  { nombre: "Lucia Ferrari", rol: "Corredora senior", ops: 5 },
-  { nombre: "Rodrigo Mendez", rol: "Corredor", ops: 3 },
-  { nombre: "Sofia Nunez", rol: "Asesora", ops: 2 },
+  { nombre: "Lucía Ferrari", rol: "Corredora senior", ops: 5 },
+  { nombre: "Rodrigo Méndez", rol: "Corredor", ops: 3 },
+  { nombre: "Sofía Núñez", rol: "Asesora", ops: 2 },
 ]
 
 export function ConfigPage() {
@@ -81,20 +81,20 @@ export function ConfigPage() {
   return (
     <div className="space-y-5">
       <header className="surface-card p-5">
-        <h1 className="font-heading text-2xl font-bold tracking-tight">Configuracion</h1>
+        <h1 className="font-heading text-2xl font-bold tracking-tight">Configuración</h1>
         <p className="text-xs text-muted">Todo se define en shell/theme.ts</p>
       </header>
 
       <div className="space-y-3">
-        <Seccion titulo="Marca e identidad" sub="Palancas de diseno del theme" abierta={open === "marca"} onToggle={() => toggle("marca")}>
+        <Seccion titulo="Marca e identidad" sub="Palancas de diseño del theme" abierta={open === "marca"} onToggle={() => toggle("marca")}>
           <Fila label="Nombre" value={theme.brand.name} />
           <Fila label="Modo" value={theme.mode} />
-          <Fila label="Navegacion" value={theme.nav} />
-          <Fila label="Elevacion" value={theme.elevation} />
+          <Fila label="Navegación" value={theme.nav} />
+          <Fila label="Elevación" value={theme.elevation} />
           <Fila label="Bordes" value={theme.radius} />
           <Fila label="Densidad" value={theme.density} />
           <Fila label="Badges" value={theme.badge} />
-          <Fila label="Titulos" value={theme.font.heading} />
+          <Fila label="Títulos" value={theme.font.heading} />
           <Fila label="Cuerpo" value={theme.font.body} />
         </Seccion>
 
@@ -108,15 +108,15 @@ export function ConfigPage() {
         </Seccion>
 
         <Seccion titulo="Umbrales de cartera" sub="Constantes de dominio en el theme" abierta={open === "umbrales"} onToggle={() => toggle("umbrales")}>
-          <Fila label="Cartera tibia" value={`${theme.cartera.tibia} dias`} />
-          <Fila label="Cartera fria" value={`${theme.cartera.fria} dias`} />
+          <Fila label="Cartera tibia" value={`${theme.cartera.tibia} días`} />
+          <Fila label="Cartera fría" value={`${theme.cartera.fria} días`} />
           <Fila label="Meta cierres" value={`${theme.meta.cierres} / mes`} />
           <Fila label="Meta captaciones" value={`${theme.meta.captaciones} / mes`} />
-          <Fila label="Meta comision" value={precioLargo(theme.meta.comision)} />
-          <p className="pt-2 text-xs text-muted">Cambiar estos numeros recolorea toda la cartera y mueve las barras de meta.</p>
+          <Fila label="Meta comisión" value={precioLargo(theme.meta.comision)} />
+          <p className="pt-2 text-xs text-muted">Cambiar estos números recolorea toda la cartera y mueve las barras de meta.</p>
         </Seccion>
 
-        <Seccion titulo="Notificaciones" sub="Avisos del dia (mock)" abierta={open === "notif"} onToggle={() => toggle("notif")}>
+        <Seccion titulo="Notificaciones" sub="Avisos del día (mock)" abierta={open === "notif"} onToggle={() => toggle("notif")}>
           <Toggle label="Nueva consulta entrante" on={true} />
           <Toggle label="Lead sin responder +1 h" on={true} />
           <Toggle label="Propiedad reservada" on={true} />

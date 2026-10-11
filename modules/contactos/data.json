@@ -22,7 +22,7 @@
     },
     {
       "id": "c03",
-      "nombre": "Sofia Nunez",
+      "nombre": "Sofía Núñez",
       "estado": "nuevo",
       "telefono": "+598 91 302 774",
       "email": "sofinunez@outlook.com",
@@ -32,7 +32,7 @@
     },
     {
       "id": "c04",
-      "nombre": "Matias Olivera",
+      "nombre": "Matías Olivera",
       "estado": "frio",
       "telefono": "+598 98 551 209",
       "email": "m.olivera@yahoo.com",
@@ -42,12 +42,12 @@
     },
     {
       "id": "c05",
-      "nombre": "Lucia Ferrari",
+      "nombre": "Lucía Ferrari",
       "estado": "nuevo",
       "telefono": "+598 92 618 447",
       "email": "lucia_ferrari@gmail.com",
       "ultima": "hace 20 min",
-      "interes": "Duplex · Malvin",
+      "interes": "Dúplex · Malvín",
       "presupuesto": 250000
     },
     {
@@ -77,7 +77,7 @@
       "telefono": "+598 93 220 596",
       "email": "fbala@gmail.com",
       "ultima": "ayer",
-      "interes": "PH 2 dorm · Malvin",
+      "interes": "PH 2 dorm · Malvín",
       "presupuesto": 230000
     },
     {
@@ -92,7 +92,7 @@
     },
     {
       "id": "c10",
-      "nombre": "Nicolas Ackermann",
+      "nombre": "Nicolás Ackermann",
       "estado": "frio",
       "telefono": "+598 99 067 215",
       "email": "n.ackermann@hotmail.com",
@@ -107,12 +107,12 @@
       "telefono": "+598 94 852 703",
       "email": "martina.sena@gmail.com",
       "ultima": "hace 12 h",
-      "interes": "Apto 1 dorm · Parque Rodo",
+      "interes": "Apto 1 dorm · Parque Rodó",
       "presupuesto": 145000
     },
     {
       "id": "c12",
-      "nombre": "Joaquin Silveira",
+      "nombre": "Joaquín Silveira",
       "estado": "caliente",
       "telefono": "+598 98 449 127",
       "email": "jsilveira@nexopropiedades.com",
@@ -132,12 +132,12 @@
     },
     {
       "id": "c14",
-      "nombre": "Emiliano Vazquez",
+      "nombre": "Emiliano Vázquez",
       "estado": "frio",
       "telefono": "+598 95 903 664",
       "email": "evazquez@outlook.com",
       "ultima": "hace 18 d",
-      "interes": "Apto 2 dorm · Cordon",
+      "interes": "Apto 2 dorm · Cordón",
       "presupuesto": 200000
     },
     {
@@ -147,17 +147,17 @@
       "telefono": "+598 99 331 720",
       "email": "carolina.techera@yahoo.com",
       "ultima": "hace 40 min",
-      "interes": "Apto 2 dorm · Malvin",
+      "interes": "Apto 2 dorm · Malvín",
       "presupuesto": 210000
     },
     {
       "id": "c16",
-      "nombre": "Gaston Prieto",
+      "nombre": "Gastón Prieto",
       "estado": "caliente",
       "telefono": "+598 92 558 913",
       "email": "gprieto@gmail.com",
       "ultima": "hace 7 h",
-      "interes": "PH · Parque Rodo",
+      "interes": "PH · Parque Rodó",
       "presupuesto": 195000
     },
     {
@@ -192,7 +192,7 @@
     },
     {
       "id": "c20",
-      "nombre": "Sebastian Lorenzo",
+      "nombre": "Sebastián Lorenzo",
       "estado": "frio",
       "telefono": "+598 99 482 150",
       "email": "s.lorenzo@yahoo.com",
@@ -202,7 +202,7 @@
     },
     {
       "id": "c21",
-      "nombre": "Florencia Piriz",
+      "nombre": "Florencia Píriz",
       "estado": "nuevo",
       "telefono": "+598 91 855 209",
       "email": "flor.piriz@hotmail.com",
@@ -227,7 +227,7 @@
       "telefono": "+598 93 940 176",
       "email": "daniela_fonseca@gmail.com",
       "ultima": "hace 1 h",
-      "interes": "Apto 2 dorm · Cordon",
+      "interes": "Apto 2 dorm · Cordón",
       "presupuesto": 205000
     },
     {
@@ -247,7 +247,7 @@
       "telefono": "+598 92 461 803",
       "email": "carla.bentos@outlook.com",
       "ultima": "hace 3 h",
-      "interes": "PH 2 dorm · Malvin",
+      "interes": "PH 2 dorm · Malvín",
       "presupuesto": 225000
     },
     {
@@ -267,7 +267,7 @@
       "telefono": "+598 98 903 217",
       "email": "emilia.sosa@gmail.com",
       "ultima": "hace 2 h",
-      "interes": "Apto 2 dorm · Cordon",
+      "interes": "Apto 2 dorm · Cordón",
       "presupuesto": 198000
     },
     {
@@ -292,7 +292,7 @@
     },
     {
       "id": "c30",
-      "nombre": "Hernan Fagundez",
+      "nombre": "Hernán Fagúndez",
       "estado": "nuevo",
       "telefono": "+598 94 108 557",
       "email": "hfagundez@gmail.com",

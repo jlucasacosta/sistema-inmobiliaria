@@ -9,5 +9,5 @@ export const nav: NavItem[] = [
   { label: "Pipeline", href: "/pipeline", icon: Columns3 },
   { label: "Llamadas", href: "/llamadas", icon: Phone },
   { label: "Contactos", href: "/contactos", icon: Users },
-  { label: "Configuracion", href: "/config", icon: Settings },
+  { label: "Configuración", href: "/config", icon: Settings },
 ]

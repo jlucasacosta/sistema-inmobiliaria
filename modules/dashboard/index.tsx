@@ -81,7 +81,7 @@ function ComisionHero({ target }: { target: number }) {
   const pct = Math.round((target / theme.meta.comision) * 100)
   return (
     <div className="surface-card comision-hero flex flex-col justify-center p-6">
-      <span className="text-[10px] uppercase tracking-widest text-muted">Comision proyectada del mes</span>
+      <span className="text-[10px] uppercase tracking-widest text-muted">Comisión proyectada del mes</span>
       <p className="precio mt-2 text-5xl font-bold leading-none text-primary">
         <span className="text-accent">U$S</span> {n.toLocaleString("es-UY")}
       </p>
@@ -152,7 +152,7 @@ export function DashboardPage() {
             <>
               <Barra label="Cierres" actual={String(real.cierres)} objetivo={String(m.cierres)} unidad={real.cierres / m.cierres} relleno="bg-primary" />
               <Barra label="Captaciones" actual={String(real.captaciones)} objetivo={String(m.captaciones)} unidad={real.captaciones / m.captaciones} relleno="bg-accent" />
-              <Barra label="Comision" actual={precioLargo(real.comision)} objetivo={precioLargo(m.comision)} unidad={real.comision / m.comision} relleno="bg-success" />
+              <Barra label="Comisión" actual={precioLargo(real.comision)} objetivo={precioLargo(m.comision)} unidad={real.comision / m.comision} relleno="bg-success" />
             </>
           )}
         </section>
@@ -167,13 +167,13 @@ export function DashboardPage() {
             <span className="text-xs text-muted">franjas de mayor demanda de la semana</span>
           </header>
           {heat && (
-            <div role="region" aria-label="Mapa de calor de visitas por dia y franja" tabIndex={0} className="overflow-x-auto">
+            <div role="region" aria-label="Mapa de calor de visitas por día y franja" tabIndex={0} className="overflow-x-auto">
               {/* Equivalente accesible: la grilla visual se oculta al lector de pantalla y esta tabla trae los mismos datos. */}
               <table className="sr-only">
-                <caption>Visitas agendadas por dia y franja horaria</caption>
+                <caption>Visitas agendadas por día y franja horaria</caption>
                 <thead>
                   <tr>
-                    <th scope="col">Dia</th>
+                    <th scope="col">Día</th>
                     {heat.franjas.map((f) => (
                       <th key={f} scope="col">{f}</th>
                     ))}

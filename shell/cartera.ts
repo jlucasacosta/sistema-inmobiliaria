@@ -29,6 +29,13 @@ export const puntoDeProp: Record<EstadoProp, string> = {
 // --- Temperatura del lead ----------------------------------------------------
 export type EstadoLead = "nuevo" | "caliente" | "frio"
 
+// Etiqueta de display (con tilde). La clave de datos sigue siendo "frio".
+export const etiquetaDeLead: Record<EstadoLead, string> = {
+  nuevo: "nuevo",
+  caliente: "caliente",
+  frio: "frío",
+}
+
 export const chipDeLead: Record<EstadoLead, string> = {
   nuevo: "bg-info/15 text-info",
   caliente: "bg-accent/15 text-accent",
@@ -96,6 +103,12 @@ export function temperaturaCartera(dias: number): Temperatura {
   if (dias >= theme.cartera.fria) return "fria"
   if (dias >= theme.cartera.tibia) return "tibia"
   return "fresca"
+}
+// Etiqueta de display (con tilde). La clave sigue siendo "fria".
+export const etiquetaDeTemperatura: Record<Temperatura, string> = {
+  fresca: "fresca",
+  tibia: "tibia",
+  fria: "fría",
 }
 export const chipDeTemperatura: Record<Temperatura, string> = {
   fresca: "bg-success/15 text-success",

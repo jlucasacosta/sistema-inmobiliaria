@@ -81,9 +81,9 @@ function MiniCard({ p }: { p: MapaPin }) {
       <p className="precio mt-2 text-2xl font-bold text-fg">{precioLargo(p.precio)}</p>
       <p className="truncate text-xs text-muted">{p.titulo}</p>
       <div className="mt-2 flex flex-wrap gap-1">
-        <span className="chip bg-subtle text-muted">{p.m2} m2</span>
+        <span className="chip bg-subtle text-muted">{p.m2} m²</span>
         <span className="chip bg-subtle text-muted">{p.dorm} dorm</span>
-        <span className="chip bg-subtle text-muted">{p.banos} bano</span>
+        <span className="chip bg-subtle text-muted">{p.banos} {p.banos === 1 ? "baño" : "baños"}</span>
       </div>
     </div>
   )

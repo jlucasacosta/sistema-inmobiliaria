@@ -35,7 +35,7 @@
     {
       "id": "p03",
       "titulo": "Monoambiente a estrenar",
-      "zona": "Cordon",
+      "zona": "Cordón",
       "tipo": "apartamento",
       "precio": 112000,
       "m2": 36,
@@ -51,7 +51,7 @@
     {
       "id": "p04",
       "titulo": "PH reciclado con patio",
-      "zona": "Parque Rodo",
+      "zona": "Parque Rodó",
       "tipo": "ph",
       "precio": 189000,
       "m2": 88,
@@ -82,7 +82,7 @@
     },
     {
       "id": "p06",
-      "titulo": "Apto 1 dorm para inversion",
+      "titulo": "Apto 1 dorm para inversión",
       "zona": "Centro",
       "tipo": "apartamento",
       "precio": 96000,
@@ -115,7 +115,7 @@
     {
       "id": "p08",
       "titulo": "Apto 2 dorm luminoso",
-      "zona": "Malvin",
+      "zona": "Malvín",
       "tipo": "apartamento",
       "precio": 205000,
       "m2": 68,
@@ -211,7 +211,7 @@
     {
       "id": "p14",
       "titulo": "Apto 1 dorm frente al parque",
-      "zona": "Parque Rodo",
+      "zona": "Parque Rodó",
       "tipo": "apartamento",
       "precio": 138000,
       "m2": 44,
@@ -258,8 +258,8 @@
     },
     {
       "id": "p17",
-      "titulo": "Duplex 3 dorm con parrillero",
-      "zona": "Malvin",
+      "titulo": "Dúplex 3 dorm con parrillero",
+      "zona": "Malvín",
       "tipo": "ph",
       "precio": 246000,
       "m2": 118,
@@ -338,7 +338,7 @@
     },
     {
       "id": "p22",
-      "titulo": "Local en galeria comercial",
+      "titulo": "Local en galería comercial",
       "zona": "Centro",
       "tipo": "local",
       "precio": 89000,
@@ -355,7 +355,7 @@
     {
       "id": "p23",
       "titulo": "Apartamento a estrenar 2 dorm",
-      "zona": "Cordon",
+      "zona": "Cordón",
       "tipo": "apartamento",
       "precio": 197000,
       "m2": 66,
@@ -386,7 +386,7 @@
     },
     {
       "id": "p25",
-      "titulo": "Apto 3 dorm categoria premium",
+      "titulo": "Apto 3 dorm categoría premium",
       "zona": "Punta Carretas",
       "tipo": "apartamento",
       "precio": 458000,
@@ -419,7 +419,7 @@
     {
       "id": "p27",
       "titulo": "PH 2 dorm en planta baja",
-      "zona": "Malvin",
+      "zona": "Malvín",
       "tipo": "ph",
       "precio": 219000,
       "m2": 90,

@@ -1,7 +1,7 @@
 "use client"
 import { useEffect, useState } from "react"
 import { getTickets, type Ticket } from "./api"
-import { barraDeLead, chipDeLead, chipDeProp, precioLargo, type EstadoLead } from "@/shell/cartera"
+import { barraDeLead, chipDeLead, chipDeProp, etiquetaDeLead, precioLargo, type EstadoLead } from "@/shell/cartera"
 
 // Arquetipo: LISTA-TICKET. La pantalla que MANDA. Bandeja densa, no burbujas grandes.
 // Cada ticket: barra de color del lead a la izquierda, nombre, ultimo mensaje (1 linea),
@@ -53,7 +53,7 @@ export function ConversacionesPage() {
             aria-pressed={filtro === f}
             className={"tap chip relative capitalize transition-colors " + (filtro === f ? "bg-primary text-bg" : "bg-subtle text-muted hover:text-fg")}
           >
-            {f}
+            {f === "todos" ? f : etiquetaDeLead[f]}
           </button>
         ))}
       </div>
@@ -68,7 +68,7 @@ export function ConversacionesPage() {
                 <div className="flex items-baseline justify-between gap-2">
                   <span className="flex items-center gap-2 truncate">
                     <span className="truncate text-sm font-semibold">{t.contacto}</span>
-                    <span className={"chip " + chipDeLead[t.estadoLead]}>{t.estadoLead}</span>
+                    <span className={"chip " + chipDeLead[t.estadoLead]}>{etiquetaDeLead[t.estadoLead]}</span>
                   </span>
                   <span className="shrink-0 text-[11px] text-muted">{t.cuando}</span>
                 </div>

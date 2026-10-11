@@ -1,7 +1,7 @@
 "use client"
 import { useEffect, useState } from "react"
 import { getContactos, type Contacto } from "./api"
-import { chipDeLead, barraDeLead, precioLargo, type EstadoLead } from "@/shell/cartera"
+import { chipDeLead, barraDeLead, etiquetaDeLead, precioLargo, type EstadoLead } from "@/shell/cartera"
 
 // Arquetipo: TABLA-DENSA (ledger). Filas finas, divisorias de 1px. Se ve primero la
 // columna de estado (color) y el presupuesto (Fraunces). Aca SI va tabla (la ficha
@@ -53,21 +53,21 @@ export function ContactosPage() {
             aria-pressed={filtro === f}
             className={"tap chip relative capitalize transition-colors " + (filtro === f ? "bg-primary text-bg" : "bg-subtle text-muted hover:text-fg")}
           >
-            {f}
+            {f === "todos" ? f : etiquetaDeLead[f]}
           </button>
         ))}
       </div>
 
       <div role="region" aria-label="Tabla de contactos" tabIndex={0} className="surface-card overflow-x-auto p-0">
         <table className="w-full min-w-[52rem] border-collapse text-sm">
-          <caption className="sr-only">Directorio de leads: estado, telefono, ultima interaccion, interes y presupuesto</caption>
+          <caption className="sr-only">Directorio de leads: estado, teléfono, última interacción, interés y presupuesto</caption>
           <thead>
             <tr className="border-b border-border text-left text-[10px] uppercase tracking-widest text-muted">
               <th scope="col" className="px-4 py-2 font-semibold">Nombre</th>
               <th scope="col" className="px-4 py-2 font-semibold">Estado</th>
-              <th scope="col" className="px-4 py-2 font-semibold">Telefono</th>
-              <th scope="col" className="px-4 py-2 font-semibold">Ultima</th>
-              <th scope="col" className="px-4 py-2 font-semibold">Interes</th>
+              <th scope="col" className="px-4 py-2 font-semibold">Teléfono</th>
+              <th scope="col" className="px-4 py-2 font-semibold">Última</th>
+              <th scope="col" className="px-4 py-2 font-semibold">Interés</th>
               <th scope="col" className="px-4 py-2 text-right font-semibold">Presupuesto</th>
             </tr>
           </thead>
@@ -81,7 +81,7 @@ export function ContactosPage() {
                   </span>
                   <span className="ml-4 block truncate text-[11px] text-muted">{r.email}</span>
                 </td>
-                <td className="px-4 py-2"><span className={"chip " + chipDeLead[r.estado]}>{r.estado}</span></td>
+                <td className="px-4 py-2"><span className={"chip " + chipDeLead[r.estado]}>{etiquetaDeLead[r.estado]}</span></td>
                 <td className="px-4 py-2 tabular-nums text-muted">{r.telefono}</td>
                 <td className="px-4 py-2 text-muted">{r.ultima}</td>
                 <td className="px-4 py-2 text-muted">{r.interes}</td>
